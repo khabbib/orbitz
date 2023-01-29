@@ -1,7 +1,7 @@
 package View;
 
 import Model.Planet;
-;
+
 import javafx.application.Platform;
 
 import javafx.beans.InvalidationListener;
