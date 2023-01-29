@@ -11,6 +11,8 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+# This comment can be removed for more advanced configuration.
+.idea
 
 # AWS User-specific
 .idea/**/aws.xml
