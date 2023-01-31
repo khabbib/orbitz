@@ -557,7 +557,7 @@ public class MainFrame extends JFrame
                 for (int i = 0; i < newPlanets.size(); i++)
                 {
                     PhongMaterial map = new PhongMaterial();
-                    map.setDiffuseMap(new Image("Images/" + newPlanets.get(i).getName() + ".jpg"));
+                    map.setDiffuseMap(new Image(getClass().getResource("/Images/") + newPlanets.get(i).getName() + ".jpg"));
                     newPlanets.get(i).getSphereFromPlanet().setMaterial(map);
                 }
                 SwingUtilities.invokeLater(new Runnable()
