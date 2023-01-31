@@ -28,7 +28,7 @@ import java.util.*;
 
 /**
  @author Albin Ahlbeck
- @author Simon Måtegen
+ @author Simon Mï¿½tegen
  @author Lanna Maslo
  @author Manna Manojlovic
  @author Marcus Svensson
@@ -96,7 +96,7 @@ public class MainFrame extends JFrame
 
     /**
      @author Albin Ahlbeck
-     @author Simon Måtegen
+     @author Simon Mï¿½tegen
      * Constructs the GUI components and starts the Java-FX window.
      *
      * @param inController gains a reference to controller in order to fetch the planet list
@@ -336,7 +336,7 @@ public class MainFrame extends JFrame
         for (int i = 0; i < guiPlanetList.size(); i++)
         {
             PhongMaterial map = new PhongMaterial();
-            map.setDiffuseMap(new Image("Images/" + guiPlanetList.get(i).getName() + ".jpg"));
+            map.setDiffuseMap(new Image(getClass().getResource("/Images").toExternalForm() + guiPlanetList.get(i).getName() + ".jpg"));
             guiPlanetList.get(i).getSphereFromPlanet().setMaterial(map);
         }
     }
@@ -348,7 +348,7 @@ public class MainFrame extends JFrame
      * @author Lanna Maslo
      * @author Manna Manojlovic
      * @author Marcus Svensson
-     * @author Simon Måtegen
+     * @author Simon Mï¿½tegen
      * @version 1.0
      */
     public void placePlanets(Pane root, ArrayList<Planet> planetArrayList)
@@ -370,7 +370,7 @@ public class MainFrame extends JFrame
 
     /**
      @author Lanna Maslo
-     @author Simon Måtegen
+     @author Simon Mï¿½tegen
      * Sets the viewing perspective and enables a zoom-function
      */
     public void setupCamera(Scene scene)
@@ -520,7 +520,7 @@ public class MainFrame extends JFrame
 
     /**
      @author Albin Ahlbeck
-     @author Simon Måtegen
+     @author Simon Mï¿½tegen
       * Changes speed of planets
      */
     private void speedChangeScene(double inDurationModifier)
@@ -529,7 +529,7 @@ public class MainFrame extends JFrame
         {
             /**
              @author Albin Ahlbeck
-             @author Simon Måtegen
+             @author Simon Mï¿½tegen
               * Runs on the Java FX thread
              */
             @Override
@@ -539,7 +539,7 @@ public class MainFrame extends JFrame
                 {
                     /**
                      @author Albin Ahlbeck
-                     @author Simon Måtegen
+                     @author Simon Mï¿½tegen
                       * Runs on Swing thread
                      */
                     @Override
@@ -564,7 +564,7 @@ public class MainFrame extends JFrame
                 {
                     /**
                      @author Albin Ahlbeck
-                     @author Simon Måtegen
+                     @author Simon Mï¿½tegen
                       * Runs on the Swing Thread
                      */
                     @Override
@@ -585,7 +585,7 @@ public class MainFrame extends JFrame
      * Listens to change in timeSlider and then changes the text in timeLabel
      *
      * @author Albin Ahlbeck
-     * @author Simon Måtegen
+     * @author Simon Mï¿½tegen
      * @version 1.0
      */
     private class SliderListener implements MouseListener
@@ -606,7 +606,7 @@ public class MainFrame extends JFrame
 
         /**
          @author Albin Ahlbeck
-         @author Simon Måtegen
+         @author Simon Mï¿½tegen
           * Sets the values after the mouse is released from the slider
          */
         @Override
