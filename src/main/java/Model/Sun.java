@@ -98,7 +98,7 @@ public class Sun
     {
         sunSphere = new Sphere(radius);
         PhongMaterial sunMap = new PhongMaterial();
-        sunMap.setDiffuseMap(new Image("Images/Sun.jpg"));
+        sunMap.setDiffuseMap(new Image(getClass().getResource("/Images/Sun.jpg").toExternalForm()));
         sunSphere.setMaterial(sunMap);
 
         return sunSphere;
