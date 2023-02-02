@@ -231,7 +231,7 @@ public class MainInfoPanel extends JPanel
     public void paintPlanet()
     {
         PhongMaterial map = new PhongMaterial();
-        map.setDiffuseMap(new Image("Images/" + planet.getName() + ".jpg"));
+        map.setDiffuseMap(new Image(getClass().getResource("/Images/" + planet.getName() + ".jpg").toExternalForm()));
         planetSphere.setMaterial(map);
 
         if(planet.getName().equals("Saturn"))

@@ -74,7 +74,7 @@ public class SwenTheAlien extends JPanel
      */
     private void initFX(JFXPanel swenFX)
     {
-        Image swenImage = new Image("Images/Swen.png");
+        Image swenImage = new Image(getClass().getResource("/Images/Swen.png").toExternalForm());
         ImageView swen = new ImageView(swenImage);
 
         Tooltip tooltip = new Tooltip("Click me!");

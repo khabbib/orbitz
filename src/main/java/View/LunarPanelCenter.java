@@ -96,15 +96,15 @@ public class LunarPanelCenter extends JPanel
         moon.setRadius(70);
 
         moonMaterial = new PhongMaterial();
-        moonMaterial.setDiffuseMap(new Image("Images/moon.jpg"));
+        moonMaterial.setDiffuseMap(new Image(getClass().getResource("/Images/moon.jpg").toExternalForm()));
 
         moon.setMaterial(moonMaterial);
         moon.setOnMouseClicked(event -> playSound("sound/earthMoon.mp3"));
         moon.setCursor(Cursor.HAND);
         Tooltip.install(moon, (new Tooltip("Spin me right round, baby, right round!")));
 
-        phobosImg = new Image("Images/phobos.png");
-        deimosImg = new Image("Images/deimos.png");
+        phobosImg = new Image(getClass().getResource("/Images/phobos.png").toExternalForm());
+        deimosImg = new Image(getClass().getResource("/Images/deimos.png").toExternalForm());
 
         phobos = new ImageView(phobosImg);
         deimos = new ImageView(deimosImg);

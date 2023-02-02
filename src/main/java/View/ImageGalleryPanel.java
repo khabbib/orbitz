@@ -271,7 +271,7 @@ public class ImageGalleryPanel extends JPanel
         soundSlider.setValue(20);
         soundSlider.setLayoutY(40);
 
-        Image soundOnImage = new Image("Images/soundOn.png");
+        Image soundOnImage = new Image(getClass().getResource("/Images/soundOn.png").toExternalForm());
         ImageView soundOn = new ImageView(soundOnImage);
         soundOn.setFitHeight(20);
         soundOn.setFitWidth(20);
