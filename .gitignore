@@ -142,6 +142,16 @@ fabric.properties
 hs_err_pid*
 replay_pid*
 
+### macOS Patch ###
+# iCloud generated files
+*.icloud
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
 ### Maven ###
 target/
 pom.xml.tag
