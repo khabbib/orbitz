@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>Orbitz-maven</artifactId>
+    <artifactId>orbitz</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <resources>
@@ -40,7 +40,7 @@
     </dependencies>
 
     <properties>
-        <maven.compiler.source>18</maven.compiler.source>
-        <maven.compiler.target>18</maven.compiler.target>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
     </properties>
 </project>
