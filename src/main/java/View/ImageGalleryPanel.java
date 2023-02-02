@@ -279,7 +279,7 @@ public class ImageGalleryPanel extends JPanel
         soundOn.setCursor(Cursor.HAND);
         Tooltip.install(soundOn, (new Tooltip("Mute the sound of " + planet.getName() + " :(")));
 
-        Image soundOffImage = new Image("Images/soundOff.png");
+        Image soundOffImage = new Image(getClass().getResource("/Images/soundOff.png").toExternalForm());
         ImageView soundOff = new ImageView(soundOffImage);
         soundOff.setFitHeight(20);
         soundOff.setFitWidth(20);

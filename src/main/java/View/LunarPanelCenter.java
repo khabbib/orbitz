@@ -136,28 +136,28 @@ public class LunarPanelCenter extends JPanel
         moonLanding.setTranslateY(170);
         moonLanding.setTranslateX(10);
 
-        jupiterImg = new Image("Images/jupiterMoons.png");
+        jupiterImg = new Image(getClass().getResource("/Images/jupiterMoons.png").toExternalForm());
         jupiterMoons = new ImageView(jupiterImg);
         jupiterMoons.setFitWidth(282);
         jupiterMoons.setPreserveRatio(true);
         jupiterMoons.setTranslateX(5);
         jupiterMoons.setTranslateY(60);
 
-        saturnImg = new Image("Images/saturnMoons.jpg");
+        saturnImg = new Image(getClass().getResource("/Images/saturnMoons.jpg").toExternalForm());
         saturnMoons = new ImageView(saturnImg);
         saturnMoons.setFitWidth(260);
         saturnMoons.setPreserveRatio(true);
         saturnMoons.setTranslateX(10);
         saturnMoons.setTranslateY(30);
 
-        uranusImg = new Image("Images/uranusMoons.jpg");
+        uranusImg = new Image(getClass().getResource("/Images/uranusMoons.jpg").toExternalForm());
         uranusMoons = new ImageView(uranusImg);
         uranusMoons.setFitWidth(260);
         uranusMoons.setPreserveRatio(true);
         uranusMoons.setTranslateX(10);
         uranusMoons.setTranslateY(85);
 
-        neptuneImg = new Image("Images/neptuneMoons.png");
+        neptuneImg = new Image(getClass().getResource("/Images/neptuneMoons.png").toExternalForm());
         neptuneMoons = new ImageView(neptuneImg);
         neptuneMoons.setFitWidth(280);
         neptuneMoons.setPreserveRatio(true);

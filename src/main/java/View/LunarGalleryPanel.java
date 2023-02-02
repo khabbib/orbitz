@@ -158,60 +158,60 @@ public class LunarGalleryPanel extends JPanel
     {
         if(planet.getName().equals("Mercury"))
         {
-            readImages("src/Images/nothing.gif");
+            readImages("/Images/nothing.gif");
         }
         else if (planet.getName().equals("Venus"))
         {
-            readImages("src/Images/nothing.gif");
+            readImages("/Images/nothing.gif");
         }
         else if (planet.getName().equals("Earth"))
         {
-            readImages("src/Images/moon1.jpg");
-            readImages("src/Images/moon2.jpg");
-            readImages("src/Images/moon3.jpg");
-            readImages("src/Images/moon4.jpg");
-            readImages("src/Images/moon5.jpg");
+            readImages("/Images/moon1.jpg");
+            readImages("/Images/moon2.jpg");
+            readImages("/Images/moon3.jpg");
+            readImages("/Images/moon4.jpg");
+            readImages("/Images/moon5.jpg");
         }
         else if (planet.getName().equals("Mars"))
         {
-            readImages("src/Images/phobos1.jpg");
-            readImages("src/Images/phobos2.jpg");
-            readImages("src/Images/phobosdeimos.jpg");
-            readImages("src/Images/deimos1.jpg");
-            readImages("src/Images/deimos2.jpg");
+            readImages("/Images/phobos1.jpg");
+            readImages("/Images/phobos2.jpg");
+            readImages("/Images/phobosdeimos.jpg");
+            readImages("/Images/deimos1.jpg");
+            readImages("/Images/deimos2.jpg");
 
         }
         else if (planet.getName().equals("Jupiter"))
         {
-            readImages("src/Images/io1.jpg");
-            readImages("src/Images/europa1.jpg");
-            readImages("src/Images/jupiterMoons2.jpg");
-            readImages("src/Images/ganymedes1.jpg");
-            readImages("src/Images/jupiterMoons3.jpg");
-            readImages("src/Images/callisto1.jpg");
+            readImages("/Images/io1.jpg");
+            readImages("/Images/europa1.jpg");
+            readImages("/Images/jupiterMoons2.jpg");
+            readImages("/Images/ganymedes1.jpg");
+            readImages("/Images/jupiterMoons3.jpg");
+            readImages("/Images/callisto1.jpg");
         }
         else if (planet.getName().equals("Saturn"))
         {
-            readImages("src/Images/titan1.jpg");
-            readImages("src/Images/dione1.jpg");
-            readImages("src/Images/iapetus1.jpg");
-            readImages("src/Images/enceladus1.jpg");
-            readImages("src/Images/enceladus2.jpeg");
-            readImages("src/Images/tethys1.jpg");
-            readImages("src/Images/titandione.jpg");
-            readImages("src/Images/rhea1.jpg");
+            readImages("/Images/titan1.jpg");
+            readImages("/Images/dione1.jpg");
+            readImages("/Images/iapetus1.jpg");
+            readImages("/Images/enceladus1.jpg");
+            readImages("/Images/enceladus2.jpeg");
+            readImages("/Images/tethys1.jpg");
+            readImages("/Images/titandione.jpg");
+            readImages("/Images/rhea1.jpg");
         }
         else if (planet.getName().equals("Uranus"))
         {
-            readImages("src/Images/ariel1.jpg");
-            readImages("src/Images/miranda1.jpg");
-            readImages("src/Images/titania1.jpg");
+            readImages("/Images/ariel1.jpg");
+            readImages("/Images/miranda1.jpg");
+            readImages("/Images/titania1.jpg");
 
         }
         else if (planet.getName().equals("Neptune"))
         {
-            readImages("src/Images/triton1.jpg");
-            readImages("src/Images/proteus1.jpg");
+            readImages("/Images/triton1.jpg");
+            readImages("/Images/proteus1.jpg");
         }
 
         lblImage.setIcon(imageList.get(0));
@@ -225,8 +225,7 @@ public class LunarGalleryPanel extends JPanel
      */
     public void readImages(String filePath)
     {
-        imageList.add(new ImageIcon(
-                new ImageIcon(filePath).getImage()));
+        imageList.add(new ImageIcon(getClass().getResource(filePath).toExternalForm()));
     }
 
     /**
