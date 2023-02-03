@@ -6,7 +6,7 @@ import javafx.scene.shape.Sphere;
 import org.json.simple.JSONObject;
 
 /**
- @author Simon Måtegen
+ @author Simon Mtegen
  @author Marcus Svensson
  * An object that contains information about the sun
  */
@@ -21,7 +21,7 @@ public class Sun
     private Sphere sunSphere;
 
     /**
-     @author Simon Måtegen
+     @author Simon Mtegen
      @author Marcus Svensson
      * Constructs the sun
      @param object a JSONObject that contains the information from the api
@@ -32,7 +32,7 @@ public class Sun
     }
 
     /**
-     @author Simon Måtegen
+     @author Simon Mtegen
      @author Marcus Svensson
      @return returns an integer of the x position
      */
@@ -42,7 +42,7 @@ public class Sun
     }
 
     /**
-     @author Simon Måtegen
+     @author Simon Mtegen
      @author Marcus Svensson
      * Sets the value of the x cord
      @param xCord an int of the X cord to be set
@@ -52,7 +52,7 @@ public class Sun
         this.xCord = xCord;
     }
     /**
-     @author Simon Måtegen
+     @author Simon Mtegen
      @author Marcus Svensson
      @return an integer of the Y cord
      */
@@ -62,7 +62,7 @@ public class Sun
     }
 
     /**
-     @author Simon Måtegen
+     @author Simon Mtegen
      @author Marcus Svensson
      * Sets the Y Cord
      @param yCord the cordinte to be used for y
@@ -73,7 +73,7 @@ public class Sun
     }
 
     /**
-     @author Simon Måtegen
+     @author Simon Mtegen
      @author Marcus Svensson
      * Gets the mass from the sun
      @return a double with the mass value
@@ -89,7 +89,7 @@ public class Sun
     }
 
     /**
-     @author Simon Måtegen
+     @author Simon Mtegen
      @author Lanna Maslo
      * Creates a sphere graphical object for the sun
      @return returns a string of the path
@@ -105,7 +105,7 @@ public class Sun
     }
 
     /**
-     @author Simon Måtegen
+     @author Simon Mtegen
      @author Marcus Svensson
      @return returns a string from the JSONObject
      */

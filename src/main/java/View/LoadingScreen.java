@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * Loading screen that appears when the program is buffering
  *
- * @author Simon Måtegen
+ * @author Simon Mtegen
  * @version 1.0
  */
 public class LoadingScreen extends JFrame
