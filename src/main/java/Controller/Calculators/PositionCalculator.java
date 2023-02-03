@@ -156,5 +156,14 @@ public class PositionCalculator
             return v + w;
         }
     }
+
+    double calcY(double a, double E1, double e) {
+        return -1;
+    }
+
+    double calcX(double a, double E1, double e) {
+        return -1;
+    }
+
 }
 

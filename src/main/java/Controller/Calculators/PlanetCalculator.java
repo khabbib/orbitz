@@ -6,7 +6,7 @@ import Model.Sun;
 /**
  * Calculator used to calculate planet related values
  *
- * @author Simon Måtegen
+ * @author Simon Mtegen
  * @author Marcus Svensson
  * @version 1
  */

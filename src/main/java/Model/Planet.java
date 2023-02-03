@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
 /**
  * Class that represents a planet
  * @author Marcus Svensson
- * @author Simon Måtegen
+ * @author Simon Mtegen
  * @author Albin Ahlbeck
  * @version 1.0
  */
@@ -155,7 +155,7 @@ public class Planet
     public void createPathTransition()
     {
         pathTransition = new PathTransition();
-        double d = pos.setDay(2020, 6, 7);
+        double d = pos.setDay(2023, 2, 3);
 
         planetOrbit.getEllipseFromOrbit().setRotate(-pos.getValues(d, getName()));
         pathTransition.setPath(planetOrbit.getEllipseFromOrbit());
