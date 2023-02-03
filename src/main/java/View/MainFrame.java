@@ -6,6 +6,8 @@ import Model.Planet;
 import Model.Sun;
 import Model.Theme;
 
+import javafx.animation.Animation;
+import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
@@ -18,6 +20,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 import javax.swing.*;
 
@@ -353,7 +356,29 @@ public class MainFrame extends JFrame
      */
     public void placePlanets(Pane root, ArrayList<Planet> planetArrayList)
     {
-        for (int i = 0; i < planetArrayList.size(); i++)
+
+        for (Planet planet : planetArrayList) {
+            root.getChildren().add(planet.getSphereFromPlanet());
+            root.getChildren().add(planet.getPlanetOrbit().getEllipseFromOrbit());
+            planet.getPlanetOrbit().getEllipseFromOrbit().toBack();
+            planet.getPlanetOrbit().getEllipseFromOrbit().setStroke(currentTheme.getSecondaryPaint());
+            System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getXCord());
+            //StackPane.setMargin(planet.getPlanetOrbit().getEllipseFromOrbit(), new javafx.geometry.Insets(0, 0, 0, planet.getPlanetOrbit().getXCord() * 2));
+            for (Node child : root.getChildren()) {
+                if (child.equals(planet.getSphereFromPlanet())){
+                    //child.setLayoutX(planet.getPlanetOrbit().getXCord() * 2);
+                    child.setTranslateX(planet.getPlanetOrbit().getHeight());
+                    child.setCache(true);
+                    Animation animation = new PathTransition(new Duration(40000),planet.getPlanetOrbit().getEllipseFromOrbit(),child);
+                    animation.setCycleCount(Animation.INDEFINITE);
+                    animation.play();
+                    //child.setScaleX(planet.getPlanetOrbit().getXCord() * 2);
+                }
+            }
+            planet.setTooltip();
+        }
+
+        /*for (int i = 0; i < planetArrayList.size(); i++)
         {
             root.getChildren().add(planetArrayList.get(i).getSphereFromPlanet()); //Adds planets
             root.getChildren().add(planetArrayList.get(i).getPlanetOrbit().getEllipseFromOrbit());//Add orbits
@@ -363,7 +388,7 @@ public class MainFrame extends JFrame
                     new javafx.geometry.Insets(0, 0, 0, planetArrayList.get(i).getPlanetOrbit().getXCord() * 2));
             planetArrayList.get(i).setTooltip();
             System.out.println(currentTheme.toString());
-        }
+        }*/
 
         root.getChildren().add(sun.getSphereFromSun());
     }
@@ -512,9 +537,8 @@ public class MainFrame extends JFrame
      */
     public void startOrbits(ArrayList<Planet> planetArrayList)
     {
-        for (int i = 0; i < planetArrayList.size(); i++)
-        {
-            planetArrayList.get(i).getPathTransiton().play(); // starts orbits
+        for (Planet planet : planetArrayList) {
+            planet.getPathTransiton().play(); // starts orbits
         }
     }
 

@@ -78,9 +78,7 @@ public class Controller
         {
             Duration d = new Duration((planetCalculator.calculatePlanetSunOrbitTime(sun, planet)
                     *1000)/durationModifier);
-
             planet.setDuration(d); //* makes them go slower and / makes them go faster
-
             System.out.println(planet.getName() + "\t" + d);
         }
 
