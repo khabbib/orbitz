@@ -2,7 +2,7 @@ package Controller.Calculators;
 
 /**
  * @author Marcus Svensson
- * @author Simon Måtegen
+ * @author Simon Mtegen
  * Calculates a position for the planets
  */
 public class PositionCalculator
