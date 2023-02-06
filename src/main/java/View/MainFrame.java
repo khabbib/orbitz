@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Calculators.PositionCalculator;
 import Controller.Controller;
 
 import Model.Planet;
@@ -37,8 +38,9 @@ import java.util.*;
  @author Marcus Svensson
  * MainFrame is the main window which contains various graphical components
  */
-public class MainFrame extends JFrame
-{
+public class MainFrame extends JFrame {
+
+    PositionCalculator positionCalculator = new PositionCalculator();
     private final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     private final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final int MAX_SLIDER_VALUE = 30;
@@ -330,38 +332,23 @@ public class MainFrame extends JFrame
     {
 
         for (Planet planet : planetArrayList) {
+
             root.getChildren().add(planet.getSphereFromPlanet());
             root.getChildren().add(planet.getPlanetOrbit().getEllipseFromOrbit());
             planet.getPlanetOrbit().getEllipseFromOrbit().toBack();
             planet.getPlanetOrbit().getEllipseFromOrbit().setStroke(currentTheme.getSecondaryPaint());
             System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getXCord());
-            //StackPane.setMargin(planet.getPlanetOrbit().getEllipseFromOrbit(), new javafx.geometry.Insets(0, 0, 0, planet.getPlanetOrbit().getXCord() * 2));
+
             for (Node child : root.getChildren()) {
                 if (child.equals(planet.getSphereFromPlanet())){
-                    //child.setLayoutX(planet.getPlanetOrbit().getXCord() * 2);
                     child.setTranslateX(planet.getPlanetOrbit().getHeight());
                     child.setCache(true);
-                    Animation animation = new PathTransition(new Duration(40000),planet.getPlanetOrbit().getEllipseFromOrbit(),child);
-                    animation.setCycleCount(Animation.INDEFINITE);
+                    Animation animation = planet.createPathTransition(child);
                     animation.play();
-                    //child.setScaleX(planet.getPlanetOrbit().getXCord() * 2);
                 }
             }
             planet.setTooltip();
         }
-
-        /*for (int i = 0; i < planetArrayList.size(); i++)
-        {
-            root.getChildren().add(planetArrayList.get(i).getSphereFromPlanet()); //Adds planets
-            root.getChildren().add(planetArrayList.get(i).getPlanetOrbit().getEllipseFromOrbit());//Add orbits
-            planetArrayList.get(i).getPlanetOrbit().getEllipseFromOrbit().toBack();//Moves orbits behind planets
-            planetArrayList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStroke(currentTheme.getSecondaryPaint()); // Paint ellipse based on theme
-            StackPane.setMargin(planetArrayList.get(i).getPlanetOrbit().getEllipseFromOrbit(),
-                    new javafx.geometry.Insets(0, 0, 0, planetArrayList.get(i).getPlanetOrbit().getXCord() * 2));
-            planetArrayList.get(i).setTooltip();
-            System.out.println(currentTheme.toString());
-        }*/
-
         root.getChildren().add(sun.getSphereFromSun());
     }
 

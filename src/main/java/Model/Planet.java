@@ -5,11 +5,14 @@ import Controller.Calculators.PositionCalculator;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
+import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
 import org.json.simple.JSONObject;
+
+import java.time.LocalDate;
 
 /**
  * Class that represents a planet
@@ -35,6 +38,8 @@ public class Planet
     private PathTransition pathTransition;
 
     private Orbit planetOrbit;
+
+    private double orbitTime;
 
     private PositionCalculator pos = new PositionCalculator();
 
@@ -152,18 +157,21 @@ public class Planet
     /**
      * A method that creates a path transition for a specific planet
      */
-    public void createPathTransition()
+    public PathTransition createPathTransition(Node node)
     {
+        LocalDate currentDate = LocalDate.now();
         pathTransition = new PathTransition();
-        double d = pos.setDay(2023, 2, 3);
+        double d = pos.setDay(currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth());
 
         planetOrbit.getEllipseFromOrbit().setRotate(-pos.getValues(d, getName()));
         pathTransition.setPath(planetOrbit.getEllipseFromOrbit());
-        pathTransition.setNode(sphere);
+        pathTransition.setNode(node);
+        System.out.println("Duration: "+ duration);
         pathTransition.setDuration(duration);
         pathTransition.setCycleCount(Animation.INDEFINITE);
         pathTransition.setInterpolator(Interpolator.LINEAR);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        return pathTransition;
     }
 
     /**
@@ -182,6 +190,14 @@ public class Planet
     public void setDuration(Duration duration)
     {
         this.duration = duration;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setOrbitTime(double orbitTime) {
+        this.orbitTime = orbitTime;
     }
 
     /**
