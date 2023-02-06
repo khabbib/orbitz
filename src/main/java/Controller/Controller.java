@@ -76,16 +76,10 @@ public class Controller
         //Sets planet duration [*1000 is to make it into seconds instead of milliseconds]
         for (Planet planet: newPlanets)
         {
-            Duration d = new Duration((planetCalculator.calculatePlanetSunOrbitTime(sun, planet)
-                    *1000)/durationModifier);
+            Duration d = new Duration(((planetCalculator.calculatePlanetSunOrbitTime(sun, planet)
+                    *1000/durationModifier)*1000000000)*10000);
             planet.setDuration(d); //* makes them go slower and / makes them go faster
             System.out.println(planet.getName() + "\t" + d);
-        }
-
-        //Set the PathTransition
-        for (int i = 0; i < newPlanets.size() ; i++)
-        {
-            newPlanets.get(i).createPathTransition();
         }
 
         return newPlanets;
