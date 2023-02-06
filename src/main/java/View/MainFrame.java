@@ -73,8 +73,6 @@ public class MainFrame extends JFrame
 
     private ArrayList<Theme> themes;
 
-    private MediaBar mediaBar;
-
     private JButton btnCreateTheme;
 
     private SliderListener sliderListener;
@@ -222,7 +220,6 @@ public class MainFrame extends JFrame
             @Override
             public void run()
             {
-                initFXMedia(mediaPanel);
                 initFxOrbit(orbitPanel);
             }
         });
@@ -241,19 +238,6 @@ public class MainFrame extends JFrame
     {
         // This method is invoked on JavaFX thread
         Scene scene = createScene(guiPlanetList); // default background
-        fxPanel.setScene(scene);
-    }
-
-    /**
-     @author Albin Ahlbeck
-     * Creates a new scene from createScene and adds it to the Java FX window
-     * Sets background music
-     * @param fxPanel The JavaFX panel to be created
-     */
-    private void initFXMedia(JFXPanel fxPanel)
-    {
-        // This method is invoked on JavaFX thread
-        Scene scene = createMedia(); // default background
         fxPanel.setScene(scene);
     }
 
@@ -294,18 +278,6 @@ public class MainFrame extends JFrame
             planetArrayList.get(i).getSphereFromPlanet().setCursor(Cursor.HAND);
         }
 
-        return scene;
-    }
-
-    public Scene createMedia()
-    {
-        StackPane mediaPane = new StackPane();
-        Scene scene = new Scene(mediaPane, mediaPanel.getWidth(), mediaPanel.getHeight());
-        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-        mediaPane.setBackground(Background.EMPTY);
-
-        mediaBar = new MediaBar(currentTheme);
-        mediaPane.getChildren().add(mediaBar);
         return scene;
     }
 
@@ -793,21 +765,6 @@ public class MainFrame extends JFrame
                         newPlanets.get(i).getPlanetOrbit().getEllipseFromOrbit().setStroke(theme.getSecondaryPaint());
                     }
                 }
-                if (mediaBar != null)
-                {
-                    mediaBar.addTheme(theme);
-                    if (theme.toString().equals("Star Wars"))
-                    {
-                        mediaBar.changeSong(3);
-                    }
-
-                    if (theme.toString().equals("Stranger Things"))
-                    {
-                        mediaBar.changeSong(2);
-                    }
-                }
-
-
             }
         });
 
