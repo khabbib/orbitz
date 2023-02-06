@@ -336,7 +336,7 @@ public class MainFrame extends JFrame
         for (int i = 0; i < guiPlanetList.size(); i++)
         {
             PhongMaterial map = new PhongMaterial();
-            map.setDiffuseMap(new Image(getClass().getResource("/Images").toExternalForm() + guiPlanetList.get(i).getName() + ".jpg"));
+            map.setDiffuseMap(new Image(getClass().getResource("/Images/" + guiPlanetList.get(i).getName() + ".jpg").toExternalForm()));
             guiPlanetList.get(i).getSphereFromPlanet().setMaterial(map);
         }
     }

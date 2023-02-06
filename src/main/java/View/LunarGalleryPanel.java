@@ -225,7 +225,7 @@ public class LunarGalleryPanel extends JPanel
      */
     public void readImages(String filePath)
     {
-        imageList.add(new ImageIcon(getClass().getResource(filePath).toExternalForm()));
+        imageList.add(new ImageIcon(getClass().getResource(filePath)));
     }
 
     /**
