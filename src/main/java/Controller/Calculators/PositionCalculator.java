@@ -2,7 +2,7 @@ package Controller.Calculators;
 
 /**
  * @author Marcus Svensson
- * @author Simon Måtegen
+ * @author Simon Mtegen
  * Calculates a position for the planets
  */
 public class PositionCalculator
@@ -156,5 +156,14 @@ public class PositionCalculator
             return v + w;
         }
     }
+
+    double calcY(double a, double E1, double e) {
+        return -1;
+    }
+
+    double calcX(double a, double E1, double e) {
+        return -1;
+    }
+
 }
 
