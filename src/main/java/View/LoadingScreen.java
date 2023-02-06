@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * Loading screen that appears when the program is buffering
  *
- * @author Simon Måtegen
+ * @author Simon Mï¿½tegen
  * @version 1.0
  */
 public class LoadingScreen extends JFrame
@@ -27,7 +27,7 @@ public class LoadingScreen extends JFrame
         panel.setLayout(new GridBagLayout());
         panel.setBackground(Color.BLACK);
         JLabel label = new JLabel();
-        label.setIcon(new ImageIcon("src/Images/loading.gif"));
+        label.setIcon(new ImageIcon(getClass().getResource("/Images/loading.gif").toExternalForm()));
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;

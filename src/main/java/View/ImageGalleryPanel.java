@@ -173,62 +173,62 @@ public class ImageGalleryPanel extends JPanel
 
             if (planet.getName().equals("Mercury"))
             {
-                addImage("src/Images/m1.jpg");
-                addImage("src/Images/m2.jpg");
-                addImage("src/Images/m3.jpg");
+                addImage("/Images/m1.jpg");
+                addImage("/Images/m2.jpg");
+                addImage("/Images/m3.jpg");
             }
             else if (planet.getName().equals("Venus"))
             {
-                addImage("src/Images/venus1.jpg");
-                addImage("src/Images/venus2.jpg");
-                addImage("src/Images/venus3.jpg");
-                addImage("src/Images/venus4.jpg");
-                addImage("src/Images/venus5.jpg");
+                addImage("/Images/venus1.jpg");
+                addImage("/Images/venus2.jpg");
+                addImage("/Images/venus3.jpg");
+                addImage("/Images/venus4.jpg");
+                addImage("/Images/venus5.jpg");
             }
             else if (planet.getName().equals("Earth"))
             {
-                addImage("src/Images/earth1.jpg");
-                addImage("src/Images/earth2.jpg");
-                addImage("src/Images/earth3.jpg");
-                addImage("src/Images/earth4.jpg");
-                addImage("src/Images/earth5.jpg");
+                addImage("/Images/earth1.jpg");
+                addImage("/Images/earth2.jpg");
+                addImage("/Images/earth3.jpg");
+                addImage("/Images/earth4.jpg");
+                addImage("/Images/earth5.jpg");
             }
             else if (planet.getName().equals("Mars"))
             {
-                addImage("src/Images/mars1.jpg");
-                addImage("src/Images/mars2.jpg");
-                addImage("src/Images/mars3.jpg");
-                addImage("src/Images/mars4.jpg");
-                addImage("src/Images/mars5.jpg");
-                addImage("src/Images/mars6.jpg");
+                addImage("/Images/mars1.jpg");
+                addImage("/Images/mars2.jpg");
+                addImage("/Images/mars3.jpg");
+                addImage("/Images/mars4.jpg");
+                addImage("/Images/mars5.jpg");
+                addImage("/Images/mars6.jpg");
             }
             else if (planet.getName().equals("Jupiter"))
             {
-                addImage("src/Images/jupiter1.jpg");
-                addImage("src/Images/jupiter2.jpg");
-                addImage("src/Images/jupiter3.jpg");
-                addImage("src/Images/jupiter4.jpg");
-                addImage("src/Images/jupiter5.jpg");
+                addImage("/Images/jupiter1.jpg");
+                addImage("/Images/jupiter2.jpg");
+                addImage("/Images/jupiter3.jpg");
+                addImage("/Images/jupiter4.jpg");
+                addImage("/Images/jupiter5.jpg");
 
             }
             else if (planet.getName().equals("Saturn"))
             {
-                addImage("src/Images/saturn1.jpg");
-                addImage("src/Images/saturn2.jpeg");
-                addImage("src/Images/saturn3.jpg");
-                addImage("src/Images/saturn4.JPG");
+                addImage("/Images/saturn1.jpg");
+                addImage("/Images/saturn2.jpeg");
+                addImage("/Images/saturn3.jpg");
+                addImage("/Images/saturn4.JPG");
             }
             else if (planet.getName().equals("Uranus"))
             {
-                addImage("src/Images/uranus1.jpg");
-                addImage("src/Images/uranusFront.jpg");
-                addImage("src/Images/uranusSide.jpg");
+                addImage("/Images/uranus1.jpg");
+                addImage("/Images/uranusFront.jpg");
+                addImage("/Images/uranusSide.jpg");
             }
             else if (planet.getName().equals("Neptune"))
             {
-                addImage("src/Images/neptune1.jpg");
-                addImage("src/Images/neptune2.jpg");
-                addImage("src/Images/neptune3.jpg");
+                addImage("/Images/neptune1.jpg");
+                addImage("/Images/neptune2.jpg");
+                addImage("/Images/neptune3.jpg");
             }
             else
             {
@@ -245,8 +245,7 @@ public class ImageGalleryPanel extends JPanel
 
     public void addImage(String filePath)
     {
-        imageList.add(new ImageIcon(
-                new ImageIcon(filePath).getImage()));
+        imageList.add(new ImageIcon(getClass().getResource(filePath)));
     }
 
     /**
@@ -279,7 +278,7 @@ public class ImageGalleryPanel extends JPanel
         soundOn.setCursor(Cursor.HAND);
         Tooltip.install(soundOn, (new Tooltip("Mute the sound of " + planet.getName() + " :(")));
 
-        Image soundOffImage = new Image("Images/soundOff.png");
+        Image soundOffImage = new Image(getClass().getResource("/Images/soundOff.png").toExternalForm());
         ImageView soundOff = new ImageView(soundOffImage);
         soundOff.setFitHeight(20);
         soundOff.setFitWidth(20);

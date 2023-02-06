@@ -143,7 +143,7 @@ public class MainFrame extends JFrame
         setSize(WIDTH, HEIGHT);
         setTitle("Orbitz");
 
-        ImageIcon solarSystem = new ImageIcon("src/Images/orbitz.png");
+        ImageIcon solarSystem = new ImageIcon(getClass().getResource("/Images/orbitz.png").toExternalForm());
         setIconImage(solarSystem.getImage());
 
         orbitPanel.setPreferredSize(new Dimension(getWidth(), getHeight() - 160));
@@ -336,7 +336,7 @@ public class MainFrame extends JFrame
         for (int i = 0; i < guiPlanetList.size(); i++)
         {
             PhongMaterial map = new PhongMaterial();
-            map.setDiffuseMap(new Image(getClass().getResource("/Images").toExternalForm() + guiPlanetList.get(i).getName() + ".jpg"));
+            map.setDiffuseMap(new Image(getClass().getResource("/Images/" + guiPlanetList.get(i).getName() + ".jpg").toExternalForm()));
             guiPlanetList.get(i).getSphereFromPlanet().setMaterial(map);
         }
     }

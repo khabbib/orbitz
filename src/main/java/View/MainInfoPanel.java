@@ -259,7 +259,7 @@ public class MainInfoPanel extends JPanel
     {
         planetRings = new Cylinder(180,5);
         PhongMaterial rings = new PhongMaterial();
-        rings.setDiffuseMap(new Image("Images/saturnRings.png"));
+        rings.setDiffuseMap(new Image(getClass().getResource("/Images/saturnRings.png").toExternalForm()));
         planetRings.setMaterial(rings);
         root.getChildren().add(planetRings);
 

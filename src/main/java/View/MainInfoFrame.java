@@ -54,7 +54,7 @@ public class MainInfoFrame extends JFrame
         setBackground(Color.BLACK);
         setResizable(false);
         setTitle(planet.getName());
-        setIconImage(new ImageIcon("src/Images/" + planet.getName() + "Icon.png").getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/Images/" + planet.getName() + "Icon.png").toExternalForm()).getImage());
 
         pnlTitle = new JPanel();
         pnlTitle.setPreferredSize(new Dimension(getWidth(), 100));
