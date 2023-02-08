@@ -46,7 +46,6 @@ public class MainFrame extends JFrame
     private JLabel lblTitle;
     private JLabel lblTheme;
 
-    private JButton btnHelp;
 
     private ArrayList<Planet> guiPlanetList;
     private ArrayList<Planet> newPlanets;
@@ -62,25 +61,14 @@ public class MainFrame extends JFrame
 
     private LoadingScreen loadingScreen = new LoadingScreen();
 
-    private ColorPicker colorPicker;
-
     private StackPane root;
 
     private JSlider timeSlider;
     private JSlider musicSlider;
 
-    private JComboBox cbThemes;
-
-    private ArrayList<Theme> themes;
-
     private MediaBar mediaBar;
 
-    private JButton btnCreateTheme;
-
     private SliderListener sliderListener;
-    private ComboBoxThemeListener comboBoxThemeListener;
-    private HelpListener helpListener;
-    private CreateThemeListener createThemeListener;
 
     private Controller controller;
 
@@ -118,15 +106,8 @@ public class MainFrame extends JFrame
         timeSlider = new JSlider();
         musicSlider = new JSlider();
 
-        themes = initThemes();
-        cbThemes = new JComboBox<Theme>();
-        addItemsToThemes();
-
-        helpListener = new HelpListener();
-        createThemeListener = new CreateThemeListener();
-
-        btnCreateTheme = new JButton("Create theme");
-        btnCreateTheme.addActionListener(createThemeListener);
+        //btnCreateTheme = new JButton("Create theme");
+        //btnCreateTheme.addActionListener(createThemeListener);
         lblTheme = new JLabel("Select theme");
         lblTheme.setFont(new Font("Nasalization Rg", Font.PLAIN, 16));
 
@@ -135,10 +116,6 @@ public class MainFrame extends JFrame
         lblTitle.setText("Orbitz");
         lblTitle.setFont(new Font("Earth Orbiter", Font.PLAIN, 55));
         lblTitle.setOpaque(true);
-
-        btnHelp = new JButton("Help!");
-        btnHelp.setPreferredSize(new Dimension(70, 35));
-        btnHelp.addActionListener(helpListener);
 
         // Sets up the JFrame
         setLayout(new BorderLayout());
@@ -161,7 +138,7 @@ public class MainFrame extends JFrame
         labelTableM.put(2, labelMin);
         labelTableM.put(19, labelMax);
 
-        comboBoxThemeListener = new ComboBoxThemeListener();
+        //comboBoxThemeListener = new ComboBoxThemeListener();
 
         musicSlider.setOrientation(JSlider.VERTICAL);
         musicSlider.setPreferredSize(new Dimension(10, 20));
@@ -184,12 +161,9 @@ public class MainFrame extends JFrame
         timeSlider.setSnapToTicks(true);
         timeSlider.addMouseListener(sliderListener);
 
-        cbThemes.setPreferredSize(new Dimension(300, 70));
-        cbThemes.addItemListener(comboBoxThemeListener);
-        cbThemes.setSelectedIndex(0);
+
         lblTheme.setPreferredSize(new Dimension(100, 70));
         mediaPanel.setPreferredSize(new Dimension(800, 70));
-        btnCreateTheme.setPreferredSize(new Dimension(140, 35));
         mediaPanel.setBackground(null);
         // Sets up overheadPanel
         overheadPanel.setLayout(new FlowLayout());
@@ -199,15 +173,10 @@ public class MainFrame extends JFrame
 
         lblTitle.setOpaque(false);
         mediaPanel.setOpaque(true);
-
         overheadPanel.setPreferredSize(new Dimension(1400, 160));
         overheadPanel.add(lblTitle);
         overheadPanel.add(timeSlider);
-        overheadPanel.add(btnHelp);
         overheadPanel.add(mediaPanel);
-        overheadPanel.add(lblTheme);
-        overheadPanel.add(cbThemes);
-        overheadPanel.add(btnCreateTheme);
 
         add(orbitPanel, BorderLayout.CENTER);
 
@@ -700,44 +669,6 @@ public class MainFrame extends JFrame
         }
 
     }
-    /**
-     @author Albin Ahlbeck
-      * Creates the themes
-     @return a list of themes
-     */
-
-    public ArrayList<Theme> initThemes()
-    {
-        ArrayList<Theme> tempThemes = new ArrayList<Theme>();
-        tempThemes.add(new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE));
-        tempThemes.add(new Theme("Midnight", Color.BLACK, new Color(0, 0, 128),
-                javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.DARKBLUE));
-        tempThemes.add(new Theme("Star Wars", Color.BLACK, Color.YELLOW, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.YELLOW));
-        tempThemes.add(new Theme("Modern", Color.WHITE, Color.GRAY, javafx.scene.paint.Color.WHITE, javafx.scene.paint.Color.GRAY));
-        tempThemes.add(new Theme("Stranger Things", Color.BLACK, Color.RED, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.RED));
-        tempThemes.add(new Theme("Night Vision", Color.BLACK, Color.GREEN, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.GREEN));
-        tempThemes.add(new Theme("Nasa", Color.BLUE, Color.WHITE, javafx.scene.paint.Color.WHITE, javafx.scene.paint.Color.RED));
-        return tempThemes;
-    }
-    /**
-     @author Albin Ahlbeck
-      * Set the colors on graphical componenets from the theme
-     @param theme the Theme to be added
-     */
-    public void addTheme(Theme theme)
-    {
-        themes.add(theme);
-        cbThemes.addItem(theme);
-        setColors(theme); // set the new theme as the active one
-    }
-
-    public void addItemsToThemes()
-    {
-        for (int i = 0; i < themes.size(); i++)
-        {
-            cbThemes.addItem(themes.get(i));
-        }
-    }
 
     /**
      @author Albin Ahlbeck
@@ -811,69 +742,5 @@ public class MainFrame extends JFrame
             }
         });
 
-    }
-
-    /**
-     @author Albin Ahlbeck
-      * Listens to the combo box for selection of songs
-     */
-    private class ComboBoxThemeListener implements ItemListener
-    {
-        /**
-         @author Albin Ahlbeck
-          * If an item is selected setColors is called
-         */
-        @Override
-        public void itemStateChanged(ItemEvent event)
-        {
-            if (event.getStateChange() == ItemEvent.SELECTED)
-            {
-                //loadingScreen.setVisible(true);
-                setColors((Theme) event.getItem());
-                //loadingScreen.setVisible(false);
-            }
-        }
-    }
-    /**
-     @author Albin Ahlbeck
-      * Listens to the HelpButton for a mouse click
-     */
-    private class HelpListener implements ActionListener
-    {
-        /**
-         @author Albin Ahlbeck
-          * If the button is pressed then a help window is created
-         */
-        @Override
-        public void actionPerformed(ActionEvent actionEvent)
-        {
-            // create help panel
-        }
-    }
-
-    /**
-     @author Albin Ahlbeck
-      * Listens to the Create Theme button
-     */
-    private class CreateThemeListener implements ActionListener
-    {
-        /**
-         @author Albin Ahlbeck
-          * If the button is clicked a new ColorPicker is created
-         */
-        @Override
-        public void actionPerformed(ActionEvent actionEvent)
-        {
-            addColorPicker();
-        }
-    }
-
-    /**
-     @author Albin Ahlbeck
-      * Creates a new colorPicker
-     */
-    private void addColorPicker()
-    {
-        colorPicker = new ColorPicker(this);
     }
 }

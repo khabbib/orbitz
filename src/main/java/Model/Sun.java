@@ -10,8 +10,7 @@ import org.json.simple.JSONObject;
  @author Marcus Svensson
  * An object that contains information about the sun
  */
-public class Sun
-{
+public class Sun {
     private JSONObject sunInfo;
 
     private int xCord;
