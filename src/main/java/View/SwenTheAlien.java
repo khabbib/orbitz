@@ -24,25 +24,25 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.*;
+
 import javafx.util.Duration;
 
 /**
  * @Author: Manna Manojlovic
  * @author: Lanna Maslo
- *
+ * <p>
  * Funfact panel/area for Swen The Alien.
  * When user clicks on the alien a new fun fact about the planet/its moon/moons displays in a textarea.
  */
-public class SwenTheAlien extends JPanel
-{
+public class SwenTheAlien extends JPanel {
     private JPanel panel;
     private BorderLayout layout;
 
     private JTextArea funFactArea;
 
-    private final Font funFactAreaFont = new Font ("Nasalization Rg", Font.PLAIN, 18);
+    private final Font funFactAreaFont = new Font("Nasalization Rg", Font.PLAIN, 18);
 
-    private final Font titleFont = new Font ("Nasalization Rg", Font.PLAIN, 12);
+    private final Font titleFont = new Font("Nasalization Rg", Font.PLAIN, 12);
 
     private final Color color = Color.white;
 
@@ -51,13 +51,12 @@ public class SwenTheAlien extends JPanel
     private Planet planet;
 
     /**
-     * @author Manna Manojlovic
-     *
-     * Constructor
      * @param planet takes planet as parameter so the current planet can be determined
+     * @author Manna Manojlovic
+     * <p>
+     * Constructor
      */
-    public SwenTheAlien (Planet planet)
-    {
+    public SwenTheAlien(Planet planet) {
         this.planet = planet;
         createPanel();
     }
@@ -65,15 +64,14 @@ public class SwenTheAlien extends JPanel
     /**
      * @author: Manna Manojlovic
      * @author: Lanna Maslo
-     *
+     * <p>
      * JavaFX-panel for Swen The Alien
      * Sets the scene for Swen the Alien (which is a .png here).
      * Every button click on Swen generates a new funfact for current planet.
-     *
+     * <p>
      * The user is given instructions to click on Swen using a tooltip.
      */
-    private void initFX(JFXPanel swenFX)
-    {
+    private void initFX(JFXPanel swenFX) {
         Image swenImage = new Image(getClass().getResource("/Images/Swen.png").toExternalForm());
         ImageView swen = new ImageView(swenImage);
 
@@ -98,86 +96,64 @@ public class SwenTheAlien extends JPanel
         swen.setCursor(Cursor.HAND);
         swenFX.setScene(swenScene);
 
-             //when user clicks on Swens image, calls the readFunFacts method
-            swen.setOnMouseClicked(event ->
-            {
-                readFunFacts();
-            });
-        }
+        //when user clicks on Swens image, calls the readFunFacts method
+        swen.setOnMouseClicked(event ->
+        {
+            readFunFacts();
+        });
+    }
 
     /**
      * @Author: Manna Manojlovic
-     *
+     * <p>
      * Reads funfacts from file depending on which planet user has selected
      * Go to setFunFacts() for the input code.
      */
-    public void readFunFacts()
-    {
-        if (planet.getName().equals("Mercury"))
-        {
+    public void readFunFacts() {
+        if (planet.getName().equals("Mercury")) {
             setFunFacts("funfacts/mercury.txt");
-        }
-        else if (planet.getName().equals("Venus"))
-        {
+        } else if (planet.getName().equals("Venus")) {
             setFunFacts("funfacts/venus.txt");
-        }
-        else if (planet.getName().equals("Earth"))
-        {
+        } else if (planet.getName().equals("Earth")) {
             setFunFacts("funfacts/earth.txt");
-        }
-        else if (planet.getName().equals("Mars"))
-        {
+        } else if (planet.getName().equals("Mars")) {
             setFunFacts("funfacts/mars.txt");
-        }
-        else if (planet.getName().equals("Jupiter"))
-        {
+        } else if (planet.getName().equals("Jupiter")) {
             setFunFacts("funfacts/jupiter.txt");
-        }
-        else if (planet.getName().equals("Saturn"))
-        {
+        } else if (planet.getName().equals("Saturn")) {
             setFunFacts("funfacts/saturn.txt");
-        }
-        else if(planet.getName().equals("Uranus"))
-        {
+        } else if (planet.getName().equals("Uranus")) {
             setFunFacts("funfacts/uranus.txt");
-        }
-        else if (planet.getName().equals("Neptune"))
-        {
+        } else if (planet.getName().equals("Neptune")) {
             setFunFacts("funfacts/neptune.txt");
         }
     }
 
     /**
-     * @author Manna Manojlovic
-     *
      * @param filePath takes a path to file as parameter
-     * buffers a file and reads it
-     * takes each line from file and places in ArrayList
-     * with each button click from user, a new line from the list is displayed to textarea.
+     *                 buffers a file and reads it
+     *                 takes each line from file and places in ArrayList
+     *                 with each button click from user, a new line from the list is displayed to textarea.
+     * @author Manna Manojlovic
      */
-    public void setFunFacts(String filePath)
-    {
-        try (BufferedReader in = new BufferedReader(new FileReader(filePath)))
-        {
+    public void setFunFacts(String filePath) {
+        try (BufferedReader in = new BufferedReader(new FileReader(filePath))) {
             ArrayList<String> lines = new ArrayList<>();
             String line;    //a line in the textfile
 
-            while ((line = in.readLine()) != null)
-            {
+            while ((line = in.readLine()) != null) {
                 lines.add(line);
             }
 
-            if (currentIndex >= lines.size()-1)
-            {
+            if (currentIndex >= lines.size() - 1) {
                 currentIndex = 0;
             }
 
             currentIndex++;
 
-            funFactArea.setText(String.valueOf(lines.get(currentIndex))); 
+            funFactArea.setText(String.valueOf(lines.get(currentIndex)));
 
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -186,15 +162,14 @@ public class SwenTheAlien extends JPanel
     /**
      * @Author: Manna Manojlovic
      * @author: Lanna Maslo
-     *
+     * <p>
      * Panel for Swen The Alien and the fun fact textarea.
      * Creates a panel and initializes the components: image of Swen and the textArea
      * The Image is read through BufferedImage, set as an ImageIcon,
      * which in turn is set as a JLabel, a swing component.
      * In order to show an ImageIcon it has to be set as a Swing component.
      */
-    public void createPanel ()
-    {
+    public void createPanel() {
         TitledBorder titledBorder = BorderFactory.createTitledBorder(null, " DID YOU KNOW...",
                 TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, titleFont, color);
 
@@ -210,7 +185,7 @@ public class SwenTheAlien extends JPanel
         setBorder(titledBorder);
 
         panel.setPreferredSize(new Dimension(402, 220));
-        panel.setBackground (Color.black);
+        panel.setBackground(Color.black);
 
         funFactArea = new JTextArea();//(100, 100);
         funFactArea.setLineWrap(true);

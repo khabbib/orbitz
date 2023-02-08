@@ -10,12 +10,10 @@ import java.awt.*;
  * @author Simon Mtegen
  * @version 1.0
  */
-public class LoadingScreen extends JFrame
-{
+public class LoadingScreen extends JFrame {
     private JPanel panel = new JPanel();
 
-    public LoadingScreen()
-    {
+    public LoadingScreen() {
         GridBagConstraints gbc = new GridBagConstraints();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

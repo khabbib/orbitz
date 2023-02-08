@@ -1,6 +1,5 @@
 package View;
 
-import Controller.Calculators.PositionCalculator;
 import Controller.Controller;
 
 import Model.Planet;
@@ -31,16 +30,14 @@ import java.io.File;
 import java.util.*;
 
 /**
- @author Albin Ahlbeck
- @author Simon M�tegen
- @author Lanna Maslo
- @author Manna Manojlovic
- @author Marcus Svensson
+ * @author Albin Ahlbeck
+ * @author Simon M�tegen
+ * @author Lanna Maslo
+ * @author Manna Manojlovic
+ * @author Marcus Svensson
  * MainFrame is the main window which contains various graphical components
  */
 public class MainFrame extends JFrame {
-
-    PositionCalculator positionCalculator = new PositionCalculator();
     private final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     private final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final int MAX_SLIDER_VALUE = 30;
@@ -48,7 +45,6 @@ public class MainFrame extends JFrame {
     private JLabel lblTitle;
     private JLabel lblTheme;
 
-    private JButton btnHelp;
 
     private ArrayList<Planet> guiPlanetList;
     private ArrayList<Planet> newPlanets;
@@ -64,23 +60,14 @@ public class MainFrame extends JFrame {
 
     private LoadingScreen loadingScreen = new LoadingScreen();
 
-    private ColorPicker colorPicker;
-
     private StackPane root;
 
     private JSlider timeSlider;
     private JSlider musicSlider;
 
-    private JComboBox cbThemes;
-
-    private ArrayList<Theme> themes;
-
-    private JButton btnCreateTheme;
+    private MediaBar mediaBar;
 
     private SliderListener sliderListener;
-    private ComboBoxThemeListener comboBoxThemeListener;
-    private HelpListener helpListener;
-    private CreateThemeListener createThemeListener;
 
     private Controller controller;
 
@@ -98,14 +85,12 @@ public class MainFrame extends JFrame {
 
 
     /**
-     @author Albin Ahlbeck
-     @author Simon M�tegen
-     * Constructs the GUI components and starts the Java-FX window.
-     *
      * @param inController gains a reference to controller in order to fetch the planet list
+     * @author Albin Ahlbeck
+     * @author Simon M�tegen
+     * Constructs the GUI components and starts the Java-FX window.
      */
-    public MainFrame(Controller inController, Sun inSun)
-    {
+    public MainFrame(Controller inController, Sun inSun) {
         this.controller = inController;
         this.sun = inSun;
         initFonts();
@@ -118,15 +103,8 @@ public class MainFrame extends JFrame {
         timeSlider = new JSlider();
         musicSlider = new JSlider();
 
-        themes = initThemes();
-        cbThemes = new JComboBox<Theme>();
-        addItemsToThemes();
-
-        helpListener = new HelpListener();
-        createThemeListener = new CreateThemeListener();
-
-        btnCreateTheme = new JButton("Create theme");
-        btnCreateTheme.addActionListener(createThemeListener);
+        //btnCreateTheme = new JButton("Create theme");
+        //btnCreateTheme.addActionListener(createThemeListener);
         lblTheme = new JLabel("Select theme");
         lblTheme.setFont(new Font("Nasalization Rg", Font.PLAIN, 16));
 
@@ -135,10 +113,6 @@ public class MainFrame extends JFrame {
         lblTitle.setText("Orbitz");
         lblTitle.setFont(new Font("Earth Orbiter", Font.PLAIN, 55));
         lblTitle.setOpaque(true);
-
-        btnHelp = new JButton("Help!");
-        btnHelp.setPreferredSize(new Dimension(70, 35));
-        btnHelp.addActionListener(helpListener);
 
         // Sets up the JFrame
         setLayout(new BorderLayout());
@@ -161,7 +135,7 @@ public class MainFrame extends JFrame {
         labelTableM.put(2, labelMin);
         labelTableM.put(19, labelMax);
 
-        comboBoxThemeListener = new ComboBoxThemeListener();
+        //comboBoxThemeListener = new ComboBoxThemeListener();
 
         musicSlider.setOrientation(JSlider.VERTICAL);
         musicSlider.setPreferredSize(new Dimension(10, 20));
@@ -184,12 +158,9 @@ public class MainFrame extends JFrame {
         timeSlider.setSnapToTicks(true);
         timeSlider.addMouseListener(sliderListener);
 
-        cbThemes.setPreferredSize(new Dimension(300, 70));
-        cbThemes.addItemListener(comboBoxThemeListener);
-        cbThemes.setSelectedIndex(0);
+
         lblTheme.setPreferredSize(new Dimension(100, 70));
         mediaPanel.setPreferredSize(new Dimension(800, 70));
-        btnCreateTheme.setPreferredSize(new Dimension(140, 35));
         mediaPanel.setBackground(null);
         // Sets up overheadPanel
         overheadPanel.setLayout(new FlowLayout());
@@ -199,15 +170,10 @@ public class MainFrame extends JFrame {
 
         lblTitle.setOpaque(false);
         mediaPanel.setOpaque(true);
-
         overheadPanel.setPreferredSize(new Dimension(1400, 160));
         overheadPanel.add(lblTitle);
         overheadPanel.add(timeSlider);
-        overheadPanel.add(btnHelp);
         overheadPanel.add(mediaPanel);
-        overheadPanel.add(lblTheme);
-        overheadPanel.add(cbThemes);
-        overheadPanel.add(btnCreateTheme);
 
         add(orbitPanel, BorderLayout.CENTER);
 
@@ -217,11 +183,10 @@ public class MainFrame extends JFrame {
         currentTheme = new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
         setColors(currentTheme);
 
-        Platform.runLater(new Runnable()
-        {
+        Platform.runLater(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
+                initFXMedia(mediaPanel);
                 initFxOrbit(orbitPanel);
             }
         });
@@ -229,28 +194,38 @@ public class MainFrame extends JFrame {
     }
 
     /**
-     @author Albin Ahlbeck
-     @author Lanna Maslo
+     * @param fxPanel The JavaFX panel to be created
+     * @author Albin Ahlbeck
+     * @author Lanna Maslo
      * Creates a new scene from createScene and adds it to the Java FX window
      * Sets background music
-     * @param fxPanel The JavaFX panel to be created
      * @version 1.0
      */
-    private void initFxOrbit(JFXPanel fxPanel)
-    {
+    private void initFxOrbit(JFXPanel fxPanel) {
         // This method is invoked on JavaFX thread
         Scene scene = createScene(guiPlanetList); // default background
         fxPanel.setScene(scene);
     }
 
     /**
-     @author Albin Ahlbeck
-     @author Lanna Maslo
-     @author Manna Manojlovic
+     * @param fxPanel The JavaFX panel to be created
+     * @author Albin Ahlbeck
+     * Creates a new scene from createScene and adds it to the Java FX window
+     * Sets background music
+     */
+    private void initFXMedia(JFXPanel fxPanel) {
+        // This method is invoked on JavaFX thread
+        Scene scene = createMedia(); // default background
+        fxPanel.setScene(scene);
+    }
+
+    /**
+     * @author Albin Ahlbeck
+     * @author Lanna Maslo
+     * @author Manna Manojlovic
      * Creates the Java-FX scene
      */
-    private Scene createScene(ArrayList<Planet> planetArrayList)
-    {
+    private Scene createScene(ArrayList<Planet> planetArrayList) {
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         root.setBackground(null);
@@ -263,23 +238,31 @@ public class MainFrame extends JFrame {
         placePlanets(root, planetArrayList);
         paintPlanets();
         startOrbits(planetArrayList);
-        EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>()
-        {
+        EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
-            public void handle(javafx.scene.input.MouseEvent mouseEvent)
-            {
+            public void handle(javafx.scene.input.MouseEvent mouseEvent) {
                 openInfoWindow(determinePlanet((Sphere) mouseEvent.getSource()));
             }
 
         };
 
-        for (int i = 0; i < planetArrayList.size(); i++)
-        {
+        for (int i = 0; i < planetArrayList.size(); i++) {
             planetArrayList.get(i).getSphereFromPlanet().addEventHandler
                     (javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
             planetArrayList.get(i).getSphereFromPlanet().setCursor(Cursor.HAND);
         }
 
+        return scene;
+    }
+
+    public Scene createMedia() {
+        StackPane mediaPane = new StackPane();
+        Scene scene = new Scene(mediaPane, mediaPanel.getWidth(), mediaPanel.getHeight());
+        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        mediaPane.setBackground(Background.EMPTY);
+
+        mediaBar = new MediaBar(currentTheme);
+        mediaPane.getChildren().add(mediaBar);
         return scene;
     }
 
@@ -290,12 +273,9 @@ public class MainFrame extends JFrame {
      * @author Albin Ahlbeck
      * @version 1.0
      */
-    public Planet determinePlanet(Sphere sphere)
-    {
-        for (int i = 0; i < guiPlanetList.size(); i++)
-        {
-            if (sphere.getId().equals(guiPlanetList.get(i).getName()))
-            {
+    public Planet determinePlanet(Sphere sphere) {
+        for (int i = 0; i < guiPlanetList.size(); i++) {
+            if (sphere.getId().equals(guiPlanetList.get(i).getName())) {
                 return guiPlanetList.get(i);
             }
         }
@@ -308,10 +288,8 @@ public class MainFrame extends JFrame {
      * @author Lanna Maslo
      * @version 1.0
      */
-    public void paintPlanets()
-    {
-        for (int i = 0; i < guiPlanetList.size(); i++)
-        {
+    public void paintPlanets() {
+        for (int i = 0; i < guiPlanetList.size(); i++) {
             PhongMaterial map = new PhongMaterial();
             map.setDiffuseMap(new Image(getClass().getResource("/Images/" + guiPlanetList.get(i).getName() + ".jpg").toExternalForm()));
             guiPlanetList.get(i).getSphereFromPlanet().setMaterial(map);
@@ -328,37 +306,50 @@ public class MainFrame extends JFrame {
      * @author Simon M�tegen
      * @version 1.0
      */
-    public void placePlanets(Pane root, ArrayList<Planet> planetArrayList)
-    {
+    public void placePlanets(Pane root, ArrayList<Planet> planetArrayList) {
 
         for (Planet planet : planetArrayList) {
-
             root.getChildren().add(planet.getSphereFromPlanet());
             root.getChildren().add(planet.getPlanetOrbit().getEllipseFromOrbit());
             planet.getPlanetOrbit().getEllipseFromOrbit().toBack();
             planet.getPlanetOrbit().getEllipseFromOrbit().setStroke(currentTheme.getSecondaryPaint());
             System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getXCord());
-
+            //StackPane.setMargin(planet.getPlanetOrbit().getEllipseFromOrbit(), new javafx.geometry.Insets(0, 0, 0, planet.getPlanetOrbit().getXCord() * 2));
             for (Node child : root.getChildren()) {
-                if (child.equals(planet.getSphereFromPlanet())){
+                if (child.equals(planet.getSphereFromPlanet())) {
+                    //child.setLayoutX(planet.getPlanetOrbit().getXCord() * 2);
                     child.setTranslateX(planet.getPlanetOrbit().getHeight());
                     child.setCache(true);
-                    Animation animation = planet.createPathTransition(child);
+                    Animation animation = new PathTransition(new Duration(40000), planet.getPlanetOrbit().getEllipseFromOrbit(), child);
+                    animation.setCycleCount(Animation.INDEFINITE);
                     animation.play();
+                    //child.setScaleX(planet.getPlanetOrbit().getXCord() * 2);
                 }
             }
             planet.setTooltip();
         }
+
+        /*for (int i = 0; i < planetArrayList.size(); i++)
+        {
+            root.getChildren().add(planetArrayList.get(i).getSphereFromPlanet()); //Adds planets
+            root.getChildren().add(planetArrayList.get(i).getPlanetOrbit().getEllipseFromOrbit());//Add orbits
+            planetArrayList.get(i).getPlanetOrbit().getEllipseFromOrbit().toBack();//Moves orbits behind planets
+            planetArrayList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStroke(currentTheme.getSecondaryPaint()); // Paint ellipse based on theme
+            StackPane.setMargin(planetArrayList.get(i).getPlanetOrbit().getEllipseFromOrbit(),
+                    new javafx.geometry.Insets(0, 0, 0, planetArrayList.get(i).getPlanetOrbit().getXCord() * 2));
+            planetArrayList.get(i).setTooltip();
+            System.out.println(currentTheme.toString());
+        }*/
+
         root.getChildren().add(sun.getSphereFromSun());
     }
 
     /**
-     @author Lanna Maslo
-     @author Simon M�tegen
+     * @author Lanna Maslo
+     * @author Simon M�tegen
      * Sets the viewing perspective and enables a zoom-function
      */
-    public void setupCamera(Scene scene)
-    {
+    public void setupCamera(Scene scene) {
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-40600);
         camera.setNearClip(0.001);
@@ -371,86 +362,62 @@ public class MainFrame extends JFrame {
         scene.addEventHandler(ScrollEvent.SCROLL, event ->
         {
             double delta = event.getDeltaY() * zoomSpeed;
-            camera.setTranslateZ(camera.getTranslateZ()+delta);
+            camera.setTranslateZ(camera.getTranslateZ() + delta);
 
             System.out.println(camera.getTranslateZ());
-            Platform.runLater(new Runnable()
-            {
+            Platform.runLater(new Runnable() {
                 @Override
-                public void run()
-                {
-                    if (newPlanets == null)
-                    {
-                            if (camera.getTranslateZ() >= -12600)
-                            {
-                                for (int i = 0; i < 4; i++)
-                                {
-                                    guiPlanetList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(10);
-                                }
-                                zoomSpeed = 10;
-                                moveSpeed = 10;
-
-                                System.out.println(10);
+                public void run() {
+                    if (newPlanets == null) {
+                        if (camera.getTranslateZ() >= -12600) {
+                            for (int i = 0; i < 4; i++) {
+                                guiPlanetList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(10);
                             }
-                            else if (camera.getTranslateZ() >= -103000)
-                            {
-                                for (int i = 0; i < guiPlanetList.size() ; i++)
-                                {
-                                        guiPlanetList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(40);
-                                }
-                                zoomSpeed = 50;
-                                moveSpeed = 40;
+                            zoomSpeed = 10;
+                            moveSpeed = 10;
+
+                            System.out.println(10);
+                        } else if (camera.getTranslateZ() >= -103000) {
+                            for (int i = 0; i < guiPlanetList.size(); i++) {
+                                guiPlanetList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(40);
+                            }
+                            zoomSpeed = 50;
+                            moveSpeed = 40;
 
 
-                                System.out.println(40);
+                            System.out.println(40);
+                        } else if (camera.getTranslateZ() >= -247800) {
+                            for (int i = 0; i < guiPlanetList.size(); i++) {
+                                guiPlanetList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(180);
                             }
-                            else if (camera.getTranslateZ() >= -247800)
-                            {
-                                for (int i = 0; i < guiPlanetList.size() ; i++)
-                                {
-                                        guiPlanetList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(180);
-                                }
-                                zoomSpeed = 80;
-                                moveSpeed = 150;
+                            zoomSpeed = 80;
+                            moveSpeed = 150;
 
-                                System.out.println(180);
+                            System.out.println(180);
+                        } else if (camera.getTranslateZ() >= -600000) {
+                            for (int i = 0; i < guiPlanetList.size(); i++) {
+                                guiPlanetList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(600);
                             }
-                            else if (camera.getTranslateZ() >= -600000)
-                            {
-                                for (int i = 0; i < guiPlanetList.size() ; i++)
-                                {
-                                        guiPlanetList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(600);
-                                }
-                                zoomSpeed = 120;
-                                moveSpeed = 220;
+                            zoomSpeed = 120;
+                            moveSpeed = 220;
 
-                                System.out.println(180);
-                            }
-                            if(camera.getTranslateZ() < -795322)
-                            {
-                                camera.setTranslateZ(-795322);
-                            }
+                            System.out.println(180);
+                        }
+                        if (camera.getTranslateZ() < -795322) {
+                            camera.setTranslateZ(-795322);
+                        }
 
-                            if(camera.getTranslateZ() >= -8000)
-                            {
-                                camera.setTranslateZ(-8000);
-                                System.out.println("Sun");
-                            }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < newPlanets.size(); i++)
-                        {
-                            if (camera.getTranslateZ() <= 12600)
-                            {
+                        if (camera.getTranslateZ() >= -8000) {
+                            camera.setTranslateZ(-8000);
+                            System.out.println("Sun");
+                        }
+                    } else {
+                        for (int i = 0; i < newPlanets.size(); i++) {
+                            if (camera.getTranslateZ() <= 12600) {
                                 newPlanets.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(10);
-                            }
-                            else if (camera.getTranslateZ() > 12600 && camera.getTranslateZ() <= 53000)
-                            {
+                            } else if (camera.getTranslateZ() > 12600 && camera.getTranslateZ() <= 53000) {
                                 newPlanets.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(40);
-                            }
-                            else if (camera.getTranslateZ() > 53000 && camera.getTranslateZ() <= 247800)
-                            {
+                            } else if (camera.getTranslateZ() > 53000 && camera.getTranslateZ() <= 247800) {
                                 newPlanets.get(i).getPlanetOrbit().getEllipseFromOrbit().setStrokeWidth(180);
                             }
                         }
@@ -463,11 +430,10 @@ public class MainFrame extends JFrame {
 
 
     /**
-     @author Lanna Maslo
+     * @author Lanna Maslo
      * Allows the user to move the solar system by dragging it
      */
-    public void handleMouse(Node root)
-    {
+    public void handleMouse(Node root) {
         root.setOnMousePressed(event ->
         {
             startDragX = event.getSceneX();
@@ -479,8 +445,8 @@ public class MainFrame extends JFrame {
 
         root.setOnMouseDragged(event ->
         {
-            double offsetX = (event.getSceneX() - startDragX)*moveSpeed;
-            double offsetY = (event.getSceneY() - startDragY)*moveSpeed;
+            double offsetX = (event.getSceneX() - startDragX) * moveSpeed;
+            double offsetY = (event.getSceneY() - startDragY) * moveSpeed;
 
             double newTransX = orgTransX + offsetX;
             double newTransY = orgTransY + offsetY;
@@ -491,43 +457,37 @@ public class MainFrame extends JFrame {
     }
 
     /**
-     @author Albin Ahlbeck
+     * @author Albin Ahlbeck
      * Starts the the planets movement
      */
-    public void startOrbits(ArrayList<Planet> planetArrayList)
-    {
+    public void startOrbits(ArrayList<Planet> planetArrayList) {
         for (Planet planet : planetArrayList) {
             planet.getPathTransiton().play(); // starts orbits
         }
     }
 
     /**
-     @author Albin Ahlbeck
-     @author Simon M�tegen
-      * Changes speed of planets
+     * @author Albin Ahlbeck
+     * @author Simon M�tegen
+     * Changes speed of planets
      */
-    private void speedChangeScene(double inDurationModifier)
-    {
-        Platform.runLater(new Runnable()
-        {
+    private void speedChangeScene(double inDurationModifier) {
+        Platform.runLater(new Runnable() {
             /**
              @author Albin Ahlbeck
              @author Simon M�tegen
               * Runs on the Java FX thread
              */
             @Override
-            public void run()
-            {
-                SwingUtilities.invokeLater(new Runnable()
-                {
+            public void run() {
+                SwingUtilities.invokeLater(new Runnable() {
                     /**
                      @author Albin Ahlbeck
                      @author Simon M�tegen
                       * Runs on Swing thread
                      */
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         loadingScreen.setVisible(true);
                     }
                 });
@@ -537,22 +497,19 @@ public class MainFrame extends JFrame {
                 newPlanets = controller.createPlanetArray(inDurationModifier);
                 orbitPanel.setScene(createScene(newPlanets));
 
-                for (int i = 0; i < newPlanets.size(); i++)
-                {
+                for (int i = 0; i < newPlanets.size(); i++) {
                     PhongMaterial map = new PhongMaterial();
                     map.setDiffuseMap(new Image(getClass().getResource("/Images/") + newPlanets.get(i).getName() + ".jpg"));
                     newPlanets.get(i).getSphereFromPlanet().setMaterial(map);
                 }
-                SwingUtilities.invokeLater(new Runnable()
-                {
+                SwingUtilities.invokeLater(new Runnable() {
                     /**
                      @author Albin Ahlbeck
                      @author Simon M�tegen
                       * Runs on the Swing Thread
                      */
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         loadingScreen.setVisible(false);
                     }
                 });
@@ -571,79 +528,65 @@ public class MainFrame extends JFrame {
      * @author Simon M�tegen
      * @version 1.0
      */
-    private class SliderListener implements MouseListener
-    {
+    private class SliderListener implements MouseListener {
 
         @Override
-        public void mouseClicked(MouseEvent mouseEvent)
-        {
+        public void mouseClicked(MouseEvent mouseEvent) {
             // not used
         }
 
 
         @Override
-        public void mousePressed(MouseEvent mouseEvent)
-        {
+        public void mousePressed(MouseEvent mouseEvent) {
             // not used
         }
 
         /**
-         @author Albin Ahlbeck
-         @author Simon M�tegen
-          * Sets the values after the mouse is released from the slider
+         * @author Albin Ahlbeck
+         * @author Simon M�tegen
+         * Sets the values after the mouse is released from the slider
          */
         @Override
-        public void mouseReleased(MouseEvent mouseEvent)
-        {
-            if (timeSlider.getValue() == 0)
-            {
+        public void mouseReleased(MouseEvent mouseEvent) {
+            if (timeSlider.getValue() == 0) {
                 speedChangeScene(1);
-            }
-            else if (timeSlider.getValue() == 10)
-            {
+            } else if (timeSlider.getValue() == 10) {
                 speedChangeScene(10000);
-            } else if (timeSlider.getValue() == 20)
-            {
+            } else if (timeSlider.getValue() == 20) {
                 speedChangeScene(1000000);
-            } else if (timeSlider.getValue() == 30)
-            {
+            } else if (timeSlider.getValue() == 30) {
                 speedChangeScene(10000000);
             }
         }
 
         @Override
-        public void mouseEntered(MouseEvent mouseEvent)
-        {
+        public void mouseEntered(MouseEvent mouseEvent) {
             // not used
         }
 
         @Override
-        public void mouseExited(MouseEvent mouseEvent)
-        {
+        public void mouseExited(MouseEvent mouseEvent) {
             // not used
         }
     }
 
 
     /**
-     @author Albin Ahlbeck
-     * Opens an information window
      * @param planet The planet to showcase
+     * @author Albin Ahlbeck
+     * Opens an information window
      */
-    public void openInfoWindow(Planet planet)
-    {
+    public void openInfoWindow(Planet planet) {
         mainInfoFrame = new MainInfoFrame(planet, currentTheme);
     }
 
 
     /**
-     @author Albin Ahlbeck
+     * @author Albin Ahlbeck
      * Adds fonts to the GraphicsEnviroment for later use
      */
-    public void initFonts()
-    {
-        try
-        {
+    public void initFonts() {
+        try {
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/earth_orbiter/earthorbiter.ttf")));
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/earth_orbiter/earthorbiterbold.ttf")));
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/earth_orbiter/earthorbitertitleital.ttf")));
@@ -653,58 +596,18 @@ public class MainFrame extends JFrame {
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/Starjhol.ttf")));
 
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e);
         }
 
     }
-    /**
-     @author Albin Ahlbeck
-      * Creates the themes
-     @return a list of themes
-     */
-
-    public ArrayList<Theme> initThemes()
-    {
-        ArrayList<Theme> tempThemes = new ArrayList<Theme>();
-        tempThemes.add(new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE));
-        tempThemes.add(new Theme("Midnight", Color.BLACK, new Color(0, 0, 128),
-                javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.DARKBLUE));
-        tempThemes.add(new Theme("Star Wars", Color.BLACK, Color.YELLOW, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.YELLOW));
-        tempThemes.add(new Theme("Modern", Color.WHITE, Color.GRAY, javafx.scene.paint.Color.WHITE, javafx.scene.paint.Color.GRAY));
-        tempThemes.add(new Theme("Stranger Things", Color.BLACK, Color.RED, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.RED));
-        tempThemes.add(new Theme("Night Vision", Color.BLACK, Color.GREEN, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.GREEN));
-        tempThemes.add(new Theme("Nasa", Color.BLUE, Color.WHITE, javafx.scene.paint.Color.WHITE, javafx.scene.paint.Color.RED));
-        return tempThemes;
-    }
-    /**
-     @author Albin Ahlbeck
-      * Set the colors on graphical componenets from the theme
-     @param theme the Theme to be added
-     */
-    public void addTheme(Theme theme)
-    {
-        themes.add(theme);
-        cbThemes.addItem(theme);
-        setColors(theme); // set the new theme as the active one
-    }
-
-    public void addItemsToThemes()
-    {
-        for (int i = 0; i < themes.size(); i++)
-        {
-            cbThemes.addItem(themes.get(i));
-        }
-    }
 
     /**
-     @author Albin Ahlbeck
-      * Set the colors on graphical componenets from the theme
-     @param theme the Theme to be used for selection of colors
+     * @param theme the Theme to be used for selection of colors
+     * @author Albin Ahlbeck
+     * Set the colors on graphical componenets from the theme
      */
-    public void setColors(Theme theme)
-    {
+    public void setColors(Theme theme) {
         currentTheme = theme;
         lblTitle.setForeground(theme.getSecondaryColor());
         timeSlider.setForeground(theme.getSecondaryColor());
@@ -734,90 +637,35 @@ public class MainFrame extends JFrame {
         labelTable.put(30, lbl4);
         timeSlider.setLabelTable(labelTable);
 
-        Platform.runLater(new Runnable()
-        {
+        Platform.runLater(new Runnable() {
             /**
              @author Albin Ahlbeck
               * Runs on the Java FX thread, changes the color on of the orbit ellipses and changes color of the mediabar.
              */
             @Override
-            public void run()
-            {
+            public void run() {
 
-                for (int i = 0; i < guiPlanetList.size(); i++)
-                {
+                for (int i = 0; i < guiPlanetList.size(); i++) {
                     guiPlanetList.get(i).getPlanetOrbit().getEllipseFromOrbit().setStroke(theme.getSecondaryPaint());
                     if (newPlanets != null) // if the scene never have been changed newPlanets will throw nullpointer
                     {
                         newPlanets.get(i).getPlanetOrbit().getEllipseFromOrbit().setStroke(theme.getSecondaryPaint());
                     }
                 }
+                if (mediaBar != null) {
+                    mediaBar.addTheme(theme);
+                    if (theme.toString().equals("Star Wars")) {
+                        mediaBar.changeSong(3);
+                    }
+
+                    if (theme.toString().equals("Stranger Things")) {
+                        mediaBar.changeSong(2);
+                    }
+                }
+
+
             }
         });
 
-    }
-
-    /**
-     @author Albin Ahlbeck
-      * Listens to the combo box for selection of songs
-     */
-    private class ComboBoxThemeListener implements ItemListener
-    {
-        /**
-         @author Albin Ahlbeck
-          * If an item is selected setColors is called
-         */
-        @Override
-        public void itemStateChanged(ItemEvent event)
-        {
-            if (event.getStateChange() == ItemEvent.SELECTED)
-            {
-                //loadingScreen.setVisible(true);
-                setColors((Theme) event.getItem());
-                //loadingScreen.setVisible(false);
-            }
-        }
-    }
-    /**
-     @author Albin Ahlbeck
-      * Listens to the HelpButton for a mouse click
-     */
-    private class HelpListener implements ActionListener
-    {
-        /**
-         @author Albin Ahlbeck
-          * If the button is pressed then a help window is created
-         */
-        @Override
-        public void actionPerformed(ActionEvent actionEvent)
-        {
-            // create help panel
-        }
-    }
-
-    /**
-     @author Albin Ahlbeck
-      * Listens to the Create Theme button
-     */
-    private class CreateThemeListener implements ActionListener
-    {
-        /**
-         @author Albin Ahlbeck
-          * If the button is clicked a new ColorPicker is created
-         */
-        @Override
-        public void actionPerformed(ActionEvent actionEvent)
-        {
-            addColorPicker();
-        }
-    }
-
-    /**
-     @author Albin Ahlbeck
-      * Creates a new colorPicker
-     */
-    private void addColorPicker()
-    {
-        colorPicker = new ColorPicker(this);
     }
 }

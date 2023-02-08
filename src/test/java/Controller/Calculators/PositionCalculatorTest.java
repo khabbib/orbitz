@@ -11,7 +11,7 @@ class PositionCalculatorTest {
         PositionCalculator calc = new PositionCalculator();
         assertAll(() -> assertEquals("0", String.format("%.0f", calc.setDay(2000,1,1))),
                 () -> assertEquals("36552", String.format("%.0f", calc.setDay(2100,2,28))),
-                () -> assertEquals("36552", String.format("%.0f", calc.setDay(2023,2,3))),
+                () -> assertEquals("8403", String.format("%.0f", calc.setDay(2023,2,3))),
                 () -> assertEquals(-1, calc.setDay(1999,12,31)),
                 () -> assertEquals(-1, calc.setDay(2100, 2, 29))
         );

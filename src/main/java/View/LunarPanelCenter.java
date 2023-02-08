@@ -25,8 +25,7 @@ import java.io.File;
  * @author Lanna Maslo
  * A JPanel which contains a JFXPanel with moon models and/or images
  */
-public class LunarPanelCenter extends JPanel
-{
+public class LunarPanelCenter extends JPanel {
     private Planet planet;
 
     private Sphere moon = new Sphere();
@@ -66,19 +65,17 @@ public class LunarPanelCenter extends JPanel
 
     /**
      * Constructs the panel and runs the JavaFX thread
+     *
      * @param planet the planet that is currently being displayed
      */
-    public LunarPanelCenter(Planet planet)
-    {
+    public LunarPanelCenter(Planet planet) {
         this.planet = planet;
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(280, 390));
         add(lunarModel);
 
-        Platform.runLater(new Runnable()
-        {
-            public void run()
-            {
+        Platform.runLater(new Runnable() {
+            public void run() {
                 initFX(lunarModel);
                 handleMouse();
             }
@@ -89,7 +86,7 @@ public class LunarPanelCenter extends JPanel
      * @author Lanna Maslo
      * Creates the JFXPanel
      */
-    public void initFX(JFXPanel lunarModel){
+    public void initFX(JFXPanel lunarModel) {
         moonScene.setFill(javafx.scene.paint.Color.BLACK);
         moon.setTranslateX(113);
         moon.setTranslateY(70);
@@ -164,8 +161,7 @@ public class LunarPanelCenter extends JPanel
         neptuneMoons.setTranslateX(5);
         neptuneMoons.setTranslateY(10);
 
-        switch (planet.getName())
-        {
+        switch (planet.getName()) {
             case "Earth":
                 moonRoot.getChildren().add(moon);
                 moonRoot.getChildren().add(moonLanding);
@@ -196,11 +192,10 @@ public class LunarPanelCenter extends JPanel
     }
 
     /**
-     @author Albin Ahlbeck
-      * Enables rotation by mouse
+     * @author Albin Ahlbeck
+     * Enables rotation by mouse
      */
-    public void handleMouse()
-    {
+    public void handleMouse() {
         moonRoot.setOnMousePressed(event ->
         {
             startDragX = event.getSceneX();
@@ -217,16 +212,15 @@ public class LunarPanelCenter extends JPanel
 
             double newTransX = orgTransX + offsetX;
             double newTransY = orgTransY + offsetY;
-            matrixRotateNode(moon, 0,  -newTransY / 100, newTransX / 100);
+            matrixRotateNode(moon, 0, -newTransY / 100, newTransX / 100);
         });
     }
 
     /**
-     @author Albin Ahlbeck
-      * Sets rotation values
+     * @author Albin Ahlbeck
+     * Sets rotation values
      */
-    private void matrixRotateNode(Node n, double alf, double bet, double gam)
-    {
+    private void matrixRotateNode(Node n, double alf, double bet, double gam) {
         double A11 = Math.cos(alf) * Math.cos(gam);
         double A12 = Math.cos(bet) * Math.sin(alf) + Math.cos(alf) * Math.sin(bet) * Math.sin(gam);
         double A13 = Math.sin(alf) * Math.sin(bet) - Math.cos(alf) * Math.cos(bet) * Math.sin(gam);
@@ -238,8 +232,7 @@ public class LunarPanelCenter extends JPanel
         double A33 = Math.cos(bet) * Math.cos(gam);
 
         double d = Math.acos((A11 + A22 + A33 - 1d) / 2d);
-        if (d != 0d)
-        {
+        if (d != 0d) {
             double den = 2d * Math.sin(d);
             Point3D p = new Point3D((A32 - A23) / den, (A13 - A31) / den, (A21 - A12) / den);
             n.setRotationAxis(p);
@@ -247,17 +240,15 @@ public class LunarPanelCenter extends JPanel
         }
     }
 
-    public void playSound(String filePath)
-    {
+    public void playSound(String filePath) {
         Media media = new Media(new File(filePath).toURI().toString());
         player = new MediaPlayer(media);
         player.setCycleCount(1);
         player.play();
     }
 
-    public void stopSound()
-    {
-        if(player != null){
+    public void stopSound() {
+        if (player != null) {
             player.stop();
         }
     }

@@ -31,8 +31,11 @@ public class PositionCalculator
      * @param month the month
      * @return double
      */
-    public double setDay(double year, double month, double day)
-    {
+    public double setDay(double year, double month, double day) {
+        if (year < 2000 || year > 2100) return -1;
+        if (month < 1 || month > 12) return -1;
+        if (day < 1 || day > 31) return -1;
+        if (month == 2 && day > 28) return -1;
         d = 367*year-(7*(year+((month+9)/12)))/4+((275+month)/9)+day-730530;
         return d;
     }
@@ -129,8 +132,8 @@ public class PositionCalculator
         E1 = E0 - (E0-(180/Math.PI) * e * Math.sin(Math.PI/180*E0)-M)/
                 (1-e*Math.cos(Math.PI/180*E0));
 
-        x = a * (Math.cos(Math.PI/180*E1)-e);
-        y = a * (Math.sqrt(1-(e*e)))*Math.sin(Math.PI/180*E1);
+        x = calcX(a, E1, e);
+        y = calcY(a, E1, e);
 
         r = Math.sqrt((x*x)+(y*y));
         v = Math.toDegrees(Math.atan2(y, x));
@@ -158,11 +161,12 @@ public class PositionCalculator
     }
 
     double calcY(double a, double E1, double e) {
-        return -1;
+        return a * (Math.sqrt(1-(e*e)))*Math.sin(Math.PI/180*E1);
+
     }
 
     double calcX(double a, double E1, double e) {
-        return -1;
+        return a * (Math.cos(Math.PI/180*E1)-e);
     }
 
 }
