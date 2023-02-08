@@ -14,13 +14,11 @@ import java.awt.event.WindowEvent;
  * @author Albin Ahlbeck
  * @author Lanna Maslo
  * @version 1.0
- *
+ * <p>
  * This is the main frame for the planetary information GUI.
  * It has the MainInfoPanel main panel placed on it and the FX panel for lunar orbit.
- *
  */
-public class MainInfoFrame extends JFrame
-{
+public class MainInfoFrame extends JFrame {
     private MainInfoPanel panel;
     private JPanel pnlTitle;
 
@@ -31,8 +29,7 @@ public class MainInfoFrame extends JFrame
     /**
      * Adds a planet to be displayed when creating a MainInfoFrame
      **/
-    public MainInfoFrame(Planet planet, Theme theme)
-    {
+    public MainInfoFrame(Planet planet, Theme theme) {
         this.planet = planet;
         frame(planet, theme);
 
@@ -44,8 +41,7 @@ public class MainInfoFrame extends JFrame
      * @author Albin Ahlbeck
      * Sets up the frame and adds all the componenets
      **/
-    public void frame(Planet planet, Theme theme)
-    {
+    public void frame(Planet planet, Theme theme) {
         setLayout(new BorderLayout());
 
         panel = new MainInfoPanel(planet);
@@ -71,14 +67,12 @@ public class MainInfoFrame extends JFrame
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        addWindowListener(new WindowAdapter()
-        {
+        addWindowListener(new WindowAdapter() {
             /**
              * @author Lanna Maslo
              * Stop the sound when the window is closing
              **/
-            public void windowClosing(WindowEvent e)
-            {
+            public void windowClosing(WindowEvent e) {
                 panel.stopMp3();
             }
         });

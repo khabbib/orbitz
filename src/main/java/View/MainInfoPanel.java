@@ -29,12 +29,11 @@ import java.awt.*;
  * @author Albin Ahlbeck
  * bottom left corner: JavaFX-panel with 3D-model of planet
  * upper left corner: textarea with general facts about the planet
- *
+ * <p>
  * upper right corner: image gallery with 4 images in miniature. Underneath is one big picture which changes after a small is clicked
  * bottom right corner: SWEN THE ALIEN AND HIS FUN FACTS!!!
  */
-public class MainInfoPanel extends JPanel
-{
+public class MainInfoPanel extends JPanel {
     private BorderLayout layout;
 
     private ImageGalleryPanel imgPanel;
@@ -63,21 +62,18 @@ public class MainInfoPanel extends JPanel
     /**
      * @author Manna Manojlovic
      * @version 1.0
-     *
+     * <p>
      * Constructor
      * Initializes the instances, calls method setupPanel()
      */
-    public MainInfoPanel (Planet planet)
-    {
-        imgPanel = new ImageGalleryPanel (planet);
-        swenPanel = new SwenTheAlien (planet);
+    public MainInfoPanel(Planet planet) {
+        imgPanel = new ImageGalleryPanel(planet);
+        swenPanel = new SwenTheAlien(planet);
         planetaryPanel = new JFXPanel();
         setupPanel(planet);
-        Platform.runLater(new Runnable()
-        {
+        Platform.runLater(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 initFX(planetaryPanel); // starts on the Java FX thread
             }
         });
@@ -86,31 +82,29 @@ public class MainInfoPanel extends JPanel
     /**
      * @author Manna Manojlovic
      * @version 1.0
-     *
+     * <p>
      * This method initializes a BorderLayout and places the panels from other classes on it.
      * this is the main panel for the Information-GUI
-     *
      */
-    public void setupPanel (Planet planet)
-    {
+    public void setupPanel(Planet planet) {
         int width = 1000;
         int height = 600;
 
         this.planet = planet;
 
-        Border border = this.getBorder ();
-        Border margin = BorderFactory.createEmptyBorder (12, 12, 12, 12);
+        Border border = this.getBorder();
+        Border margin = BorderFactory.createEmptyBorder(12, 12, 12, 12);
 
-        layout = new BorderLayout ();
-        setLayout (layout);
-        setBackground (Color.black);
-        setPreferredSize (new Dimension (width, height));
-        setBorder (new CompoundBorder (border, margin));
+        layout = new BorderLayout();
+        setLayout(layout);
+        setBackground(Color.black);
+        setPreferredSize(new Dimension(width, height));
+        setBorder(new CompoundBorder(border, margin));
         planetaryPanel.setPreferredSize(new Dimension(600, 200));
 
-        add (imgPanel, BorderLayout.NORTH);
-        add (swenPanel, BorderLayout.EAST);
-        add (planetaryPanel, BorderLayout.WEST);
+        add(imgPanel, BorderLayout.NORTH);
+        add(swenPanel, BorderLayout.EAST);
+        add(planetaryPanel, BorderLayout.WEST);
         setBackground(Color.BLACK);
 
         planetSphere = new Sphere(80);
@@ -127,19 +121,19 @@ public class MainInfoPanel extends JPanel
      * @author Albin Ahlbeck
      * @version 1.0
      */
-    private void initFX(JFXPanel fxPanel)
-    {
+    private void initFX(JFXPanel fxPanel) {
         // This method is invoked on JavaFX thread
         Scene scene = createScene(); // default background
         fxPanel.setScene(scene);
     }
+
     /**
-     *  Set up the scene
+     * Set up the scene
+     *
      * @author Albin Ahlbeck
      * @version 1.0
      */
-    private Scene createScene()
-    {
+    private Scene createScene() {
         root = new StackPane();
         Scene scene = new Scene(root, planetaryPanel.getWidth(), planetaryPanel.getHeight(), true);
         scene.setFill(javafx.scene.paint.Color.BLACK);
@@ -160,12 +154,12 @@ public class MainInfoPanel extends JPanel
 
     /**
      * Enables moving the node with mouse presses and mouse drags
+     *
      * @author Lanna Maslo
      * @author Albin Ahlbeck
      * @version 1.0
      */
-    public void handleMouse()
-    {
+    public void handleMouse() {
         root.setOnMousePressed(event ->
         {
             startDragX = event.getSceneX();
@@ -183,9 +177,9 @@ public class MainInfoPanel extends JPanel
             double newTransX = orgTransX + offsetX;
             double newTransY = orgTransY + offsetY;
 
-            matrixRotateNode(planetSphere, 0,  -newTransY / 100, newTransX / 100);
+            matrixRotateNode(planetSphere, 0, -newTransY / 100, newTransX / 100);
 
-            if(planet.getName().equals("Saturn")) {
+            if (planet.getName().equals("Saturn")) {
                 matrixRotateNode(planetRings, 0, -newTransY / 100, newTransX / 100);
             }
         });
@@ -193,30 +187,29 @@ public class MainInfoPanel extends JPanel
 
     /**
      * A calculation method that allows rotation of a sphere's axis
-     * @param n the node that is rotated
+     *
+     * @param n   the node that is rotated
      * @param alf roll rotation (front-to-back)
      * @param bet pitch rotation (side-to-side)
      * @param gam yaw rotation (vertical axis)
      * @author Albin Ahlbeck
      * @version 1.0
      */
-    private void matrixRotateNode(Node n, double alf, double bet, double gam)
-    {
-        double A11=Math.cos(alf)*Math.cos(gam);
-        double A12=Math.cos(bet)*Math.sin(alf)+Math.cos(alf)*Math.sin(bet)*Math.sin(gam);
-        double A13=Math.sin(alf)*Math.sin(bet)-Math.cos(alf)*Math.cos(bet)*Math.sin(gam);
-        double A21=-Math.cos(gam)*Math.sin(alf);
-        double A22=Math.cos(alf)*Math.cos(bet)-Math.sin(alf)*Math.sin(bet)*Math.sin(gam);
-        double A23=Math.cos(alf)*Math.sin(bet)+Math.cos(bet)*Math.sin(alf)*Math.sin(gam);
-        double A31=Math.sin(gam);
-        double A32=-Math.cos(gam)*Math.sin(bet);
-        double A33=Math.cos(bet)*Math.cos(gam);
+    private void matrixRotateNode(Node n, double alf, double bet, double gam) {
+        double A11 = Math.cos(alf) * Math.cos(gam);
+        double A12 = Math.cos(bet) * Math.sin(alf) + Math.cos(alf) * Math.sin(bet) * Math.sin(gam);
+        double A13 = Math.sin(alf) * Math.sin(bet) - Math.cos(alf) * Math.cos(bet) * Math.sin(gam);
+        double A21 = -Math.cos(gam) * Math.sin(alf);
+        double A22 = Math.cos(alf) * Math.cos(bet) - Math.sin(alf) * Math.sin(bet) * Math.sin(gam);
+        double A23 = Math.cos(alf) * Math.sin(bet) + Math.cos(bet) * Math.sin(alf) * Math.sin(gam);
+        double A31 = Math.sin(gam);
+        double A32 = -Math.cos(gam) * Math.sin(bet);
+        double A33 = Math.cos(bet) * Math.cos(gam);
 
-        double d = Math.acos((A11+A22+A33-1d)/2d);
-        if(d!=0d)
-        {
-            double den=2d*Math.sin(d);
-            Point3D p= new Point3D((A32-A23)/den,(A13-A31)/den,(A21-A12)/den);
+        double d = Math.acos((A11 + A22 + A33 - 1d) / 2d);
+        if (d != 0d) {
+            double den = 2d * Math.sin(d);
+            Point3D p = new Point3D((A32 - A23) / den, (A13 - A31) / den, (A21 - A12) / den);
             n.setRotationAxis(p);
             n.setRotate(Math.toDegrees(d));
         }
@@ -224,40 +217,39 @@ public class MainInfoPanel extends JPanel
 
     /**
      * Adds material to the planetSphere
+     *
      * @author Lanna Maslo
      * @author Albin Ahlbeck
      * @version 1.0
      */
-    public void paintPlanet()
-    {
+    public void paintPlanet() {
         PhongMaterial map = new PhongMaterial();
         map.setDiffuseMap(new Image(getClass().getResource("/Images/" + planet.getName() + ".jpg").toExternalForm()));
         planetSphere.setMaterial(map);
 
-        if(planet.getName().equals("Saturn"))
-        {
+        if (planet.getName().equals("Saturn")) {
             planetRings();
         }
     }
 
     /**
      * Calls the method stopMp3() in ImageGalleryPanel, which stops the mediaplayer
+     *
      * @author Lanna Maslo
      * @version 1.0
      */
-    public void stopMp3()
-    {
+    public void stopMp3() {
         imgPanel.stopMp3();
     }
 
     /**
      * Adds rings to the 3D model of Saturn
+     *
      * @author Lanna Maslo
      * @version 1.0
      */
-    public void planetRings()
-    {
-        planetRings = new Cylinder(180,5);
+    public void planetRings() {
+        planetRings = new Cylinder(180, 5);
         PhongMaterial rings = new PhongMaterial();
         rings.setDiffuseMap(new Image(getClass().getResource("/Images/saturnRings.png").toExternalForm()));
         planetRings.setMaterial(rings);
