@@ -67,6 +67,7 @@ public class Controller {
             Orbit orbit = p.getPlanetOrbit();
             planetHashMapHashMap.put(p,new HashMap<>());
             planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getXCord(), orbit.getYCord(), orbit.getWidth(), orbit.getHeight()));
+            planetHashMapHashMap.get(p).put("sphere",MainFrame.createSphere(p));
         }
 
         //Sets planet duration [*1000 is to make it into seconds instead of milliseconds]

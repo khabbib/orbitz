@@ -25,21 +25,13 @@ import java.time.LocalDate;
  */
 public class Planet {
     private double SCALE_RADIUS_VALUE = 6250;
-
     private long semiMajorAxis;
     private double perihelion;
     private double aphelion;
-
     private JSONObject planetInfo;
-
     private Duration duration;
-
-    private Sphere sphere;
-
-    private PathTransition pathTransition;
-
+    private double meanRadius;
     private Orbit planetOrbit;
-
     private PositionCalculator pos = new PositionCalculator();
 
     /**
@@ -53,8 +45,7 @@ public class Planet {
         this.planetInfo = object;
         this.perihelion = (long) planetInfo.get("perihelion");
         this.aphelion = (long) planetInfo.get("aphelion");
-        this.sphere = new Sphere((double) planetInfo.get("meanRadius") * 1000 / SCALE_RADIUS_VALUE);
-        this.sphere.setId(getName());
+        this.meanRadius = (double) planetInfo.get("meanRadius");
     }
 
     /**
@@ -138,15 +129,6 @@ public class Planet {
     }
 
     /**
-     * A get-method that returns a Sphere-object for a specific planet.
-     *
-     * @return a Sphere-object
-     */
-    public Sphere getSphereFromPlanet() {
-        return sphere;
-    }
-
-    /**
      * A set-method that sets the duration of the orbital period for a specific planet.
      *
      * @param duration Duration-object in milliseconds
@@ -159,18 +141,13 @@ public class Planet {
         return duration;
     }
 
-    /**
-     * Set a tooltip which informs the planets name
-     *
-     * @author Albin Ahlbeck
-     * @version 1.0
-     */
-    public void setTooltip() {
-        Tooltip tooltip = new Tooltip(getName());
-        tooltip.setStyle("-fx-font-size: 20");                   //CSS stylesheet, Oracle doc.
-        tooltip.setShowDelay(Duration.millis(0));               //sets time before text appears after hovering over image
-
-        sphere.setPickOnBounds(true);
-        Tooltip.install(sphere, tooltip);
+    public double getMeanRadius() {
+        return meanRadius;
     }
+
+    public double getSCALE_RADIUS_VALUE() {
+        return SCALE_RADIUS_VALUE;
+    }
+
+
 }

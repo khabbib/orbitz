@@ -16,6 +16,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.PhongMaterial;
@@ -244,10 +245,10 @@ public class MainFrame extends JFrame {
 
         };
 
-        for (int i = 0; i < planetArrayList.size(); i++) {
-            planetArrayList.get(i).getSphereFromPlanet().addEventHandler
-                    (javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
-            planetArrayList.get(i).getSphereFromPlanet().setCursor(Cursor.HAND);
+        for (Planet planet : planetArrayList) {
+            Sphere sphere = controller.getSphere(planet);
+            sphere.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
+            sphere.setCursor(Cursor.HAND);
         }
 
         return scene;
@@ -284,10 +285,10 @@ public class MainFrame extends JFrame {
      * @version 1.0
      */
     public void paintPlanets() {
-        for (int i = 0; i < guiPlanetList.size(); i++) {
+        for (Planet planet : guiPlanetList) {
             PhongMaterial map = new PhongMaterial();
-            map.setDiffuseMap(new Image(getClass().getResource("/Images/" + guiPlanetList.get(i).getName() + ".jpg").toExternalForm()));
-            guiPlanetList.get(i).getSphereFromPlanet().setMaterial(map);
+            map.setDiffuseMap(new Image(getClass().getResource("/Images/" + planet.getName() + ".jpg").toExternalForm()));
+            controller.getSphere(planet).setMaterial(map);
         }
     }
 
@@ -305,14 +306,14 @@ public class MainFrame extends JFrame {
 
         for (Planet planet : planetArrayList) {
             Ellipse ellipse = controller.getEllipse(planet);
-            root.getChildren().add(planet.getSphereFromPlanet());
+            root.getChildren().add(controller.getSphere(planet));
             root.getChildren().add(ellipse);
             ellipse.toBack();
             ellipse.setStroke(currentTheme.getSecondaryPaint());
             System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getXCord());
 
             for (Node child : root.getChildren()) {
-                if (child.equals(planet.getSphereFromPlanet())) {
+                if (child.equals(controller.getSphere(planet))) {
                     child.setTranslateX(planet.getPlanetOrbit().getHeight());
                     child.setCache(true);
                     PathTransition animation = createPathTransition(child,planet);
@@ -320,7 +321,7 @@ public class MainFrame extends JFrame {
                     animation.setCycleCount(Animation.INDEFINITE);
                 }
             }
-            planet.setTooltip();
+            setTooltip(planet);
         }
         root.getChildren().add(sun.getSphereFromSun());
     }
@@ -478,10 +479,10 @@ public class MainFrame extends JFrame {
                 newPlanets = controller.createPlanetArray(inDurationModifier);
                 orbitPanel.setScene(createScene(newPlanets));
 
-                for (int i = 0; i < newPlanets.size(); i++) {
+                for (Planet newPlanet : newPlanets) {
                     PhongMaterial map = new PhongMaterial();
-                    map.setDiffuseMap(new Image(getClass().getResource("/Images/") + newPlanets.get(i).getName() + ".jpg"));
-                    newPlanets.get(i).getSphereFromPlanet().setMaterial(map);
+                    map.setDiffuseMap(new Image(getClass().getResource("/Images/") + newPlanet.getName() + ".jpg"));
+                    controller.getSphere(newPlanet).setMaterial(map);
                 }
             }
         });
@@ -631,6 +632,27 @@ public class MainFrame extends JFrame {
         ellipse.setStroke(javafx.scene.paint.Color.GRAY);
         ellipse.setFill(javafx.scene.paint.Color.TRANSPARENT);
         return ellipse;
+    }
+
+    public static Sphere createSphere(Planet planet) {
+        Sphere sphere = new Sphere((double) planet.getMeanRadius() * 1000 / planet.getSCALE_RADIUS_VALUE());
+        sphere.setId(planet.getName());
+        return sphere;
+    }
+
+    /**
+     * Set a tooltip which informs the planets name
+     *
+     * @author Albin Ahlbeck
+     * @version 1.0
+     */
+    public void setTooltip(Planet planet) {
+        Tooltip tooltip = new Tooltip(getName());
+        tooltip.setStyle("-fx-font-size: 20");                   //CSS stylesheet, Oracle doc.
+        tooltip.setShowDelay(Duration.millis(0));               //sets time before text appears after hovering over image
+
+        controller.getSphere(planet).setPickOnBounds(true);
+        Tooltip.install(controller.getSphere(planet), tooltip);
     }
 
     /**
