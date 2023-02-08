@@ -1,14 +1,13 @@
 package Controller;
 
-import Controller.Calculators.OrbitCalculator;
-import Controller.Calculators.PlanetCalculator;
-import Controller.Calculators.PositionCalculator;
-
-import Enum.*;
-
+import Model.Calculators.OrbitCalculator;
+import Model.Calculators.PlanetCalculator;
+import Model.Calculators.PositionCalculator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Model.Enum.Planets;
+import Model.Enum.Stars;
 import Model.Orbit;
 import javafx.animation.PathTransition;
 import javafx.scene.shape.Ellipse;
@@ -72,10 +71,9 @@ public class Controller {
 
         //Sets planet duration [*1000 is to make it into seconds instead of milliseconds]
         for (Planet planet : newPlanets) {
-            Duration d = new Duration(((planetCalculator.calculatePlanetSunOrbitTime(sun, planet)
-                    * 1000 / durationModifier) * 1000000000) * 10000);
-            planet.setDuration(d); //* makes them go slower and / makes them go faster
-            System.out.println(planet.getName() + "\t" + d);
+            Duration duration = new Duration(((planetCalculator.calculatePlanetSunOrbitTime(sun, planet) * 1000 / durationModifier) * 1000000000) * 10000);
+            planetHashMapHashMap.get(planet).put("duration",duration);
+            System.out.println(planet.getName() + "\t" + duration);
         }
 
         return newPlanets;
@@ -93,6 +91,9 @@ public class Controller {
         return (PathTransition) planetHashMapHashMap.get(planet).get("path");
     }
 
+    public Duration getDuration(Planet planet) {
+        return (Duration) planetHashMapHashMap.get(planet).get("duration");
+    }
     public PositionCalculator getPositionCalculator() {
         return positionCalculator;
     }

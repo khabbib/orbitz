@@ -1,4 +1,4 @@
-package Controller.Calculators;
+package Model.Calculators;
 
 /**
  * @author Marcus Svensson

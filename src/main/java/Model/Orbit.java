@@ -1,8 +1,5 @@
 package Model;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
-
 /**
  * Class that represents an orbit of a planet
  *

@@ -1,4 +1,4 @@
-package Enum;
+package Model.Enum;
 
 /**
  * The names of the planets to be fetched from the API.

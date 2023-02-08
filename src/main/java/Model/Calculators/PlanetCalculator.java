@@ -1,4 +1,4 @@
-package Controller.Calculators;
+package Model.Calculators;
 
 import Model.Planet;
 import Model.Sun;

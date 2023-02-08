@@ -1,19 +1,7 @@
 package Model;
 
-import Controller.Calculators.PositionCalculator;
-
-import Controller.Controller;
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.PathTransition;
-import javafx.scene.Node;
-import javafx.scene.control.Tooltip;
-import javafx.scene.shape.*;
-import javafx.util.Duration;
-
+import Model.Calculators.PositionCalculator;
 import org.json.simple.JSONObject;
-
-import java.time.LocalDate;
 
 /**
  * Class that represents a planet
@@ -29,7 +17,6 @@ public class Planet {
     private double perihelion;
     private double aphelion;
     private JSONObject planetInfo;
-    private Duration duration;
     private double meanRadius;
     private Orbit planetOrbit;
     private PositionCalculator pos = new PositionCalculator();
@@ -126,19 +113,6 @@ public class Planet {
      */
     public void setPlanetOrbit(Orbit planetOrbit) {
         this.planetOrbit = planetOrbit;
-    }
-
-    /**
-     * A set-method that sets the duration of the orbital period for a specific planet.
-     *
-     * @param duration Duration-object in milliseconds
-     */
-    public void setDuration(Duration duration) {
-        this.duration = duration;
-    }
-
-    public Duration getDuration() {
-        return duration;
     }
 
     public double getMeanRadius() {

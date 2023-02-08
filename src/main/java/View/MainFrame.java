@@ -4,8 +4,8 @@ import Controller.Controller;
 
 import Model.Planet;
 import Model.Sun;
-import Model.Theme;
 
+import Model.Theme;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
@@ -316,14 +316,14 @@ public class MainFrame extends JFrame {
                 if (child.equals(controller.getSphere(planet))) {
                     child.setTranslateX(planet.getPlanetOrbit().getHeight());
                     child.setCache(true);
-                    PathTransition animation = createPathTransition(child,planet);
-                    controller.putHashValue(planet,"path",animation);
+                    PathTransition animation = createPathTransition(child, planet);
+                    controller.putHashValue(planet, "path", animation);
                     animation.setCycleCount(Animation.INDEFINITE);
                 }
             }
             setTooltip(planet);
         }
-        root.getChildren().add(sun.getSphereFromSun());
+        root.getChildren().add(createSunSphere(2000));
     }
 
     /**
@@ -658,18 +658,32 @@ public class MainFrame extends JFrame {
     /**
      * A method that creates a path transition for a specific planet
      */
-    public PathTransition createPathTransition(Node node,Planet planet) {
+    public PathTransition createPathTransition(Node node, Planet planet) {
         LocalDate currentDate = LocalDate.now();
         PathTransition pathTransition = new PathTransition();
-        double d = controller.getPositionCalculator().setDay(currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth());
-        controller.getEllipse(planet).setRotate(-controller.getPositionCalculator().getValues(d, planet.getName()));
+        double day = controller.getPositionCalculator().setDay(currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth());
+        controller.getEllipse(planet).setRotate(-controller.getPositionCalculator().getValues(day, planet.getName()));
         pathTransition.setPath(controller.getEllipse(planet));
         pathTransition.setNode(node);
-        pathTransition.setDuration(planet.getDuration());
-        System.out.println("Duration please: " + planet.getDuration());
+        pathTransition.setDuration(controller.getDuration(planet));
         pathTransition.setCycleCount(Animation.INDEFINITE);
         pathTransition.setInterpolator(Interpolator.LINEAR);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         return pathTransition;
+    }
+
+    /**
+     * @return returns a string of the path
+     * @author Simon Mtegen
+     * @author Lanna Maslo
+     * Creates a sphere graphical object for the sun
+     */
+    public Sphere createSunSphere(int radius) {
+        Sphere sunSphere = new Sphere(radius);
+        PhongMaterial sunMap = new PhongMaterial();
+        sunMap.setDiffuseMap(new Image(getClass().getResource("/Images/Sun.jpg").toExternalForm()));
+        sunSphere.setMaterial(sunMap);
+
+        return sunSphere;
     }
 }
