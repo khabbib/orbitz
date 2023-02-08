@@ -84,11 +84,11 @@ public class Controller
 
         return newPlanets;
     }
-    
+
     public static void main(String[] args)
-{
-    Controller controller = new Controller();
-}
+    {
+        Controller controller = new Controller();
+    }
 }
 
 
