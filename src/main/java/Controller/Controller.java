@@ -40,7 +40,7 @@ public class Controller {
         sun.setYCord(0);
         sun.setXCord(0);
         planetArrayList = createPlanetArray(1); //No duration modifier should be added here.
-        mainframe = new MainFrame(this, this.sun);
+        mainframe = new MainFrame(this);
     }
 
     public ArrayList<Planet> getPlanetArrayList() {
@@ -52,7 +52,7 @@ public class Controller {
      *
      * @return An ArrayList filled with newly generated planet objects
      */
-    public ArrayList<Planet> createPlanetArray(double durationModifier) {
+    public ArrayList<Model.Planet> createPlanetArray(double durationModifier) {
         ArrayList<Planet> newPlanets = new ArrayList<>();
 
         //Reads the planets from the API
@@ -100,6 +100,10 @@ public class Controller {
 
     public void putHashValue(Planet planet, String key, Object object) {
         planetHashMapHashMap.get(planet).put(key,object);
+    }
+
+    public Sun getSun(){
+        return sun;
     }
 
     public static void main(String[] args) {

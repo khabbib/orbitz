@@ -5,7 +5,6 @@ package Model.Enum;
  * The ID:s of the celestial bodies in the API is in French and that's why they are in French here.
  */
 
-public enum Stars
-{
+public enum Stars {
     soleil
 }

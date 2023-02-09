@@ -7,8 +7,7 @@ package Model.Enum;
  * (Starts with the moons of Mercury then Venus then Earth etc. etc.)
  */
 
-public enum Moons
-{
+public enum Moons {
     //Venus has moons
     //Mercury has no moons
     //Earths moon:

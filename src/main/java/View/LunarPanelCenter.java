@@ -196,8 +196,7 @@ public class LunarPanelCenter extends JPanel {
      * Enables rotation by mouse
      */
     public void handleMouse() {
-        moonRoot.setOnMousePressed(event ->
-        {
+        moonRoot.setOnMousePressed(event -> {
             startDragX = event.getSceneX();
             startDragY = event.getSceneY();
 
@@ -205,8 +204,7 @@ public class LunarPanelCenter extends JPanel {
             orgTransY = moonRoot.getTranslateY();
         });
 
-        moonRoot.setOnMouseDragged(event ->
-        {
+        moonRoot.setOnMouseDragged(event -> {
             double offsetX = event.getSceneX() - startDragX;
             double offsetY = event.getSceneY() - startDragY;
 

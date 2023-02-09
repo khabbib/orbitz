@@ -24,13 +24,9 @@ public class MainLunarPanel extends JPanel implements ActionListener {
 
     private JLabel headline;
 
-    private MainInfoFrame mainInfoFrame;
-
     private LunarTextPanel lunarTextPanel;
 
     private LunarGalleryPanel lunarGalleryPanel;
-
-    private MainLunarFrame lunarFrame;
 
     private LunarPanelCenter lunarPanelCenter;
 

@@ -6,8 +6,7 @@ package Model.Enum;
  * They are in the order from closest to the sun to the furthest from the sun.
  */
 
-public enum Planets
-{
+public enum Planets {
     mercure,
     venus,
     terre,

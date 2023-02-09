@@ -1,7 +1,6 @@
 package View;
 
 import Model.Planet;
-import Model.Theme;
 
 import javax.swing.*;
 import java.awt.*;
