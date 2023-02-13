@@ -1,3 +1,3 @@
 ******************************************
-ORBITZ - The Solar Explorer
+SolarHub - The Solar Explorer
 ******************************************
