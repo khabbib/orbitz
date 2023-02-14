@@ -62,7 +62,7 @@ public class Controller {
 
         //Add orbits to the planets
         for (Planet p : newPlanets) {
-            p.setPlanetOrbit(orbitCalculator.getPlanetSunOrbit(sun, p));//Create orbit
+            p.setPlanetOrbit(orbitCalculator.getOrbit(p));//Create orbit
             Orbit orbit = p.getPlanetOrbit();
             planetHashMapHashMap.put(p,new HashMap<>());
             planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getXCord(), orbit.getYCord(), orbit.getWidth(), orbit.getHeight()));
