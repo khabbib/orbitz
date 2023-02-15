@@ -1,8 +1,8 @@
 package Controller;
 
-import Model.Calculators.OrbitCalculator;
-import Model.Calculators.PlanetCalculator;
-import Model.Calculators.PositionCalculator;
+import Controller.Calculators.OrbitCalculator;
+import Controller.Calculators.PlanetCalculator;
+import Controller.Calculators.PositionCalculator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -64,7 +64,7 @@ public class Controller {
         //KAN BRYTAS UT TILL EGEN METOD - KALLA DIREKT EFTER CREATEPLANETARRAY I KONSTRUKTORN
         //Add orbits to the planets
         for (Planet p : newPlanets) {
-            p.setPlanetOrbit(orbitCalculator.getPlanetSunOrbit(sun, p));//Create orbit
+            p.setPlanetOrbit(orbitCalculator.getOrbit(p));//Create orbit
             Orbit orbit = p.getPlanetOrbit();
             planetHashMapHashMap.put(p,new HashMap<>());
             planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getXCord(), orbit.getYCord(), orbit.getWidth(), orbit.getHeight()));
