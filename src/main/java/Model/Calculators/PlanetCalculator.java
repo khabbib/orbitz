@@ -11,24 +11,45 @@ import Model.Sun;
  * @version 1
  */
 public class PlanetCalculator {
-    private final double G = 6.67430E-11; //the general gravitational constant
+    private final double generalGravitational = 6.67430E-11; //the general gravitational constant
 
     /**
-     * Calculates the orbit time for the given planet.
+     * Calculates the orbits period for each planet.
      *
-     * @param sun    The sun
+     * @param sun The sun
      * @param planet Planet to get orbit time for
      * @return The orbit time in seconds
      */
-    public double calculatePlanetSunOrbitTime(Sun sun, Planet planet) {
-        double mu = -1; //The greek letter
-        double time = -1;
+    public double getOrbitalPeriod(Sun sun, Planet planet) {
+        double planetSemiMajorAxis = planet.getSemiMajorAxis();
+        double axisInMeter = this.convertToMeter(planetSemiMajorAxis);
 
-        mu = G * sun.getMass();
+        double a3 = this.getToThePowerOfThree(axisInMeter, 3);
 
-        time = ((2 * Math.PI) * (Math.sqrt((Math.pow((planet.getSemiMajorAxis() * 1000), 3)) / mu)));
-        System.out.println("time : " + time);
+        double sunMassInTotall = this.calculateTotalSunMass(sun.getMass());
 
-        return time;
+        double orbitalPeriod = this.getOrbit() * (this.getSquareRoot(a3, sunMassInTotall));
+        return orbitalPeriod;
     }
+
+    private double getOrbit() {
+        return 2 * Math.PI;
+    }
+
+    private double getSquareRoot(double axisToThePowerOfThree, double sunMassInTotall) {
+        return Math.sqrt(axisToThePowerOfThree / sunMassInTotall);
+    }
+
+    public double getToThePowerOfThree(double semiMajorAxisInMeter, int power){
+        return Math.pow(semiMajorAxisInMeter, power);
+    }
+
+    public double calculateTotalSunMass(double sunMass){
+        return generalGravitational * sunMass;
+    }
+
+    public double convertToMeter(double semiMajorAxis){
+        return semiMajorAxis * 1000;
+    }
+
 }

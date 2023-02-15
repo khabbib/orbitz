@@ -34,7 +34,6 @@ public class Controller {
 
     private final int thousand = 1000;
     private final int tenthousand = 10000;
-    private final int million = 1000000;
     private final int billion = 1000000000;
 
 
@@ -77,7 +76,7 @@ public class Controller {
 
         //Sets planet duration [*1000 is to make it into seconds instead of milliseconds]
         for (Planet planet : newPlanets) {
-            double planetTime = planetCalculator.calculatePlanetSunOrbitTime(sun, planet);
+            double planetTime = planetCalculator.getOrbitalPeriod(sun, planet);
             double durationModified = planetTime * thousand / durationModifier;
             double durationInBillion = durationModified * billion;
             double measurement = durationInBillion * tenthousand;
