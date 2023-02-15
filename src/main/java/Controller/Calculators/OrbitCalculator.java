@@ -1,8 +1,7 @@
-package Model.Calculators;
+package Controller.Calculators;
 
 import Model.Orbit;
 import Model.Planet;
-import Model.Sun;
 
 /**
  * Calculator used to calculate orbits.

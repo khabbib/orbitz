@@ -1,8 +1,8 @@
 package Controller;
 
-import Model.Calculators.OrbitCalculator;
-import Model.Calculators.PlanetCalculator;
-import Model.Calculators.PositionCalculator;
+import Controller.Calculators.OrbitCalculator;
+import Controller.Calculators.PlanetCalculator;
+import Controller.Calculators.PositionCalculator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
