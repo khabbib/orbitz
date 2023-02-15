@@ -60,6 +60,8 @@ public class Controller {
             newPlanets.add(new Planet(reader.readBodyFromAPI(p.toString())));
         }
 
+
+        //KAN BRYTAS UT TILL EGEN METOD - KALLA DIREKT EFTER CREATEPLANETARRAY I KONSTRUKTORN
         //Add orbits to the planets
         for (Planet p : newPlanets) {
             p.setPlanetOrbit(orbitCalculator.getPlanetSunOrbit(sun, p));//Create orbit
@@ -69,6 +71,7 @@ public class Controller {
             planetHashMapHashMap.get(p).put("sphere",MainFrame.createSphere(p));
         }
 
+        //KAN BRYTAS UT TILL EGEN METOD
         //Sets planet duration [*1000 is to make it into seconds instead of milliseconds]
         for (Planet planet : newPlanets) {
             Duration duration = new Duration(((planetCalculator.calculatePlanetSunOrbitTime(sun, planet) * 1000 / durationModifier) * 1000000000) * 10000);

@@ -140,12 +140,12 @@ public class PositionCalculator {
         }
     }
 
-    double calcY(double a, double E1, double e) {
+    public double calcY(double a, double E1, double e) {
         return a * (Math.sqrt(1 - (e * e))) * Math.sin(Math.PI / 180 * E1);
 
     }
 
-    double calcX(double a, double E1, double e) {
+    public double calcX(double a, double E1, double e) {
         return a * (Math.cos(Math.PI / 180 * E1) - e);
     }
 
