@@ -1,6 +1,6 @@
 package Model;
 
-import Model.Calculators.PositionCalculator;
+import Controller.Calculators.PositionCalculator;
 import org.json.simple.JSONObject;
 
 /**
