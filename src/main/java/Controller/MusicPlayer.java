@@ -3,6 +3,8 @@ package Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -24,7 +26,7 @@ public class MusicPlayer {
     private int currentSongIdx = 0;
     private MediaPlayer activeMediaPlayer;
     private final double volume; // 0.0 to 1.0
-    private boolean isPlaying = false;
+    private final SimpleBooleanProperty playbackStateProperty = new SimpleBooleanProperty(false);
 
     private Timeline volumeTimeline;
 
@@ -42,7 +44,7 @@ public class MusicPlayer {
     }
 
     public boolean play() {
-        isPlaying = true;
+        playbackStateProperty.set(true);
 
         if(volumeTimeline != null) volumeTimeline.stop();
 
@@ -53,11 +55,11 @@ public class MusicPlayer {
 
         volumeTimeline.play();
 
-        return isPlaying;
+        return playbackStateProperty.get();
     }
 
     public boolean pause() {
-        isPlaying = false;
+        playbackStateProperty.set(false);
 
         if(volumeTimeline != null) volumeTimeline.stop();
 
@@ -68,7 +70,7 @@ public class MusicPlayer {
 
         volumeTimeline.play();
 
-        return isPlaying;
+        return playbackStateProperty.get();
     }
 
     /**
@@ -76,11 +78,19 @@ public class MusicPlayer {
      * @return The new playback-state.
      */
     public boolean togglePlayback() {
-       if(isPlaying) {
+       if(playbackStateProperty.get()) {
             return pause();
         } else {
             return play();
         }
+    }
+
+    public boolean getPlaybackState() {
+        return playbackStateProperty.get();
+    }
+
+    public BooleanProperty getPlaybackStateProperty() {
+        return playbackStateProperty;
     }
 
     private MediaPlayer createMediaPlayer(Media song) {

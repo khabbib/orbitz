@@ -143,6 +143,8 @@ public class MainFrame extends JFrame {
         overheadPanel.add(timeSlider);
 
         // MUSIC PLAYBACK STUFF
+        setupMusicPlayer();
+
         ImageIcon soundOff = new ImageIcon("src/main/resources/Icons/sound-off.png");
         ImageIcon soundOn = new ImageIcon("src/main/resources/Icons/sound-on.png");
 
@@ -158,18 +160,19 @@ public class MainFrame extends JFrame {
         newImg = img.getScaledInstance( 100, 100, java.awt.Image.SCALE_SMOOTH);
         ImageIcon soundOnScaled = new ImageIcon(newImg);
 
-        JButton btnMuteMusic = new JButton(soundOnScaled);
-        btnMuteMusic.setPreferredSize(new Dimension(100, 100));
-        btnMuteMusic.setBackground(Color.black);
-        btnMuteMusic.addActionListener(e -> {
-            boolean isPlaying = musicPlayer.togglePlayback();
-            if(isPlaying) {
+        JButton btnMuteMusic = musicPlayer.getPlaybackState() ? new JButton(soundOnScaled) : new JButton(soundOffScaled);
+        musicPlayer.getPlaybackStateProperty().addListener((observableValue, oldValue, newValue) -> {
+            if(newValue) {
                 btnMuteMusic.setIcon(soundOnScaled);
             }
             else {
                 btnMuteMusic.setIcon(soundOffScaled);
             }
         });
+        btnMuteMusic.setPreferredSize(new Dimension(100, 100));
+        btnMuteMusic.setBackground(Color.black);
+        btnMuteMusic.setBorderPainted(false);
+        btnMuteMusic.addActionListener(e -> musicPlayer.togglePlayback());
         // MUTE BUTTON FINISHED
 
         overheadPanel.add(btnMuteMusic);
@@ -233,15 +236,13 @@ public class MainFrame extends JFrame {
             sphere.setCursor(Cursor.HAND);
         }
 
-        setupMusicPlayer();
-
         return scene;
     }
 
     private void setupMusicPlayer() {
         try {
             musicPlayer = new MusicPlayer(0.5f);
-            musicPlayer.togglePlayback();
+            //musicPlayer.play();
         } catch (IOException e) {
             System.err.println("Music Player could not load songs!");
             e.printStackTrace();
