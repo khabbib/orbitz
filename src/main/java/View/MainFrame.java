@@ -1,7 +1,7 @@
 package View;
 
 import Controller.Controller;
-
+import Controller.MusicPlayer;
 
 
 import javafx.animation.Animation;
@@ -28,6 +28,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -72,6 +73,8 @@ public class MainFrame extends JFrame {
     private int zoomSpeed = 10;
 
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+    private MusicPlayer musicPlayer;
 
     /**
      * @param inController gains a reference to controller in order to fetch the planet list
@@ -139,6 +142,38 @@ public class MainFrame extends JFrame {
         overheadPanel.add(lblTitle);
         overheadPanel.add(timeSlider);
 
+        // MUSIC PLAYBACK STUFF
+        ImageIcon soundOff = new ImageIcon("src/main/resources/Icons/sound-off.png");
+        ImageIcon soundOn = new ImageIcon("src/main/resources/Icons/sound-on.png");
+
+        // Stupid java swing, resizing icons to match button
+        java.awt.Image img;
+        java.awt.Image newImg;
+
+        img = soundOff.getImage();
+        newImg = img.getScaledInstance( 100, 100,  java.awt.Image.SCALE_SMOOTH );
+        ImageIcon soundOffScaled = new ImageIcon(newImg);
+
+        img = soundOn.getImage();
+        newImg = img.getScaledInstance( 100, 100, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon soundOnScaled = new ImageIcon(newImg);
+
+        JButton btnMuteMusic = new JButton(soundOnScaled);
+        btnMuteMusic.setPreferredSize(new Dimension(100, 100));
+        btnMuteMusic.setBackground(Color.black);
+        btnMuteMusic.addActionListener(e -> {
+            boolean muted = musicPlayer.togglePlayback();
+            if(muted) {
+                btnMuteMusic.setIcon(soundOffScaled);
+            }
+            else {
+                btnMuteMusic.setIcon(soundOnScaled);
+            }
+        });
+        // MUTE BUTTON FINISHED
+
+        overheadPanel.add(btnMuteMusic);
+
         add(orbitPanel, BorderLayout.CENTER);
 
         add(overheadPanel, BorderLayout.NORTH);
@@ -162,7 +197,6 @@ public class MainFrame extends JFrame {
      * @author Lanna Maslo
      * Creates a new scene from createScene and adds it to the Java FX window
      * Sets background music
-     * @version 1.0
      */
     private void initFxOrbit(JFXPanel fxPanel) {
         // This method is invoked on JavaFX thread
@@ -199,17 +233,25 @@ public class MainFrame extends JFrame {
             sphere.setCursor(Cursor.HAND);
         }
 
+        setupMusicPlayer();
+
         return scene;
     }
 
-
-
+    private void setupMusicPlayer() {
+        try {
+            musicPlayer = new MusicPlayer(0.5f);
+            musicPlayer.togglePlayback();
+        } catch (IOException e) {
+            System.err.println("Music Player could not load songs!");
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Finds which planet the the sphere is connected to
      *
      * @author Albin Ahlbeck
-     * @version 1.0
      */
     public Model.Planet determinePlanet(Sphere sphere) {
         for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
@@ -224,7 +266,6 @@ public class MainFrame extends JFrame {
      * Paints the surface of the planets by calling their individual mappings
      *
      * @author Lanna Maslo
-     * @version 1.0
      */
     public void paintPlanets() {
         for (Model.Planet planet : controller.getPlanetArrayList()) {
@@ -584,7 +625,6 @@ public class MainFrame extends JFrame {
      * Set a tooltip which informs the planets name
      *
      * @author Albin Ahlbeck
-     * @version 1.0
      */
     public void setTooltip(Model.Planet planet) {
         Tooltip tooltip = new Tooltip(planet.getName());
