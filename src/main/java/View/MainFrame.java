@@ -162,12 +162,12 @@ public class MainFrame extends JFrame {
         btnMuteMusic.setPreferredSize(new Dimension(100, 100));
         btnMuteMusic.setBackground(Color.black);
         btnMuteMusic.addActionListener(e -> {
-            boolean muted = musicPlayer.togglePlayback();
-            if(muted) {
-                btnMuteMusic.setIcon(soundOffScaled);
+            boolean isPlaying = musicPlayer.togglePlayback();
+            if(isPlaying) {
+                btnMuteMusic.setIcon(soundOnScaled);
             }
             else {
-                btnMuteMusic.setIcon(soundOnScaled);
+                btnMuteMusic.setIcon(soundOffScaled);
             }
         });
         // MUTE BUTTON FINISHED
