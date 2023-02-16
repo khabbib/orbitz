@@ -18,6 +18,8 @@ import java.util.ArrayList;
  * @author Joel Eriksson Sinclair
  */
 public class MusicPlayer {
+    private static final String MUSIC_DIRECTORY_PATH = "src/main/resources/Music"; //this.getClass().getResource()?
+
     private static final double UNMUTE_FADE_TIME = 2.0d; // Time in seconds
     private static final double MUTE_FADE_TIME = 0.1d; // Time in seconds
 
@@ -110,12 +112,11 @@ public class MusicPlayer {
     private Media[] loadSongFiles() throws IOException {
         ArrayList<Media> songList = new ArrayList<>();
 
-        String directoryPath = "src/main/resources/Music"; //this.getClass().getResource()?
-        File dir = new File(directoryPath);
+        File dir = new File(MUSIC_DIRECTORY_PATH);
         File[] files = dir.listFiles(File::isFile);
 
         if(files == null) {
-            throw new IOException("No songs found in music folder!");
+            throw new IOException("MUSIC_DIRECTORY_PATH is not a directory!");
         }
 
         log("Adding following songs to playlist:");
