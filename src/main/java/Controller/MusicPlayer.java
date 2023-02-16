@@ -32,11 +32,23 @@ public class MusicPlayer {
 
     private Timeline volumeTimeline;
 
-    private void setActiveMediaPlayer(MediaPlayer newPlayer) {
+    /**
+     * Removes the old mediaplayer and replaces it with a new one.
+     * @param newPlayer The new MediaPlayer
+     * @return The previous MediaPlayer
+     */
+    private MediaPlayer setActiveMediaPlayer(MediaPlayer newPlayer) {
+        MediaPlayer oldPlayer = activeMediaPlayer;
         if(activeMediaPlayer != null) activeMediaPlayer.dispose();
         activeMediaPlayer = newPlayer;
+        return oldPlayer;
     }
 
+    /**
+     * Loads a playlist of songs from a default directory and prepares for playback.
+     * @param volume Volume of the music
+     * @throws IOException If we cannot find any songs in the specified folder.
+     */
     public MusicPlayer(double volume) throws IOException {
         this.volume = volume;
 
@@ -45,6 +57,10 @@ public class MusicPlayer {
         activeMediaPlayer = createMediaPlayer(playlist[currentSongIdx]);
     }
 
+    /**
+     * Starts/resumes music playback.
+     * @return New playback-state.
+     */
     public boolean play() {
         playbackStateProperty.set(true);
 
@@ -60,6 +76,10 @@ public class MusicPlayer {
         return playbackStateProperty.get();
     }
 
+    /**
+     * Pauses music playback.
+     * @return New playback-state.
+     */
     public boolean pause() {
         playbackStateProperty.set(false);
 
@@ -95,6 +115,11 @@ public class MusicPlayer {
         return playbackStateProperty;
     }
 
+    /**
+     * Creates a MediaPlayer for a given song. Plays the next song in the playlist upon finishing.
+     * @param song Song to be played
+     * @return MediaPlayer ready to play the given song
+     */
     private MediaPlayer createMediaPlayer(Media song) {
         MediaPlayer mediaPlayer = new MediaPlayer(song);
         mediaPlayer.setVolume(volume);
@@ -103,12 +128,20 @@ public class MusicPlayer {
         return mediaPlayer;
     }
 
+    /**
+     * Plays the next song in the playlist.
+     */
     private void playNextSong() {
         currentSongIdx = (currentSongIdx + 1) % playlist.length;
         setActiveMediaPlayer(createMediaPlayer(playlist[currentSongIdx]));
         play();
     }
 
+    /**
+     * Loads any music files found in the default directory.
+     * @return A list of the found songs.
+     * @throws IOException If the path is invalid or access is denied to the found files.
+     */
     private Media[] loadSongFiles() throws IOException {
         ArrayList<Media> songList = new ArrayList<>();
 
