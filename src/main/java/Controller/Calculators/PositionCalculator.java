@@ -9,6 +9,7 @@ import java.time.LocalDate;
  * Calculates a position for the planets
  */
 public class PositionCalculator {
+    private LocalDate startDate = LocalDate.of(2022, 1, 1);
     private double capitalOmega; // Not used somewhere
     private double inclination; // Not used somewhere
     private double heliocentricDistance; // Not used somewhere
@@ -20,8 +21,9 @@ public class PositionCalculator {
     private double rectangularCoordinateX;
     private double rectangularCoordinateY;
     private double trueAnomaly;
+    private double days;
     /**
-     * Sets the day
+     * Does the calculation of date difference
      *
      * @param year  the year
      * @param day   the day
@@ -29,13 +31,16 @@ public class PositionCalculator {
      * @return double
      */
     public double calculateDateDifference(int year, int month, int day) {
-        LocalDate startDate = LocalDate.of(2000, 1, 1);
-        LocalDate todayDate = LocalDate.of(year, month, day);
-        Duration duration = Duration.between(startDate, todayDate);
+        if (year < 2000 || year > 2100) return -1;
+        if (month < 1 || month > 12) return -1;
+        if (day < 1 || day > 31) return -1;
+        if (month == 2 && day > 28) return -1;
 
-        double difference = duration.toDays();
-        
-        return difference;
+        LocalDate todayDate = LocalDate.of(year, month, day);
+        Duration duration = Duration.between(startDate.atStartOfDay(), todayDate.atStartOfDay());
+        days = duration.toDays();
+
+        return days;
     }
 
     /**
