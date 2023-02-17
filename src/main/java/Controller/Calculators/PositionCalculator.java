@@ -34,14 +34,7 @@ public class PositionCalculator {
         Duration duration = Duration.between(startDate, todayDate);
 
         double difference = duration.toDays();
-
-
-        //if (year < 2000 || year > 2100) return -1;
-        //if (month < 1 || month > 12) return -1;
-        //if (day < 1 || day > 31) return -1;
-        //if (month == 2 && day > 28) return -1;
-        //double days = 367 * year - (7 * (year + ((month + 9) / 12))) / 4 + ((275 + month) / 9) + day - 730530;
-        //
+        
         return difference;
     }
 
