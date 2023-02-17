@@ -9,6 +9,17 @@ import java.time.LocalDate;
  * Calculates a position for the planets
  */
 public class PositionCalculator {
+    private double capitalOmega; // Not used somewhere
+    private double inclination; // Not used somewhere
+    private double heliocentricDistance; // Not used somewhere
+    private double smallOmega;
+    private double semiMajorAxis;
+    private double eccentricity;
+    private double meanAnomaly;
+    private double E0, E1; // E0 = eccentricAnomalyApproximation, E1 = eccentricAnomaly
+    private double rectangularCoordinateX;
+    private double rectangularCoordinateY;
+    private double trueAnomaly;
     /**
      * Sets the day
      *
@@ -42,17 +53,6 @@ public class PositionCalculator {
      * @return angle (true anomaly + argument of perihelion + 90 or 180)
      */
     public double calculatePlanetPosition(double date, String planetName) {
-        double capitalOmega; // Not used somewhere
-        double inclination; // Not used somewhere
-        double heliocentricDistance; // Not used somewhere
-        double smallOmega;
-        double semiMajorAxis;
-        double eccentricity;
-        double meanAnomaly;
-        double eccentricAnomalyApproximation, eccentricAnomaly;
-        double rectangularCoordinateX;
-        double rectangularCoordinateY;
-        double trueAnomaly;
 
         switch (planetName) {
             case "Mercury":
@@ -123,12 +123,15 @@ public class PositionCalculator {
         }
 
 
-        eccentricAnomalyApproximation = meanAnomaly + (180 / Math.PI) * eccentricity * Math.sin(Math.PI / 180 * meanAnomaly) * (1 + (eccentricity * Math.cos(Math.PI / 180 * meanAnomaly)));
+        E0 = meanAnomaly + (180 / Math.PI) * eccentricity * Math.sin(Math.PI / 180 * meanAnomaly) * (1 + (eccentricity * Math.cos(Math.PI / 180 * meanAnomaly)));
 
-        eccentricAnomaly = eccentricAnomalyApproximation - (eccentricAnomalyApproximation - (180 / Math.PI) * eccentricity * Math.sin(Math.PI / 180 * eccentricAnomalyApproximation) - meanAnomaly) / (1 - eccentricity * Math.cos(Math.PI / 180 * eccentricAnomalyApproximation));
+        E1 = E0 - (E0 - (180 / Math.PI) * eccentricity * Math.sin(Math.PI / 180 * E0) - meanAnomaly) / (1 - eccentricity * Math.cos(Math.PI / 180 * E0));
 
-        rectangularCoordinateX = calcX(semiMajorAxis, eccentricAnomaly, eccentricity);
-        rectangularCoordinateY = calcY(semiMajorAxis, eccentricAnomaly, eccentricity);
+        // This function count to meddle difference between E0 and E1 until it reaches 0.005
+        E1 = this.calculateEccentricAnomaly();
+
+        rectangularCoordinateX = calcX(semiMajorAxis, E1, eccentricity);
+        rectangularCoordinateY = calcY(semiMajorAxis, E1, eccentricity);
 
         // Not used somewhere in the code
         heliocentricDistance = Math.sqrt((rectangularCoordinateX * rectangularCoordinateX) + (rectangularCoordinateY * rectangularCoordinateY));
@@ -146,7 +149,16 @@ public class PositionCalculator {
         }
 
         return trueAnomaly + smallOmega;
+    }
 
+    private double calculateEccentricAnomaly() {
+        // The while loop operation check if meddle difference between E0 and E1 and make them to reach minimum 0.005
+        while (Math.abs(E0 - E1) > 0.005) {
+            E0 = E1;
+            E1 = E0 - (E0 - (180 / Math.PI) * eccentricity * Math.sin(Math.PI / 180 * E0) - meanAnomaly) / (1 - eccentricity * Math.cos(Math.PI / 180 * E0));
+        }
+        System.out.println("calculateEccentricAnomaly: E1: " + E1);
+        return E1;
     }
 
     public double calcY(double a, double E1, double e) {
