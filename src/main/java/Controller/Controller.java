@@ -1,7 +1,6 @@
 package Controller;
 
 import Controller.Calculators.OrbitCalculator;
-import Controller.Calculators.PlanetCalculator;
 import Controller.Calculators.PositionCalculator;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,13 +27,8 @@ import View.MainFrame;
 public class Controller {
     private APIReader reader = new APIReader();
     private OrbitCalculator orbitCalculator = new OrbitCalculator();
-    private PlanetCalculator planetCalculator = new PlanetCalculator();
     private PositionCalculator positionCalculator = new PositionCalculator();
     private Sun sun = new Sun(reader.readBodyFromAPI(Stars.soleil.toString()));
-
-    private final int thousand = 1000;
-    private final int tenthousand = 10000;
-    private final int billion = 1000000000;
 
 
     private HashMap<Planet, HashMap<String,Object>> planetHashMapHashMap = new HashMap<>();
@@ -76,12 +70,7 @@ public class Controller {
 
         //Sets planet duration [*1000 is to make it into seconds instead of milliseconds]
         for (Planet planet : newPlanets) {
-            double planetTime = planetCalculator.getOrbitalPeriod(sun, planet);
-            double durationModified = planetTime * thousand / durationModifier;
-            double durationInBillion = durationModified * billion;
-            double measurement = durationInBillion * tenthousand;
-
-            Duration duration = new Duration(measurement);
+            Duration duration = new Duration(((orbitCalculator.getOrbitalPeriod(planet.getSemiMajorAxis()) * 1000 / durationModifier) * 1000000000) * 10000);
             planetHashMapHashMap.get(planet).put("duration",duration);
 
             System.out.println(planet.getName() + "\t" + duration);
