@@ -2,7 +2,6 @@ package Controller.Calculators;
 
 import Model.Orbit;
 import Model.Planet;
-import Model.Sun;
 
 /**
  * Calculator used to calculate orbits.
@@ -12,23 +11,15 @@ import Model.Sun;
  * @version 1
  */
 public class OrbitCalculator {
-    long orbitWidth;
-    long orbitHeight;
-
-    double orbitOffsetFromSun;
 
     /**
      * Creates an orbit object based on the planet given.
      *
-     * @param sun    Sun object the planet is orbiting around
+
      * @param planet Planet object to calculate orbit for.
      * @return Orbit object.
      */
-    public Orbit getPlanetSunOrbit(Sun sun, Planet planet) {
-        double orbitXCord;
-        double orbitYCord;
-
-        Orbit planetOrbit;
+    public Orbit getOrbit(Planet planet) {
 
         /*
             Aphelion and Perihelion values in the API was wrong for Uranus and Neptune.
@@ -41,27 +32,23 @@ public class OrbitCalculator {
             planet.setAphelion(4545.67E6);
             planet.setPerihelion(4444.45E6);
         }
-
-        calculateOrbit(planet);
-
-        orbitXCord = sun.getXCord() + orbitOffsetFromSun;
-        orbitYCord = sun.getYCord();
-
-        planetOrbit = new Orbit(orbitWidth, orbitHeight, orbitXCord, orbitYCord);
-
-        return planetOrbit;
+        
+        long orbitWidth = calculateOrbitWidth(planet.getSemiMajorAxis());
+        long orbitHeight = calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion());
+        double orbitOffsetFromSun = calculateOrbitOffsetFromSun(planet.getAphelion(), planet.getSemiMajorAxis());
+        
+        
+        return new Orbit(orbitWidth, orbitHeight, orbitOffsetFromSun, 0);
     }
 
-    /**
-     * Calculates the planets orbit
-     *
-     * @param planet Planet object to calculate orbit for.
-     */
-    private void calculateOrbit(Planet planet) {
-        orbitWidth = (long) (planet.getSemiMajorAxis()) * 2;
-        orbitHeight = (long) ((Math.sqrt((planet.getAphelion() * planet.getPerihelion())))) * 2;
-
-        orbitOffsetFromSun = planet.getAphelion() - planet.getSemiMajorAxis();
+    private long calculateOrbitWidth(double semiMajorAxis){
+        return (long) (semiMajorAxis) * 2;
+    }
+    private long calculateOrbitHeight(double aphelion, double perihelion){
+        return (long) ((Math.sqrt((aphelion * perihelion)))) * 2;
+    }
+    private double calculateOrbitOffsetFromSun(double aphelion, double semiMajorAxis){
+        return aphelion - semiMajorAxis;
     }
 }
 
