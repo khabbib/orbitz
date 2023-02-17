@@ -15,14 +15,11 @@ public class OrbitCalculator {
     /**
      * Creates an orbit object based on the planet given.
      *
+
      * @param planet Planet object to calculate orbit for.
      * @return Orbit object.
      */
     public Orbit getOrbit(Planet planet) {
-
-        long orbitWidth = calculateOrbitWidth(planet.getSemiMajorAxis());
-        long orbitHeight = calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion());
-        double orbitOffsetFromSun = calculateOrbitOffsetFromSun(planet.getAphelion(), planet.getSemiMajorAxis());
 
         /*
             Aphelion and Perihelion values in the API was wrong for Uranus and Neptune.
@@ -35,7 +32,12 @@ public class OrbitCalculator {
             planet.setAphelion(4545.67E6);
             planet.setPerihelion(4444.45E6);
         }
-
+        
+        long orbitWidth = calculateOrbitWidth(planet.getSemiMajorAxis());
+        long orbitHeight = calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion());
+        double orbitOffsetFromSun = calculateOrbitOffsetFromSun(planet.getAphelion(), planet.getSemiMajorAxis());
+        
+        
         return new Orbit(orbitWidth, orbitHeight, orbitOffsetFromSun, 0);
     }
 
