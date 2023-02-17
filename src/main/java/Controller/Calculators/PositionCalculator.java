@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * Calculates a position for the planets
  */
 public class PositionCalculator {
-    private LocalDate startDate = LocalDate.of(2022, 1, 1);
+    private LocalDate startDate = LocalDate.of(2000, 1, 1);
     private double capitalOmega; // Not used somewhere
     private double inclination; // Not used somewhere
     private double heliocentricDistance; // Not used somewhere
