@@ -41,7 +41,7 @@ public class PositionCalculator {
      * @param planetName Planet object to check which planet it is
      * @return angle (true anomaly + argument of perihelion + 90 or 180)
      */
-    public double getValues(double date, String planetName) {
+    public double calculatePlanetPosition(double date, String planetName) {
         double capitalOmega; // Not used somewhere
         double inclination; // Not used somewhere
         double heliocentricDistance; // Not used somewhere

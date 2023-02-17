@@ -644,7 +644,7 @@ public class MainFrame extends JFrame {
         LocalDate currentDate = LocalDate.now();
         PathTransition pathTransition = new PathTransition();
         double day = controller.getPositionCalculator().calculateDateDifference(currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth());
-        controller.getEllipse(planet).setRotate(-controller.getPositionCalculator().getValues(day, planet.getName()));
+        controller.getEllipse(planet).setRotate(-controller.getPositionCalculator().calculatePlanetPosition(day, planet.getName()));
         pathTransition.setPath(controller.getEllipse(planet));
         pathTransition.setNode(node);
         pathTransition.setDuration(controller.getDuration(planet));
