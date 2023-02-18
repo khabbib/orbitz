@@ -61,6 +61,8 @@ public class MainFrame extends JFrame {
 
     private JSlider timeSlider;
 
+    private JSlider zoomSlider;
+
     private SliderListener sliderListener;
 
     private Controller controller;
@@ -90,6 +92,8 @@ public class MainFrame extends JFrame {
 
         sliderListener = new SliderListener();
         timeSlider = new JSlider();
+
+        zoomSlider = new JSlider();
 
         lblTitle = new JLabel();
         lblTitle.setPreferredSize(new Dimension(700, 80));
@@ -131,11 +135,20 @@ public class MainFrame extends JFrame {
         timeSlider.setSnapToTicks(true);
         timeSlider.addMouseListener(sliderListener);
 
+        // Sets up the zoomSlider
+
+        zoomSlider.setValue(50);
+        zoomSlider.setMaximum(100);
+        zoomSlider.setPaintLabels(true);
+
+        zoomSlider.setPreferredSize(new Dimension(700, 70));
+
         // Sets up overheadPanel
         overheadPanel.setLayout(new FlowLayout());
         // set opaque
         overheadPanel.setOpaque(true);
         timeSlider.setOpaque(true);
+        zoomSlider.setOpaque(true);
 
         lblTitle.setOpaque(false);
         overheadPanel.setPreferredSize(new Dimension(1400, 160));
@@ -176,6 +189,7 @@ public class MainFrame extends JFrame {
         // MUTE BUTTON FINISHED
 
         overheadPanel.add(btnMuteMusic);
+        overheadPanel.add(zoomSlider);
 
         add(orbitPanel, BorderLayout.CENTER);
 
@@ -521,6 +535,10 @@ public class MainFrame extends JFrame {
         public void mouseExited(MouseEvent mouseEvent) {
             // not used
         }
+
+        public void getDeltaY(){
+
+        }
     }
 
 
@@ -564,11 +582,14 @@ public class MainFrame extends JFrame {
         currentTheme = theme;
         lblTitle.setForeground(theme.getSecondaryColor());
         timeSlider.setForeground(theme.getSecondaryColor());
+        zoomSlider.setForeground(theme.getSecondaryColor());
         overheadPanel.setBackground(theme.getMainColor());
         lblTitle.setOpaque(true);
         lblTitle.setBackground(null);
         timeSlider.setBackground(null);
         timeSlider.setOpaque(true);
+        zoomSlider.setBackground(null);
+        zoomSlider.setOpaque(true);
         overheadPanel.setBorder(BorderFactory.createLineBorder(theme.getSecondaryColor(), 2));
 
         // Time slider configuration
