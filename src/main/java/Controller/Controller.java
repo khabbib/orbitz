@@ -65,7 +65,7 @@ public class Controller {
             p.setPlanetOrbit(orbitCalculator.getOrbit(p));//Create orbit
             Orbit orbit = p.getPlanetOrbit();
             planetHashMapHashMap.put(p,new HashMap<>());
-            planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getXCord(), orbit.getYCord(), orbit.getWidth(), orbit.getHeight()));
+            planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getCenterXCord(37500), orbit.getCenterYCord(37500), orbit.getWidth(37500), orbit.getHeight(37500)));
             planetHashMapHashMap.get(p).put("sphere",MainFrame.createSphere(p));
         }
 

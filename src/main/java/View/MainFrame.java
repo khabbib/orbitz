@@ -294,11 +294,11 @@ public class MainFrame extends JFrame {
             root.getChildren().add(ellipse);
             ellipse.toBack();
             ellipse.setStroke(currentTheme.getSecondaryPaint());
-            System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getXCord());
+            System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getCenterXCord(37500));
 
             for (Node child : root.getChildren()) {
                 if (child.equals(controller.getSphere(planet))) {
-                    child.setTranslateX(planet.getPlanetOrbit().getHeight());
+                    child.setTranslateX(planet.getPlanetOrbit().getHeight(37500));
                     child.setCache(true);
                     PathTransition animation = createPathTransition(child, planet);
                     controller.putHashValue(planet, "path", animation);

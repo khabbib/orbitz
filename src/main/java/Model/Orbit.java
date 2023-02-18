@@ -9,11 +9,10 @@ package Model;
  */
 
 public class Orbit {
-    private static final long SCALE_VALUE = 37500;
     private double width;
     private double height;
-    private double xCord;
-    private double yCord;
+    private double centerXCord;
+    private double centerYCord;
 
     /**
      * Conctructor that creates an ellipse with given arguments
@@ -26,8 +25,8 @@ public class Orbit {
     public Orbit(double inWidth, double inHeight, double inXCord, double inYCord) {
         this.width = inWidth;
         this.height = inHeight;
-        this.xCord = inXCord;
-        this.yCord = inYCord;
+        this.centerXCord = inXCord;
+        this.centerYCord = inYCord;
     }
 
     /**
@@ -35,8 +34,8 @@ public class Orbit {
      *
      * @return width of the orbit divided by a scale factor
      */
-    public double getWidth() {
-        return width / SCALE_VALUE;
+    public double getWidth(long scaleValue) {
+        return width / scaleValue;
     }
 
     /**
@@ -44,8 +43,8 @@ public class Orbit {
      *
      * @return height of the orbit divided by a scale factor
      */
-    public double getHeight() {
-        return height / SCALE_VALUE;
+    public double getHeight(long scaleValue) {
+        return height / scaleValue;
     }
 
     /**
@@ -53,8 +52,8 @@ public class Orbit {
      *
      * @return x-coordinate of the orbit divided by a scale factor
      */
-    public double getXCord() {
-        return xCord / SCALE_VALUE;
+    public double getCenterXCord(long scaleValue) {
+        return centerXCord / scaleValue;
     }
 
     /**
@@ -62,7 +61,7 @@ public class Orbit {
      *
      * @return y-coordinate of the orbit divided by a scale factor
      */
-    public double getYCord() {
-        return yCord / SCALE_VALUE;
+    public double getCenterYCord(long scaleValue) {
+        return centerYCord / scaleValue;
     }
 }
