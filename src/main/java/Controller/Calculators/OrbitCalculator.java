@@ -12,23 +12,14 @@ import Model.Sun;
  * @version 1
  */
 public class OrbitCalculator {
-    long orbitWidth;
-    long orbitHeight;
-
-    double orbitOffsetFromSun;
-
     /**
      * Creates an orbit object based on the planet given.
      *
-     * @param sun    Sun object the planet is orbiting around
+
      * @param planet Planet object to calculate orbit for.
      * @return Orbit object.
      */
-    public Orbit getPlanetSunOrbit(Sun sun, Planet planet) {
-        double orbitXCord;
-        double orbitYCord;
-
-        Orbit planetOrbit;
+    public Orbit getOrbit(Planet planet) {
 
         /*
             Aphelion and Perihelion values in the API was wrong for Uranus and Neptune.
@@ -41,27 +32,40 @@ public class OrbitCalculator {
             planet.setAphelion(4545.67E6);
             planet.setPerihelion(4444.45E6);
         }
+        
+        long orbitWidth = calculateOrbitWidth(planet.getSemiMajorAxis());
+        long orbitHeight = calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion());
+        double orbitOffsetFromSun = calculateOrbitOffsetFromSun(planet.getAphelion(), planet.getSemiMajorAxis());
+        
+        
+        return new Orbit(orbitWidth, orbitHeight, orbitOffsetFromSun, 0);
+    }
 
-        calculateOrbit(planet);
 
-        orbitXCord = sun.getXCord() + orbitOffsetFromSun;
-        orbitYCord = sun.getYCord();
-
-        planetOrbit = new Orbit(orbitWidth, orbitHeight, orbitXCord, orbitYCord);
-
-        return planetOrbit;
+    private long calculateOrbitWidth(double semiMajorAxis){
+        return (long) (semiMajorAxis) * 2;
+    }
+    private long calculateOrbitHeight(double aphelion, double perihelion){
+        return (long) ((Math.sqrt((aphelion * perihelion)))) * 2;
+    }
+    private double calculateOrbitOffsetFromSun(double aphelion, double semiMajorAxis){
+        return aphelion - semiMajorAxis;
     }
 
     /**
-     * Calculates the planets orbit
+     * Calculates the orbits period for each planet.
      *
-     * @param planet Planet object to calculate orbit for.
+     * @param axisSemiMajorAxis The semi major axis of the planet
+     * @return The orbit time in seconds
      */
-    private void calculateOrbit(Planet planet) {
-        orbitWidth = (long) (planet.getSemiMajorAxis()) * 2;
-        orbitHeight = (long) ((Math.sqrt((planet.getAphelion() * planet.getPerihelion())))) * 2;
+    public double getOrbitalPeriod(double axisSemiMajorAxis) {
+        double a3 = Math.pow((axisSemiMajorAxis * 1000), 3);
+        //sun standard gravitational parameter
+        double mu = 9.938032700000002E47;
+        double orbitalConstant = 2 * Math.PI;
+        double squareRoot = Math.sqrt(a3 / mu);
 
-        orbitOffsetFromSun = planet.getAphelion() - planet.getSemiMajorAxis();
+        return orbitalConstant * squareRoot;
     }
 }
 

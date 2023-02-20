@@ -1,7 +1,6 @@
 package Controller;
 
 import Controller.Calculators.OrbitCalculator;
-import Controller.Calculators.PlanetCalculator;
 import Controller.Calculators.PositionCalculator;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,12 +27,10 @@ import View.MainFrame;
 public class Controller {
     private APIReader reader = new APIReader();
     private OrbitCalculator orbitCalculator = new OrbitCalculator();
-    private PlanetCalculator planetCalculator = new PlanetCalculator();
     private PositionCalculator positionCalculator = new PositionCalculator();
     private Sun sun = new Sun(reader.readBodyFromAPI(Stars.soleil.toString()));
-    private final int thousand = 1000;
-    private final int tenthousand = 10000;
-    private final int billion = 1000000000;
+
+
     private HashMap<Planet, HashMap<String,Object>> planetHashMapHashMap = new HashMap<>();
     private ArrayList<Planet> planetArrayList;
     private MainFrame mainframe;
@@ -62,26 +59,18 @@ public class Controller {
             newPlanets.add(new Planet(reader.readBodyFromAPI(p.toString())));
         }
 
-
-        //KAN BRYTAS UT TILL EGEN METOD - KALLA DIREKT EFTER CREATEPLANETARRAY I KONSTRUKTORN
         //Add orbits to the planets
         for (Planet p : newPlanets) {
-            p.setPlanetOrbit(orbitCalculator.getPlanetSunOrbit(sun,p));//Create orbit
+            p.setPlanetOrbit(orbitCalculator.getOrbit(p));//Create orbit
             Orbit orbit = p.getPlanetOrbit();
             planetHashMapHashMap.put(p,new HashMap<>());
-            planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getXCord(), orbit.getYCord(), orbit.getWidth(), orbit.getHeight()));
+            planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getCenterXCord(37500), orbit.getCenterYCord(37500), orbit.getWidth(37500), orbit.getHeight(37500)));
             planetHashMapHashMap.get(p).put("sphere",MainFrame.createSphere(p));
         }
 
-        //KAN BRYTAS UT TILL EGEN METOD
         //Sets planet duration [*1000 is to make it into seconds instead of milliseconds]
         for (Planet planet : newPlanets) {
-            double planetTime = planetCalculator.getOrbitalPeriod(sun, planet);
-            double durationModified = planetTime * thousand / durationModifier;
-            double durationInBillion = durationModified * billion;
-            double measurement = durationInBillion * tenthousand;
-
-            Duration duration = new Duration(measurement);
+            Duration duration = new Duration(((orbitCalculator.getOrbitalPeriod(planet.getSemiMajorAxis()) * 1000 / durationModifier) * 1000000000) * 10000);
             planetHashMapHashMap.get(planet).put("duration",duration);
 
             System.out.println(planet.getName() + "\t" + duration);
