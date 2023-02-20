@@ -2,6 +2,7 @@ package Controller.Calculators;
 
 import Model.Orbit;
 import Model.Planet;
+import Model.Sun;
 
 /**
  * Calculator used to calculate orbits.
@@ -11,7 +12,6 @@ import Model.Planet;
  * @version 1
  */
 public class OrbitCalculator {
-
     /**
      * Creates an orbit object based on the planet given.
      *
@@ -41,6 +41,7 @@ public class OrbitCalculator {
         return new Orbit(orbitWidth, orbitHeight, orbitOffsetFromSun, 0);
     }
 
+
     private long calculateOrbitWidth(double semiMajorAxis){
         return (long) (semiMajorAxis) * 2;
     }
@@ -49,6 +50,22 @@ public class OrbitCalculator {
     }
     private double calculateOrbitOffsetFromSun(double aphelion, double semiMajorAxis){
         return aphelion - semiMajorAxis;
+    }
+
+    /**
+     * Calculates the orbits period for each planet.
+     *
+     * @param axisSemiMajorAxis The semi major axis of the planet
+     * @return The orbit time in seconds
+     */
+    public double getOrbitalPeriod(double axisSemiMajorAxis) {
+        double a3 = Math.pow((axisSemiMajorAxis * 1000), 3);
+        //sun standard gravitational parameter
+        double mu = 9.938032700000002E47;
+        double orbitalConstant = 2 * Math.PI;
+        double squareRoot = Math.sqrt(a3 / mu);
+
+        return orbitalConstant * squareRoot;
     }
 }
 
