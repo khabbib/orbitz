@@ -32,11 +32,11 @@ public class PlanetCalculator {
         return orbitalPeriod;
     }
 
-    private double getOrbit() {
+    public double getOrbit() {
         return 2 * Math.PI;
     }
 
-    private double getSquareRoot(double axisToThePowerOfThree, double sunMassInTotall) {
+    public double getSquareRoot(double axisToThePowerOfThree, double sunMassInTotall) {
         return Math.sqrt(axisToThePowerOfThree / sunMassInTotall);
     }
 

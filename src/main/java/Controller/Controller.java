@@ -31,12 +31,9 @@ public class Controller {
     private PlanetCalculator planetCalculator = new PlanetCalculator();
     private PositionCalculator positionCalculator = new PositionCalculator();
     private Sun sun = new Sun(reader.readBodyFromAPI(Stars.soleil.toString()));
-
     private final int thousand = 1000;
     private final int tenthousand = 10000;
     private final int billion = 1000000000;
-
-
     private HashMap<Planet, HashMap<String,Object>> planetHashMapHashMap = new HashMap<>();
     private ArrayList<Planet> planetArrayList;
     private MainFrame mainframe;
@@ -69,7 +66,7 @@ public class Controller {
         //KAN BRYTAS UT TILL EGEN METOD - KALLA DIREKT EFTER CREATEPLANETARRAY I KONSTRUKTORN
         //Add orbits to the planets
         for (Planet p : newPlanets) {
-            p.setPlanetOrbit(orbitCalculator.getOrbit(p));//Create orbit
+            p.setPlanetOrbit(orbitCalculator.getPlanetSunOrbit(sun,p));//Create orbit
             Orbit orbit = p.getPlanetOrbit();
             planetHashMapHashMap.put(p,new HashMap<>());
             planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getXCord(), orbit.getYCord(), orbit.getWidth(), orbit.getHeight()));
