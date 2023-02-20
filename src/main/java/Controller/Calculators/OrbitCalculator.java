@@ -12,7 +12,6 @@ import Model.Sun;
  * @version 1
  */
 public class OrbitCalculator {
-    private final double sunStandardGravitation = 1.489E58;
     /**
      * Creates an orbit object based on the planet given.
      *
@@ -61,7 +60,8 @@ public class OrbitCalculator {
      */
     public double getOrbitalPeriod(double axisSemiMajorAxis) {
         double a3 = Math.pow((axisSemiMajorAxis * 1000), 3);
-        double mu = sunStandardGravitation * 6.67430E-11;
+        //sun standard gravitational parameter
+        double mu = 9.938032700000002E47;
         double orbitalConstant = 2 * Math.PI;
         double squareRoot = Math.sqrt(a3 / mu);
 
