@@ -36,8 +36,7 @@ public class OrbitCalculator {
         long orbitWidth = calculateOrbitWidth(planet.getSemiMajorAxis());
         long orbitHeight = calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion());
         double orbitOffsetFromSun = calculateOrbitOffsetFromSun(planet.getAphelion(), planet.getSemiMajorAxis());
-        
-        
+
         return new Orbit(orbitWidth, orbitHeight, orbitOffsetFromSun, 0);
     }
 
