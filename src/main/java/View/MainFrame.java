@@ -4,12 +4,15 @@ import Controller.Controller;
 import Controller.MusicPlayer;
 
 
+import View.InfoPopover.InfoPopover;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
@@ -24,6 +27,7 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Sphere;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
+import org.controlsfx.control.PopOver;
 
 import javax.swing.*;
 
@@ -58,6 +62,7 @@ public class MainFrame extends JFrame {
     private JPanel overheadPanel;
 
     private MainInfoFrame mainInfoFrame;
+    private Scene orbitPanelJfxScene;
 
     private StackPane root;
 
@@ -205,8 +210,9 @@ public class MainFrame extends JFrame {
      */
     private void initFxOrbit(JFXPanel fxPanel) {
         // This method is invoked on JavaFX thread
-        Scene scene = createScene(controller.getPlanetArrayList()); // default background
-        fxPanel.setScene(scene);
+        // default background
+        orbitPanelJfxScene = createScene(controller.getPlanetArrayList());
+        fxPanel.setScene(orbitPanelJfxScene);
     }
     /**
      * @author Albin Ahlbeck
@@ -228,7 +234,12 @@ public class MainFrame extends JFrame {
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent mouseEvent) {
-                openInfoWindow(determinePlanet((Sphere) mouseEvent.getSource()));
+                try {
+                    openInfoWindow(determinePlanet((Sphere) mouseEvent.getSource()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.err.println("Could not load fxml!");
+                }
             }
 
         };
@@ -528,8 +539,24 @@ public class MainFrame extends JFrame {
      * @author Albin Ahlbeck
      * Opens an information window
      */
-    public void openInfoWindow(Model.Planet planet) {
-        mainInfoFrame = new MainInfoFrame(planet, currentTheme);
+    public void openInfoWindow(Model.Planet planet) throws IOException {
+        //mainInfoFrame = new MainInfoFrame(planet, currentTheme);
+        PopOver popOver = new PopOver();
+        //popOver.detach();
+        popOver.setTitle(planet.getName());
+
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/InfoPopover.fxml"));
+        Node content = fxmlLoader.load();
+        InfoPopover fxmlController = fxmlLoader.getController();
+
+        // setup info..
+        // fxmlController.planetInfo = "blabla";
+        fxmlController.planetImage.setSize(40, 40);
+
+        popOver.setContentNode(content);
+        popOver.show(controller.getSphere(planet));
+        //popOver.show(orbitPanelJfxScene.getRoot());
     }
 
 

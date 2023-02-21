@@ -6,5 +6,8 @@ module orbitz {
     requires javafx.media;
     requires javafx.controls;
     requires javafx.swing;
+    requires org.controlsfx.controls;
+    requires javafx.fxml;
 
+    exports View.InfoPopover to javafx.fxml;
 }

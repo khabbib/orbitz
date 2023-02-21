@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.InfoPopover.InfoPopover">
+   <children>
+      <ImageView id="planetImage" fitHeight="282.0" fitWidth="277.0" layoutX="287.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/planets/Earth.png" />
+         </image>
+      </ImageView>
+      <Text id="infoText" layoutX="47.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is text and more text and more text and more text and more text and more text and more.&#10;&#10;Additional info:&#10;Yes more stuff and more and more and more and more and more and more and more and more and more and more and more and more and more and more v&#10;&#10;" wrappingWidth="220.0">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font>
+      </Text>
+      <Label layoutX="47.0" layoutY="33.0" text="Planet Name">
+         <font>
+            <Font name="Segoe UI Semilight" size="48.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
