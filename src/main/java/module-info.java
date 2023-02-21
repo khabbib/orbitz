@@ -9,5 +9,6 @@ module orbitz {
     requires org.controlsfx.controls;
     requires javafx.fxml;
 
-    exports View.InfoPopover to javafx.fxml;
+    exports View to javafx.fxml;
+    opens View to javafx.fxml;
 }

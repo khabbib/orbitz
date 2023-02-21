@@ -4,28 +4,25 @@ import Controller.Controller;
 import Controller.MusicPlayer;
 
 
-import View.InfoPopover.InfoPopover;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.effect.Lighting;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.effect.Lighting;
-import javafx.scene.effect.Light;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Sphere;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 
@@ -35,6 +32,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -542,19 +540,34 @@ public class MainFrame extends JFrame {
     public void openInfoWindow(Model.Planet planet) throws IOException {
         //mainInfoFrame = new MainInfoFrame(planet, currentTheme);
         PopOver popOver = new PopOver();
-        //popOver.detach();
-        popOver.setTitle(planet.getName());
-
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/InfoPopover.fxml"));
-        Node content = fxmlLoader.load();
+        Parent content = fxmlLoader.load();
         InfoPopover fxmlController = fxmlLoader.getController();
 
-        // setup info..
-        // fxmlController.planetInfo = "blabla";
-        fxmlController.planetImage.setSize(40, 40);
+        // Stupid javafx work-around.. FxController
+        for (Node child : content.getChildrenUnmodifiable()) {
+            if(Objects.equals(child.getId(), "planetImage")) {
+                fxmlController.planetImage = (ImageView) child;
+            } else if (Objects.equals(child.getId(), "infoText")) {
+                fxmlController.infoText = (Text) child;
+            } else if (Objects.equals(child.getId(), "planetTitle")) {
+                fxmlController.planetTitle = (Label) child;
+            }
+        }
+
+        // Setup content
+        URL imgURL = getClass().getResource("/Images/planets/" + planet.getName() + ".png");
+        Image planetImage = new Image(imgURL.toExternalForm());
+        fxmlController.planetImage.setImage(planetImage);
+        fxmlController.planetTitle.setText(planet.getName());
+        fxmlController.infoText.setText("This is facts about " + planet.getName());
 
         popOver.setContentNode(content);
+
+        //popOver.detach();
+        popOver.setDetachable(false);
+        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
         popOver.show(controller.getSphere(planet));
         //popOver.show(orbitPanelJfxScene.getRoot());
     }
