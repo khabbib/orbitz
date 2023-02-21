@@ -64,7 +64,7 @@ public class Controller {
 
     public ArrayList<Model.Planet> setDuration(double durationModifier){
         for (Planet p : newPlanets) {
-            p.setPlanetOrbit(orbitCalculator.getOrbit(p));//Create orbit
+            p.setPlanetOrbit(orbitCalculator.getOrbit(p));
             Orbit orbit = p.getPlanetOrbit();
             planetHashMapHashMap.put(p,new HashMap<>());
             planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getCenterXCord(37500), orbit.getCenterYCord(37500), orbit.getWidth(37500), orbit.getHeight(37500)));

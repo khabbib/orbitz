@@ -36,6 +36,7 @@ public class PositionCalculator {
         if (day < 1 || day > 31) return -1;
         if (month == 2 && day > 28) return -1;
 
+
         LocalDate todayDate = LocalDate.of(year, month, day);
         Duration duration = Duration.between(startDate.atStartOfDay(), todayDate.atStartOfDay());
         days = duration.toDays();
@@ -52,7 +53,6 @@ public class PositionCalculator {
      */
     public double calculatePlanetPosition(double date, String planetName) {
 
-        System.out.println(date + "<<<<<<<<<<GGG");
         switch (planetName) {
             case "Mercury":
                 capitalOmega = 48.3313 + 3.24587E-5 * date; // Not used somewhere

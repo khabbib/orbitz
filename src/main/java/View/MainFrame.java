@@ -10,7 +10,10 @@ import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.*;
 import javafx.scene.Cursor;
@@ -19,6 +22,7 @@ import javafx.scene.effect.Lighting;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.effect.Lighting;
 import javafx.scene.effect.Light;
@@ -112,6 +116,7 @@ public class MainFrame extends JFrame {
 
         orbitPanel.setPreferredSize(new Dimension(getWidth(), getHeight() - 160));
 
+
         Font f = new Font("Arial", Font.BOLD, 8);
         JLabel labelMin = new JLabel("MIN");
         JLabel labelMax = new JLabel("MAX");
@@ -144,6 +149,7 @@ public class MainFrame extends JFrame {
         lblTitle.setOpaque(false);
         overheadPanel.setPreferredSize(new Dimension(1400, 160));
         overheadPanel.add(lblTitle);
+        overheadPanel.setBackground(Color.DARK_GRAY); // Color for header
         overheadPanel.add(timeSlider);
 
         // MUSIC PLAYBACK STUFF
@@ -186,8 +192,8 @@ public class MainFrame extends JFrame {
         add(overheadPanel, BorderLayout.NORTH);
 
 
-        currentTheme = new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
-        setColors(currentTheme);
+        //currentTheme = new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
+        //setColors(currentTheme);
 
         Platform.runLater(new Runnable() {
             @Override
@@ -219,8 +225,11 @@ public class MainFrame extends JFrame {
     private Scene createScene(ArrayList<Model.Planet> planetArrayList) {
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
-        root.setBackground(null);
-        scene.setFill(javafx.scene.paint.Color.BLACK);
+        //root.setStyle("-fx-background-image: url('" + getClass().getResource("/Images/planets/bg.png").toExternalForm()+"'); -fx-background-size: 1400 800; -fx-background-repeat: no-repeat;");
+        //scene.setFill(javafx.scene.paint.Color.BLACK);
+        Image image = new Image(getClass().getResource("/Images/planets/bg.png").toExternalForm());
+        scene.setFill(new ImagePattern(image));
+
         setupCamera(scene);
         handleMouse(root);
         placePlanets(root, planetArrayList);
@@ -287,22 +296,31 @@ public class MainFrame extends JFrame {
             root.getChildren().add(controller.getSphere(planet));
             root.getChildren().add(ellipse);
             ellipse.toBack();
-            ellipse.setStroke(currentTheme.getSecondaryPaint());
+            //ellipse.setStroke(currentTheme.getSecondaryPaint());
             //System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getCenterXCord(37500));
-            Hashtable<Planet, Double> pos = new Hashtable<>();
+            //Hashtable<Planet, Double> pos = new Hashtable<>();
             for (Node child : root.getChildren()) {
                 if (child.equals(controller.getSphere(planet))) {
-                    final Point2D[] currentPos = {new Point2D(child.getTranslateX(), child.getTranslateY())};
-                    pos.put(planet, child.getTranslateX());
+                    //final Point2D[] currentPos = {new Point2D(child.getTranslateX(), child.getTranslateY())};
+                    //pos.put(planet, child.getTranslateX());
 
-                    child.setTranslateX(planet.getPlanetOrbit().getHeight(37500));
+
+
+                    child.setTranslateX(0);
+                    System.out.println(child.getTranslateX());
+
+
+
                     child.setCache(true);
                     PathTransition animation = createPathTransition(child, planet);
-                    System.out.println(animation.getDuration() + " <<<<<<<<<");
-                    controller.putHashValue(planet, "path", animation);
+
+
+
                     animation.setCycleCount(Animation.INDEFINITE);
 
+
                     //animation.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                    controller.putHashValue(planet, "path", animation);
                     //    double ratio = animation.getCurrentTime().toMillis() / animation.getTotalDuration().toMillis();
                     //    Point2D newPosition = new Point2D(child.getTranslateX(), child.getTranslateY());
                     //    Point2D positionDelta = newPosition.subtract(currentPos[0]);
@@ -660,6 +678,7 @@ public class MainFrame extends JFrame {
         PathTransition pathTransition = new PathTransition();
         double day = controller.getPositionCalculator().calculateDateDifference(currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth());
         controller.getEllipse(planet).setRotate(-controller.getPositionCalculator().calculatePlanetPosition(day, planet.getName()));
+
         pathTransition.setPath(controller.getEllipse(planet));
         pathTransition.setNode(node);
         pathTransition.setDuration(controller.getDuration(planet));
