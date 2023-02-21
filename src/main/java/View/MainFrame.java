@@ -222,9 +222,10 @@ public class MainFrame extends JFrame {
         setupCamera(scene);
         handleMouse(root);
         placePlanets(root, planetArrayList);
-        //paintPlanets();
         paintPlanets(planetArrayList);
         startOrbits(planetArrayList);
+
+        // Event handler for planet clicks
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent mouseEvent) {
@@ -233,6 +234,7 @@ public class MainFrame extends JFrame {
 
         };
 
+        // Sphere click events
         for (Model.Planet planet : planetArrayList) {
             Sphere sphere = controller.getSphere(planet);
             sphere.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
@@ -277,14 +279,14 @@ public class MainFrame extends JFrame {
      * @version 1.0
      */
     public void placePlanets(Pane root, ArrayList<Model.Planet> planetArrayList) {
-
+        root.getChildren().clear();
         for (Model.Planet planet : planetArrayList) {
             Ellipse ellipse = controller.getEllipse(planet); // ellipse is the line behind the planets.
             root.getChildren().add(controller.getSphere(planet));
             root.getChildren().add(ellipse);
             ellipse.toBack();
             ellipse.setStroke(currentTheme.getSecondaryPaint());
-            System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getCenterXCord(37500));
+            //System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getCenterXCord(37500));
 
             for (Node child : root.getChildren()) {
                 if (child.equals(controller.getSphere(planet))) {
@@ -449,11 +451,14 @@ public class MainFrame extends JFrame {
 
 
                 //Planets that move 10 times slower for every click on the button
-                newPlanets = controller.createPlanetArray(inDurationModifier);
-                orbitPanel.setScene(createScene(newPlanets));
+                //newPlanets = controller.createPlanetArray(inDurationModifier);
+                //paintPlanets(newPlanets);
+                newPlanets = controller.setDuration(inDurationModifier);
+                placePlanets(root, newPlanets);
                 paintPlanets(newPlanets);
-
-            }
+                startOrbits(newPlanets);
+                //orbitPanel.setScene(createScene(newPlanets));
+                }
         });
 
 
