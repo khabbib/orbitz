@@ -9,6 +9,7 @@ import Model.Enum.Planets;
 import Model.Enum.Stars;
 import Model.Orbit;
 import javafx.animation.PathTransition;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Sphere;
 import javafx.util.Duration;
@@ -68,6 +69,12 @@ public class Controller {
             Orbit orbit = p.getPlanetOrbit();
             planetHashMapHashMap.put(p,new HashMap<>());
             planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getCenterXCord(37500), orbit.getCenterYCord(37500), orbit.getWidth(37500), orbit.getHeight(37500)));
+
+
+            double xc = orbit.getCenterXCord(37500);
+            double yc = orbit.getCenterYCord(37500);
+            double w = orbit.getWidth(37500);
+            double h = orbit.getHeight(37500);
             planetHashMapHashMap.get(p).put("sphere",MainFrame.createSphere(p));
 
             // Need to be calculated the position of each planet.
@@ -84,8 +91,8 @@ public class Controller {
         return (Ellipse) planetHashMapHashMap.get(planet).get("ellipse");
     }
 
-    public Sphere getSphere(Planet planet) {
-        return (Sphere) planetHashMapHashMap.get(planet).get("sphere");
+    public ImageView getSphere(Planet planet) {
+        return (ImageView) planetHashMapHashMap.get(planet).get("sphere");
     }
 
     public PathTransition getPathTransition(Planet planet) {

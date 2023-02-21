@@ -15,6 +15,7 @@ import javafx.event.EventDispatcher;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
@@ -233,7 +234,7 @@ public class MainFrame extends JFrame {
         setupCamera(scene);
         handleMouse(root);
         placePlanets(root, planetArrayList);
-        paintPlanets(planetArrayList);
+        //paintPlanets(planetArrayList);
         startOrbits(planetArrayList);
 
         // Event handler for planet clicks
@@ -246,11 +247,11 @@ public class MainFrame extends JFrame {
         };
 
         // Sphere click events
-        for (Model.Planet planet : planetArrayList) {
-            Sphere sphere = controller.getSphere(planet);
-            sphere.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
-            sphere.setCursor(Cursor.HAND);
-        }
+        //for (Model.Planet planet : planetArrayList) {
+        //    Sphere sphere = controller.getSphere(planet);
+        //    sphere.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
+        //    sphere.setCursor(Cursor.HAND);
+        //}
 
         return scene;
     }
@@ -293,7 +294,11 @@ public class MainFrame extends JFrame {
         root.getChildren().clear();
         for (Model.Planet planet : planetArrayList) {
             Ellipse ellipse = controller.getEllipse(planet); // ellipse is the line behind the planets.
+
             root.getChildren().add(controller.getSphere(planet));
+
+            //planetHashMapHashMap.get(p).put("sphere",mainframe.createSphere(p));
+
             root.getChildren().add(ellipse);
             ellipse.toBack();
             //ellipse.setStroke(currentTheme.getSecondaryPaint());
@@ -485,7 +490,7 @@ public class MainFrame extends JFrame {
 
                 newPlanets = controller.setDuration(inDurationModifier);
                 placePlanets(root, newPlanets);
-                paintPlanets(newPlanets);
+                //paintPlanets(newPlanets);
                 startOrbits(newPlanets);
                 }
         });
@@ -502,7 +507,7 @@ public class MainFrame extends JFrame {
         for (Model.Planet planet : planets) {
             PhongMaterial map = new PhongMaterial();
             map.setDiffuseMap(new Image(getClass().getResource("/Images/planets/" + planet.getName() + ".png").toExternalForm()));
-            controller.getSphere(planet).setMaterial(map);
+            //controller.getSphere(planet).setMaterial(map);
         }
     }
 
@@ -649,10 +654,31 @@ public class MainFrame extends JFrame {
         return ellipse;
     }
 
-    public static Sphere createSphere(Model.Planet planet) {
-        Sphere sphere = new Sphere((double) planet.getMeanRadius() * 1000 / planet.getSCALE_RADIUS_VALUE());
-        sphere.setId(planet.getName());
-        return sphere;
+    public static ImageView createSphere(Model.Planet planet) {
+        Image image = new Image(MainFrame.class.getResourceAsStream("/Images/planets/" + planet.getName() + ".png"));
+       // Image image = new Image(MainFrame.class.getResourceAsStream("/Images/planets/bg.png"));
+        ImageView imageView = new ImageView(image);
+
+        //Sphere((double) planet.getMeanRadius() * 1000 / planet.getSCALE_RADIUS_VALUE());
+
+
+        double radius = (double) planet.getMeanRadius() * 1000 / planet.getSCALE_RADIUS_VALUE();
+        double diameter = radius * 2;
+
+
+        imageView.setFitHeight(diameter);
+        imageView.setFitWidth(diameter);
+        imageView.setPreserveRatio(true);
+        imageView.setSmooth(true);
+        imageView.setCache(true);
+        imageView.setPickOnBounds(true);
+        imageView.setId(planet.getName());
+        imageView.setTranslateX(0);
+        imageView.setTranslateY(0);
+        imageView.setTranslateZ(diameter);
+
+
+        return imageView;
     }
 
     /**
