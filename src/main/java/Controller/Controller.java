@@ -69,9 +69,11 @@ public class Controller {
             planetHashMapHashMap.put(p,new HashMap<>());
             planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getCenterXCord(37500), orbit.getCenterYCord(37500), orbit.getWidth(37500), orbit.getHeight(37500)));
             planetHashMapHashMap.get(p).put("sphere",MainFrame.createSphere(p));
+
+            // Need to be calculated the position of each planet.
+            // This is only the animation duration.
             Duration duration = new Duration(((orbitCalculator.getOrbitalPeriod(p.getSemiMajorAxis()) * 1000 / durationModifier) * 1000000000) * 10000);
             planetHashMapHashMap.get(p).put("duration",duration);
-
         }
 
         return newPlanets;

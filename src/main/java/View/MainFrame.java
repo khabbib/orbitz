@@ -4,12 +4,14 @@ import Controller.Controller;
 import Controller.MusicPlayer;
 
 
+import Model.Planet;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
@@ -287,14 +289,28 @@ public class MainFrame extends JFrame {
             ellipse.toBack();
             ellipse.setStroke(currentTheme.getSecondaryPaint());
             //System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getCenterXCord(37500));
-
+            Hashtable<Planet, Double> pos = new Hashtable<>();
             for (Node child : root.getChildren()) {
                 if (child.equals(controller.getSphere(planet))) {
+                    final Point2D[] currentPos = {new Point2D(child.getTranslateX(), child.getTranslateY())};
+                    pos.put(planet, child.getTranslateX());
+
                     child.setTranslateX(planet.getPlanetOrbit().getHeight(37500));
                     child.setCache(true);
                     PathTransition animation = createPathTransition(child, planet);
+                    System.out.println(animation.getDuration() + " <<<<<<<<<");
                     controller.putHashValue(planet, "path", animation);
                     animation.setCycleCount(Animation.INDEFINITE);
+
+                    //animation.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                    //    double ratio = animation.getCurrentTime().toMillis() / animation.getTotalDuration().toMillis();
+                    //    Point2D newPosition = new Point2D(child.getTranslateX(), child.getTranslateY());
+                    //    Point2D positionDelta = newPosition.subtract(currentPos[0]);
+                    //    //planet.addToPosition(positionDelta.multiply(1 / ratio));
+                    //    currentPos[0] = newPosition;
+                    //    System.out.println(currentPos[0]);
+                    //});
+
                 }
             }
             setTooltip(planet);
@@ -659,12 +675,13 @@ public class MainFrame extends JFrame {
      * @author Lanna Maslo
      * Creates a sphere graphical object for the sun
      */
-    public ImageView createSunSphere(int radius) {
-        Image image = new Image(getClass().getResource("/Images/planets/Sun.png").toExternalForm());
-        ImageView imageView = new ImageView(image);
-        imageView.setTranslateX(0);
-        imageView.setTranslateY(0);
+    public Sphere createSunSphere(int radius) {
+        Sphere sun = new Sphere(radius);
+        PhongMaterial map = new PhongMaterial();
+        map.setDiffuseMap(new Image(getClass().getResource("/Images/planets/Sun.png").toExternalForm()));
 
-        return imageView;
+        sun.setMaterial(map);
+
+        return sun;
     }
 }

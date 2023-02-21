@@ -33,6 +33,8 @@ public class Planet {
         this.perihelion = (long) planetInfo.get("perihelion");
         this.aphelion = (long) planetInfo.get("aphelion");
         this.meanRadius = (double) planetInfo.get("meanRadius");
+        System.out.println("XXXXX: " +pos.calculatePlanetPosition(2020, "Earth"));
+
     }
 
     /**

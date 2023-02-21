@@ -52,6 +52,7 @@ public class PositionCalculator {
      */
     public double calculatePlanetPosition(double date, String planetName) {
 
+        System.out.println(date + "<<<<<<<<<<GGG");
         switch (planetName) {
             case "Mercury":
                 capitalOmega = 48.3313 + 3.24587E-5 * date; // Not used somewhere
@@ -155,7 +156,6 @@ public class PositionCalculator {
             E0 = E1;
             E1 = E0 - (E0 - (180 / Math.PI) * eccentricity * Math.sin(Math.PI / 180 * E0) - meanAnomaly) / (1 - eccentricity * Math.cos(Math.PI / 180 * E0));
         }
-        System.out.println("calculateEccentricAnomaly: E1: " + E1);
         return E1;
     }
 
