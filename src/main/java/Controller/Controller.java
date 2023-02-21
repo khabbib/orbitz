@@ -53,23 +53,10 @@ public class Controller {
      * @return An ArrayList filled with newly generated planet objects
      */
     public ArrayList<Model.Planet> createPlanetArray(double durationModifier) {
-        System.out.println("Creating planet array" );
 
-        //Reads the planets from the API
         for (Planets p : Planets.values()) {
             newPlanets.add(new Planet(reader.readBodyFromAPI(p.toString())));
         }
-
-        //Add orbits to the planets
-        //for (Planet p : newPlanets) {
-        //    p.setPlanetOrbit(orbitCalculator.getOrbit(p));//Create orbit
-        //    Orbit orbit = p.getPlanetOrbit();
-        //    planetHashMapHashMap.put(p,new HashMap<>());
-        //    planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getCenterXCord(37500), orbit.getCenterYCord(37500), orbit.getWidth(37500), orbit.getHeight(37500)));
-        //    planetHashMapHashMap.get(p).put("sphere",MainFrame.createSphere(p));
-        //}
-
-        //Sets planet duration [*1000 is to make it into seconds instead of milliseconds]
 
         return setDuration(durationModifier);
     }
@@ -85,7 +72,6 @@ public class Controller {
             Duration duration = new Duration(((orbitCalculator.getOrbitalPeriod(p.getSemiMajorAxis()) * 1000 / durationModifier) * 1000000000) * 10000);
             planetHashMapHashMap.get(p).put("duration",duration);
 
-            //System.out.println(planet.getName() + "\t" + duration);
         }
 
         return newPlanets;

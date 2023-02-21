@@ -449,15 +449,10 @@ public class MainFrame extends JFrame {
                     }
                 });
 
-
-                //Planets that move 10 times slower for every click on the button
-                //newPlanets = controller.createPlanetArray(inDurationModifier);
-                //paintPlanets(newPlanets);
                 newPlanets = controller.setDuration(inDurationModifier);
                 placePlanets(root, newPlanets);
                 paintPlanets(newPlanets);
                 startOrbits(newPlanets);
-                //orbitPanel.setScene(createScene(newPlanets));
                 }
         });
 
