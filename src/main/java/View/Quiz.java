@@ -160,12 +160,13 @@ public class Quiz {
 
         prev.setOnAction(e -> {
             if(questionNumber[0] > 0) {
-                next_box.setOpacity(1);
+                prev_box.setOpacity(1);
                 questionNumber[0]--;
                 question.setText(questions.get(questionNumber[0]).question);
                 if(status_box.isVisible()){
                     closeStatus(null);
                 }
+
                 if(questionNumber[0] == 0) {
                     prev_box.setOpacity(0.5);
                 }

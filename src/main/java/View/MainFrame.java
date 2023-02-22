@@ -55,13 +55,14 @@ public class MainFrame extends JFrame {
 
     private static JFXPanel orbitPanel;
 
-    private JPanel overheadPanel;
+    private static JPanel overheadPanel;
 
     private MainInfoFrame mainInfoFrame;
 
     private StackPane root;
     private static Scene orbitScene;
     private static Scene quizScene;
+    private static JFrame mainFrame;
 
     private JSlider timeSlider;
 
@@ -87,6 +88,7 @@ public class MainFrame extends JFrame {
      * Constructs the GUI components and starts the Java-FX window.
      */
     public MainFrame(Controller inController) {
+
         this.controller = inController;
         initFonts();
         orbitPanel = new JFXPanel();
@@ -196,8 +198,9 @@ public class MainFrame extends JFrame {
         overheadPanel.add(btnMuteMusic);
 
 
-        add(orbitPanel, BorderLayout.CENTER);
-        add(overheadPanel, BorderLayout.NORTH);
+        mainFrame = this;
+        mainFrame.add(orbitPanel, BorderLayout.CENTER);
+        mainFrame.add(overheadPanel, BorderLayout.NORTH);
 
         Platform.runLater(new Runnable() {
             @Override
@@ -244,14 +247,10 @@ public class MainFrame extends JFrame {
 
     // Create quiz scene
     private static Scene getQuizScene() throws IOException {
-
-        System.out.println("Loading quiz scene 1");
         FXMLLoader loader = new FXMLLoader(MainFrame.class.getResource("/View/test.fxml"));
         Parent root = loader.load();
-
         Scene scene = new Scene(root, WIDTH, HEIGHT);
-
-
+        mainFrame.remove(overheadPanel);
         quizScene = scene;
         return scene;
     }
