@@ -10,23 +10,16 @@ import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-import javafx.scene.effect.Lighting;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.effect.Lighting;
-import javafx.scene.effect.Light;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Sphere;
 import javafx.scene.image.Image;
@@ -50,8 +43,8 @@ import java.util.*;
  * MainFrame is the main window which contains various graphical components
  */
 public class MainFrame extends JFrame {
-    private final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final int MAX_SLIDER_VALUE = 30;
 
     private JLabel lblTitle;
@@ -60,13 +53,15 @@ public class MainFrame extends JFrame {
 
     private Theme currentTheme;
 
-    private JFXPanel orbitPanel;
+    private static JFXPanel orbitPanel;
 
     private JPanel overheadPanel;
 
     private MainInfoFrame mainInfoFrame;
 
     private StackPane root;
+    private static Scene orbitScene;
+    private static Scene quizScene;
 
     private JSlider timeSlider;
 
@@ -171,6 +166,17 @@ public class MainFrame extends JFrame {
         newImg = img.getScaledInstance( 100, 100, java.awt.Image.SCALE_SMOOTH);
         ImageIcon soundOnScaled = new ImageIcon(newImg);
 
+        // Quiz button setup
+        JButton quizButton = new JButton("Quiz");
+        quizButton.setPreferredSize(new Dimension(100, 32));
+        quizButton.setBackground(Color.CYAN);
+        quizButton.addActionListener(e -> {
+            this.changeScene("Quiz");
+        });
+
+        overheadPanel.add(quizButton);
+
+
         JButton btnMuteMusic = musicPlayer.getPlaybackState() ? new JButton(soundOnScaled) : new JButton(soundOffScaled);
         musicPlayer.getPlaybackStateProperty().addListener((observableValue, oldValue, newValue) -> {
             if(newValue) {
@@ -180,6 +186,7 @@ public class MainFrame extends JFrame {
                 btnMuteMusic.setIcon(soundOffScaled);
             }
         });
+
         btnMuteMusic.setPreferredSize(new Dimension(100, 100));
         btnMuteMusic.setBackground(Color.black);
         btnMuteMusic.setBorderPainted(false);
@@ -189,33 +196,93 @@ public class MainFrame extends JFrame {
         overheadPanel.add(btnMuteMusic);
 
         add(orbitPanel, BorderLayout.CENTER);
-
         add(overheadPanel, BorderLayout.NORTH);
-
-
-        //currentTheme = new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
-        //setColors(currentTheme);
 
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                initFxOrbit(orbitPanel);
+                initFxOrbit();
             }
         });
         setVisible(true);
     }
 
+
+    static void changeScene(String name) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
+
+
+                switch (name) {
+                    case "Quiz":
+                        Scene scene = null;
+                        try {
+                            scene = getQuizScene();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        orbitPanel.setScene(scene);
+                        break;
+                    case "Orbit":
+                        orbitPanel.setScene(orbitScene);
+                        break;
+                }
+
+
+            }
+        });
+
+
+    }
+
+    // Create quiz scene
+    private static Scene getQuizScene() throws IOException {
+        // Replace scene here
+        //StackPane quize = new StackPane();
+
+        System.out.println("Loading quiz scene 1");
+        FXMLLoader loader = new FXMLLoader(MainFrame.class.getResource("/View/test.fxml"));
+        Parent root = loader.load();
+
+
+
+        //quize.setStyle("-fx-background-color: #fb3585;");
+        //Pane pane = new Pane();
+        //Button button = new Button("Close Quiz");
+        //button.setStyle("-fx-background-color: #ffffff;");
+        //button.setOnAction(event -> {
+        //    changeScene("Orbit");
+        //});
+        //pane.getChildren().add(button);
+        //
+        //
+        //pane.setStyle("-fx-background-color: #fb3585;");
+        //quize.getChildren().add(pane);
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
+
+        quizScene = scene;
+        return scene;
+    }
+
     /**
-     * @param fxPanel The JavaFX panel to be created
      * @author Albin Ahlbeck
      * @author Lanna Maslo
      * Creates a new scene from createScene and adds it to the Java FX window
      * Sets background music
      */
-    private void initFxOrbit(JFXPanel fxPanel) {
+    private void initFxOrbit() {
         // This method is invoked on JavaFX thread
-        Scene scene = createScene(controller.getPlanetArrayList()); // default background
-        fxPanel.setScene(scene);
+        System.out.println("initFX");
+
+        orbitScene = createScene();
+        orbitPanel.setScene(orbitScene);
+
     }
     /**
      * @author Albin Ahlbeck
@@ -223,7 +290,9 @@ public class MainFrame extends JFrame {
      * @author Manna Manojlovic
      * Creates the Java-FX scene
      */
-    private Scene createScene(ArrayList<Model.Planet> planetArrayList) {
+    private Scene createScene() {
+        ArrayList<Planet> planets = controller.getPlanetArrayList();
+
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
@@ -232,9 +301,9 @@ public class MainFrame extends JFrame {
 
         setupCamera(scene);
         handleMouse(root);
-        placePlanets(root, planetArrayList);
-        paintPlanets(planetArrayList);
-        startOrbits(planetArrayList);
+        placePlanets(root, planets);
+        paintPlanets(planets);
+        startOrbits(planets);
 
         // Event handler for planet clicks
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() {
@@ -246,7 +315,7 @@ public class MainFrame extends JFrame {
         };
 
         // Sphere click events
-        for (Model.Planet planet : planetArrayList) {
+        for (Model.Planet planet : planets) {
             Sphere sphere = controller.getSphere(planet);
             sphere.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
             sphere.setCursor(Cursor.HAND);
@@ -470,6 +539,7 @@ public class MainFrame extends JFrame {
 
 
     }
+
 
     /**
      * Paints the surface of the planets by calling their individual mappings
