@@ -4,12 +4,18 @@ import Controller.Controller;
 import Controller.MusicPlayer;
 
 
+import Model.Planet;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
@@ -111,6 +117,7 @@ public class MainFrame extends JFrame {
 
         orbitPanel.setPreferredSize(new Dimension(getWidth(), getHeight() - 160));
 
+
         Font f = new Font("Arial", Font.BOLD, 8);
         JLabel labelMin = new JLabel("MIN");
         JLabel labelMax = new JLabel("MAX");
@@ -143,6 +150,7 @@ public class MainFrame extends JFrame {
         lblTitle.setOpaque(false);
         overheadPanel.setPreferredSize(new Dimension(1400, 160));
         overheadPanel.add(lblTitle);
+        overheadPanel.setBackground(Color.DARK_GRAY); // Color for header
         overheadPanel.add(timeSlider);
 
         // MUSIC PLAYBACK STUFF
@@ -185,8 +193,8 @@ public class MainFrame extends JFrame {
         add(overheadPanel, BorderLayout.NORTH);
 
 
-        currentTheme = new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
-        setColors(currentTheme);
+        //currentTheme = new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
+        //setColors(currentTheme);
 
         Platform.runLater(new Runnable() {
             @Override
@@ -218,6 +226,7 @@ public class MainFrame extends JFrame {
     private Scene createScene(ArrayList<Model.Planet> planetArrayList) {
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
+
         Image image = new Image(getClass().getResource("/Images/planets/bg.png").toExternalForm());
         scene.setFill(new ImagePattern(image));
 
@@ -287,16 +296,17 @@ public class MainFrame extends JFrame {
             root.getChildren().add(controller.getSphere(planet));
             root.getChildren().add(ellipse);
             ellipse.toBack();
-            ellipse.setStroke(currentTheme.getSecondaryPaint());
-            //System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getCenterXCord(37500));
-
             for (Node child : root.getChildren()) {
                 if (child.equals(controller.getSphere(planet))) {
-                    child.setTranslateX(planet.getPlanetOrbit().getHeight(37500));
+                    child.setTranslateX(0);
+                    System.out.println(child.getTranslateX());
+
                     child.setCache(true);
                     PathTransition animation = createPathTransition(child, planet);
-                    controller.putHashValue(planet, "path", animation);
+
                     animation.setCycleCount(Animation.INDEFINITE);
+
+                    controller.putHashValue(planet, "path", animation);
                 }
             }
             setTooltip(planet);
@@ -451,15 +461,10 @@ public class MainFrame extends JFrame {
                     }
                 });
 
-
-                //Planets that move 10 times slower for every click on the button
-                //newPlanets = controller.createPlanetArray(inDurationModifier);
-                //paintPlanets(newPlanets);
                 newPlanets = controller.setDuration(inDurationModifier);
                 placePlanets(root, newPlanets);
-                paintPlanets(newPlanets);
+                //paintPlanets(newPlanets);
                 startOrbits(newPlanets);
-                //orbitPanel.setScene(createScene(newPlanets));
                 }
         });
 
@@ -475,7 +480,7 @@ public class MainFrame extends JFrame {
         for (Model.Planet planet : planets) {
             PhongMaterial map = new PhongMaterial();
             map.setDiffuseMap(new Image(getClass().getResource("/Images/planets/" + planet.getName() + ".png").toExternalForm()));
-            controller.getSphere(planet).setMaterial(map);
+            //controller.getSphere(planet).setMaterial(map);
         }
     }
 
@@ -623,8 +628,12 @@ public class MainFrame extends JFrame {
     }
 
     public static Sphere createSphere(Model.Planet planet) {
+        Image image = new Image(MainFrame.class.getResourceAsStream("/Images/planets/" + planet.getName() + ".png"));
         Sphere sphere = new Sphere((double) planet.getMeanRadius() * 1000 / planet.getSCALE_RADIUS_VALUE());
-        sphere.setId(planet.getName());
+        PhongMaterial material = new PhongMaterial();
+        material.setDiffuseMap(image);
+        sphere.setMaterial(material);
+
         return sphere;
     }
 
@@ -651,6 +660,7 @@ public class MainFrame extends JFrame {
         PathTransition pathTransition = new PathTransition();
         double day = controller.getPositionCalculator().calculateDateDifference(currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth());
         controller.getEllipse(planet).setRotate(-controller.getPositionCalculator().calculatePlanetPosition(day, planet.getName()));
+
         pathTransition.setPath(controller.getEllipse(planet));
         pathTransition.setNode(node);
         pathTransition.setDuration(controller.getDuration(planet));
@@ -666,12 +676,13 @@ public class MainFrame extends JFrame {
      * @author Lanna Maslo
      * Creates a sphere graphical object for the sun
      */
-    public ImageView createSunSphere(int radius) {
-        Image image = new Image(getClass().getResource("/Images/planets/Sun.png").toExternalForm());
-        ImageView imageView = new ImageView(image);
-        imageView.setTranslateX(0);
-        imageView.setTranslateY(0);
+    public Sphere createSunSphere(int radius) {
+        Sphere sun = new Sphere(radius);
+        PhongMaterial map = new PhongMaterial();
+        map.setDiffuseMap(new Image(getClass().getResource("/Images/planets/Sun.png").toExternalForm()));
 
-        return imageView;
+        sun.setMaterial(map);
+
+        return sun;
     }
 }

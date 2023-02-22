@@ -36,6 +36,7 @@ public class PositionCalculator {
         if (day < 1 || day > 31) return -1;
         if (month == 2 && day > 28) return -1;
 
+
         LocalDate todayDate = LocalDate.of(year, month, day);
         Duration duration = Duration.between(startDate.atStartOfDay(), todayDate.atStartOfDay());
         days = duration.toDays();
@@ -155,7 +156,6 @@ public class PositionCalculator {
             E0 = E1;
             E1 = E0 - (E0 - (180 / Math.PI) * eccentricity * Math.sin(Math.PI / 180 * E0) - meanAnomaly) / (1 - eccentricity * Math.cos(Math.PI / 180 * E0));
         }
-        System.out.println("calculateEccentricAnomaly: E1: " + E1);
         return E1;
     }
 
