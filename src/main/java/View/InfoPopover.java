@@ -5,6 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+/**
+ * FXML controller.
+ * Allows access to the matching UI elements.
+ */
 public class InfoPopover {
     @FXML public ImageView planetImage;
     @FXML public Text infoText;

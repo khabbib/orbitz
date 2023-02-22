@@ -528,12 +528,16 @@ public class MainFrame extends JFrame {
 
 
     /**
+     * Opens a popup with information about the specified planet.
      * @param planet The planet to showcase
-     * @author Albin Ahlbeck
-     * Opens an information window
+     * @author Joel Eriksson Sinclair
      */
     public void openInfoWindow(Model.Planet planet) throws IOException {
         PopOver popOver = new InfoPopoverBuilder().createInfoPopover(planet);
+
+        popOver.setDetachable(false);
+        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
+        popOver.setHeaderAlwaysVisible(true);
 
         popOver.show(controller.getSphere(planet));
         //popOver.show(orbitPanelJfxScene.getRoot());

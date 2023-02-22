@@ -20,7 +20,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+/**
+ * Handles the creation of PopOver elements that display planetary information.
+ * @author Joel Eriksson Sinclair
+ */
 public class InfoPopoverBuilder {
+    /**
+     * Creates a popover element populated with information about a given planet and its moons.
+     * @param planet Planet to display information about.
+     * @return A popover with information about a given planet and its moons
+     * @throws IOException Upon errors loading FXML files.
+     */
     public PopOver createInfoPopover(Planet planet) throws IOException {
         PopOver popOver = new PopOver();
 
@@ -29,21 +39,24 @@ public class InfoPopoverBuilder {
 
         Tab planetTab = new Tab(planet.getName());
         tabPane.getTabs().add(planetTab);
-        planetTab.setContent(createPlanetPanel(planet.getName()));
+        planetTab.setContent(createPlanetPane(planet.getName()));
 
         Tab moonTab = new Tab("Moons");
-        moonTab.setContent(createMoonPanel(planet.getName()));
+        moonTab.setContent(createMoonPane(planet.getName()));
         tabPane.getTabs().add(moonTab);
 
         popOver.setContentNode(tabPane);
 
-        popOver.setDetachable(false);
-        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
-        popOver.setHeaderAlwaysVisible(true);
         return popOver;
     }
 
-    private Node createPlanetPanel(String planetName) throws IOException {
+    /**
+     * Creates a Pane populated with information about the given planet.
+     * @param planetName
+     * @return The root node of the created UI element
+     * @throws IOException Upon errors when loading the fxml file
+     */
+    private Node createPlanetPane(String planetName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/InfoPopover.fxml"));
         Parent rootNode = fxmlLoader.load();
         InfoPopover fxmlController = fxmlLoader.getController();
@@ -60,7 +73,13 @@ public class InfoPopoverBuilder {
         return rootNode;
     }
 
-    private Node createMoonPanel(String planetName) throws IOException {
+    /**
+     * Creates a Pane populated with information about the moons of the given planet.
+     * @param planetName
+     * @return The root node of the created UI element
+     * @throws IOException Upon errors when loading the fxml file
+     */
+    private Node createMoonPane(String planetName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/InfoPopover.fxml"));
         Parent rootFxml = fxmlLoader.load();
         InfoPopover fxmlController = fxmlLoader.getController();
@@ -74,6 +93,11 @@ public class InfoPopoverBuilder {
         return rootFxml;
     }
 
+    /**
+     * Searches through a parents children to bind UI-elements to a given controller.
+     * @param parent Parent node to find matching UI-elements within.
+     * @param fxmlController Controller to be bound.
+     */
     private void checkChildrenForIDs(Parent parent, InfoPopover fxmlController) {
         for (Node child : parent.getChildrenUnmodifiable()) {
             if (child instanceof ScrollPane) {
