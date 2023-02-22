@@ -56,7 +56,6 @@ public class MainFrame extends JFrame {
 
     private JPanel overheadPanel;
 
-    private MainInfoFrame mainInfoFrame;
     private Scene orbitPanelJfxScene;
 
     private StackPane root;
