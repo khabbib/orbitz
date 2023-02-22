@@ -195,6 +195,7 @@ public class MainFrame extends JFrame {
 
         overheadPanel.add(btnMuteMusic);
 
+
         add(orbitPanel, BorderLayout.CENTER);
         add(overheadPanel, BorderLayout.NORTH);
 
@@ -243,28 +244,13 @@ public class MainFrame extends JFrame {
 
     // Create quiz scene
     private static Scene getQuizScene() throws IOException {
-        // Replace scene here
-        //StackPane quize = new StackPane();
 
         System.out.println("Loading quiz scene 1");
         FXMLLoader loader = new FXMLLoader(MainFrame.class.getResource("/View/test.fxml"));
         Parent root = loader.load();
 
-
-
-        //quize.setStyle("-fx-background-color: #fb3585;");
-        //Pane pane = new Pane();
-        //Button button = new Button("Close Quiz");
-        //button.setStyle("-fx-background-color: #ffffff;");
-        //button.setOnAction(event -> {
-        //    changeScene("Orbit");
-        //});
-        //pane.getChildren().add(button);
-        //
-        //
-        //pane.setStyle("-fx-background-color: #fb3585;");
-        //quize.getChildren().add(pane);
         Scene scene = new Scene(root, WIDTH, HEIGHT);
+
 
         quizScene = scene;
         return scene;
