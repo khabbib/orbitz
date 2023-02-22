@@ -17,6 +17,7 @@ import javafx.scene.effect.Lighting;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.effect.Lighting;
 import javafx.scene.effect.Light;
@@ -217,8 +218,9 @@ public class MainFrame extends JFrame {
     private Scene createScene(ArrayList<Model.Planet> planetArrayList) {
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
-        root.setBackground(null);
-        scene.setFill(javafx.scene.paint.Color.BLACK);
+        Image image = new Image(getClass().getResource("/Images/planets/bg.png").toExternalForm());
+        scene.setFill(new ImagePattern(image));
+
         setupCamera(scene);
         handleMouse(root);
         placePlanets(root, planetArrayList);
