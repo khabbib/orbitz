@@ -1,10 +1,8 @@
-package Controller.Calculators;
+package Model;
 
 import Model.Enum.Stars;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
-import Model.Sun;
 import Controller.APIReader;
 public class SunTest {
 
