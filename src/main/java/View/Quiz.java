@@ -4,11 +4,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -26,7 +24,7 @@ public class Quiz {
     @FXML
     private Text status;
     @FXML
-    private TextArea info_textarea;
+    private Text info_textarea;
     @FXML
     private Button close_status;
     @FXML
@@ -89,7 +87,7 @@ public class Quiz {
             return description;
         }
     }
-
+    // List of questions
     private final List<Question> questions = List.of(
             new Question("Which planet is known as the (Red Planet)?", "Mars", "Mars is known as the Red Planet because of its reddish appearance, which is caused by iron oxide (rust) on its surface."),
             new Question("Which planet is closest to the Sun?", "Mercury", "Mercury is the closest planet to the Sun, with an average distance of 36 million miles (58 million kilometers)."),
@@ -103,20 +101,25 @@ public class Quiz {
             new Question("Which planet is known for having the longest day in the solar system?", "Venus", "Venus has a very slow rotation, and it takes 243 Earth days to complete one rotation, making it the planet with the longest day in the solar system.")
     );
 
+    // Initialize quiz
     public void initialize() {
         AtomicInteger score = new AtomicInteger();
         final int[] questionNumber = {0};
-        // Set question
+
         question.setText(questions.get(questionNumber[0]).question);
 
-        // Set status box invisible after x amount of seconds
+        /**
+         * Timeline for closing status box (x amount of time)
+         */
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             if(status_box.isVisible()) {
                 closeStatus(null);
             }
         }));
 
-        // Listen for answer from the user
+        /**
+         * Quiz handler - listens for button clicks on planets
+         */
         planetspane.addEventFilter(MouseEvent.MOUSE_CLICKED, (event) -> {
             if (event.getTarget() instanceof Button) {
                 Button clickedButton = (Button) event.getTarget();
@@ -124,29 +127,32 @@ public class Quiz {
                 String answer = questions.get(questionNumber[0]).answer.toLowerCase();
                 if(answerId.equals(answer)) {
                     score.getAndIncrement();
-                    System.out.println(answerId + " is correct " + score);
                     status.setText("Correct!");
+                    status.setFill(javafx.scene.paint.Color.rgb(0, 201,0));
                     info_textarea.setText(questions.get(questionNumber[0]).description);
                     status_box.setVisible(true);
-                    questionNumber[0]++;
-                    question.setText(questions.get(questionNumber[0]).question);
+
+                    // Increment question number
+                    //questionNumber[0]++;
+                    //question.setText(questions.get(questionNumber[0]).question);
                 } else {
-                    System.out.println(answerId + " is wrong " + score);
                     status.setText("Wrong!");
+                    status.setFill(javafx.scene.paint.Color.rgb(213, 69, 23));
                     info_textarea.setText("Try again!");
                     status_box.setVisible(true);
-                    // Wrong answer
                 }
-                // Set
-                timeline.play();
 
+                // Close status box after x amount of seconds
+                timeline.play();
             }
         });
 
 
+        /**
+         * Next button
+         */
         next.setOnAction(e -> {
             if(questionNumber[0] < questions.size() - 1) {
-                next_box.setOpacity(1);
                 questionNumber[0]++;
                 question.setText(questions.get(questionNumber[0]).question);
                 if(status_box.isVisible()){
@@ -154,10 +160,18 @@ public class Quiz {
                 }
                 if(questionNumber[0] == questions.size() - 1) {
                     next_box.setOpacity(0.5);
+                    next.setDisable(false);
+                }
+                if(questionNumber[0] > 0) {
+                    prev_box.setOpacity(1);
+                    prev.setDisable(false);
                 }
             }
         });
 
+        /**
+         * Previous button
+         */
         prev.setOnAction(e -> {
             if(questionNumber[0] > 0) {
                 prev_box.setOpacity(1);
@@ -166,22 +180,36 @@ public class Quiz {
                 if(status_box.isVisible()){
                     closeStatus(null);
                 }
-
                 if(questionNumber[0] == 0) {
                     prev_box.setOpacity(0.5);
+                    prev.setDisable(true);
+                }
+                if(questionNumber[0] < questions.size() - 1) {
+                    next_box.setOpacity(1);
+                    next.setDisable(false);
                 }
             }
         });
 
+        /**
+         * Close button - return to orbit scene
+         */
         close.setOnAction(e -> {
             MainFrame.changeScene("Orbit");
         });
 
+        /**
+         * Close status box
+         */
         close_status.setOnAction(e -> {
             closeStatus(null);
         });
     }
 
+    /**
+     * Close status box
+     * @param mouseEvent
+     */
     public void closeStatus(MouseEvent mouseEvent) {
         status_box.setVisible(false);
     }
