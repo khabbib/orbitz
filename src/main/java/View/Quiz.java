@@ -2,9 +2,14 @@ package View;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class Quiz {
+    @FXML
+    private Button startQuiz;
+    @FXML
+    private AnchorPane startScreen;
     @FXML
     private Button closeQuiz;
     @FXML
@@ -32,9 +37,7 @@ public class Quiz {
     private Button sun;
 
     public void initialize() {
-
         question.setText("Klicka på Uranus.");
-
 
 
         /**
