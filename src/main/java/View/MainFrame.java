@@ -10,10 +10,9 @@ import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.*;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
@@ -41,8 +40,8 @@ import java.util.*;
  * MainFrame is the main window which contains various graphical components
  */
 public class MainFrame extends JFrame {
-    private final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final int MAX_SLIDER_VALUE = 30;
 
     private JLabel lblTitle;
@@ -51,7 +50,7 @@ public class MainFrame extends JFrame {
 
     private Theme currentTheme;
 
-    private JFXPanel orbitPanel;
+    private static JFXPanel orbitPanel;
 
     private JPanel overheadPanel;
 
@@ -75,6 +74,12 @@ public class MainFrame extends JFrame {
     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
     private MusicPlayer musicPlayer;
+
+    private static Scene orbitScene;
+    private static Scene quizScene;
+    private static JFrame mainFrame;
+
+    private static JPanel buttonPanel;
 
     /**
      * @param inController gains a reference to controller in order to fetch the planet list
@@ -177,10 +182,27 @@ public class MainFrame extends JFrame {
 
         overheadPanel.add(btnMuteMusic);
 
-        add(orbitPanel, BorderLayout.CENTER);
 
-        add(overheadPanel, BorderLayout.NORTH);
+        mainFrame = this;
+        // Quiz button panel
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        buttonPanel.setPreferredSize(new Dimension(200, 60));
+        buttonPanel.setBackground(Color.DARK_GRAY);
+        // Quiz button
+        JButton quizButton = new JButton("Quiz");
+        quizButton.addActionListener(e -> changeScene("Quiz"));
+        quizButton.setPreferredSize(new Dimension(120, 50));
+        quizButton.setBackground(Color.WHITE);
+        quizButton.setBorderPainted(false);
+        quizButton.setForeground(Color.BLACK);
+        quizButton.setFont(new Font("Arial", Font.BOLD, 20));
+        quizButton.setOpaque(true);
+        quizButton.setVisible(true);
+        buttonPanel.add(quizButton);
 
+        mainFrame.add(orbitPanel, BorderLayout.CENTER);
+        mainFrame.add(buttonPanel, BorderLayout.NORTH);
 
         currentTheme = new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
         setColors(currentTheme);
@@ -193,6 +215,8 @@ public class MainFrame extends JFrame {
         });
         setVisible(true);
     }
+
+
 
     /**
      * @param fxPanel The JavaFX panel to be created

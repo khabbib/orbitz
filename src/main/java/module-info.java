@@ -6,5 +6,8 @@ module orbitz {
     requires javafx.media;
     requires javafx.controls;
     requires javafx.swing;
+    requires javafx.fxml;
+
+    opens View to javafx.fxml;
 
 }
