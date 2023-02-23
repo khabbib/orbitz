@@ -4,9 +4,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -71,6 +73,10 @@ public class Quiz {
     private Text final_score;
     @FXML
     private Button restart;
+    @FXML
+    private Text result_title;
+    @FXML
+    private ImageView result_image;
 
     private class Question {
         private String question;
@@ -113,7 +119,7 @@ public class Quiz {
     public void initialize() {
         AtomicInteger score = new AtomicInteger();
         final int[] questionNumber = {0};
-
+        AtomicInteger chances = new AtomicInteger(2);
         question.setText(questions.get(questionNumber[0]).question);
 
         /**
@@ -130,10 +136,12 @@ public class Quiz {
          */
         planetspane.addEventFilter(MouseEvent.MOUSE_CLICKED, (event) -> {
             if (event.getTarget() instanceof Button) {
+                System.out.println(chances.get() + " dddddddddd");
                 Button clickedButton = (Button) event.getTarget();
                 String answerId = clickedButton.getId();
                 String answer = questions.get(questionNumber[0]).answer.toLowerCase();
                 if(answerId.equals(answer)) {
+                    chances.set(2);
                     score.getAndIncrement();
                     status.setText("Correct!");
                     status.setFill(javafx.scene.paint.Color.rgb(0, 201,0));
@@ -145,13 +153,21 @@ public class Quiz {
                         final_score.setText( score + " out of " + questions.size() + " correct!");
                     }
                     // Increment question number
-                    //questionNumber[0]++;
-                    //question.setText(questions.get(questionNumber[0]).question);
+                    questionNumber[0]++;
+                    question.setText(questions.get(questionNumber[0]).question);
                 } else {
-                    status.setText("Wrong!");
-                    status.setFill(javafx.scene.paint.Color.rgb(213, 69, 23));
-                    info_textarea.setText("Try again!");
-                    status_box.setVisible(true);
+                    chances.getAndDecrement();
+                    if(chances.get() == 0) {
+                        final_page.setVisible(true);
+                        // result_image.setOpacity(0);
+                        //result_title.setText("You failed!");
+                        final_score.setText( score + " out of " + questions.size() + " correct!");
+                    } else {
+                        status.setText("Wrong!");
+                        status.setFill(javafx.scene.paint.Color.rgb(213, 69, 23));
+                        info_textarea.setText("Try again!" + chances.get() + " more(s) chance left." );
+                        status_box.setVisible(true);
+                    }
                 }
 
                 // Close status box after x amount of seconds
@@ -164,26 +180,26 @@ public class Quiz {
          * Next button
          */
         next.setOnAction(e -> {
-            if(questionNumber[0] < questions.size() - 1) {
-                questionNumber[0]++;
-                question.setText(questions.get(questionNumber[0]).question);
-                if(status_box.isVisible()){
-                    closeStatus(null);
-                }
-                if(questionNumber[0] == questions.size() - 1) {
-                    next_box.setOpacity(0.5);
-                    next.setDisable(false);
-                }
-                if(questionNumber[0] > 0) {
-                    prev_box.setOpacity(1);
-                    prev.setDisable(false);
-                }
-            } else {
-                final_page.setVisible(true);
-                final_score.setText( score + " out of " + questions.size() + " correct!");
-            }
+            //if(questionNumber[0] < questions.size() - 1) {
+            //    questionNumber[0]++;
+            //    question.setText(questions.get(questionNumber[0]).question);
+            //    if(status_box.isVisible()){
+            //        closeStatus(null);
+            //    }
+            //    if(questionNumber[0] == questions.size() - 1) {
+            //        next_box.setOpacity(0.5);
+            //        next.setDisable(false);
+            //    }
+            //    if(questionNumber[0] > 0) {
+            //        prev_box.setOpacity(1);
+            //        prev.setDisable(false);
+            //    }
+            //} else {
+            //    final_page.setVisible(true);
+            //    final_score.setText( score + " out of " + questions.size() + " correct!");
+            //}
 
-            timeline.stop();
+            //timeline.stop();
 
         });
 
@@ -191,23 +207,23 @@ public class Quiz {
          * Previous button
          */
         prev.setOnAction(e -> {
-            if(questionNumber[0] > 0) {
-                prev_box.setOpacity(1);
-                questionNumber[0]--;
-                question.setText(questions.get(questionNumber[0]).question);
-                if(status_box.isVisible()){
-                    closeStatus(null);
-                }
-                if(questionNumber[0] == 0) {
-                    prev_box.setOpacity(0.5);
-                    prev.setDisable(true);
-                }
-                if(questionNumber[0] < questions.size() - 1) {
-                    next_box.setOpacity(1);
-                    next.setDisable(false);
-                }
-            }
-            timeline.stop();
+            //if(questionNumber[0] > 0) {
+            //    prev_box.setOpacity(1);
+            //    questionNumber[0]--;
+            //    question.setText(questions.get(questionNumber[0]).question);
+            //    if(status_box.isVisible()){
+            //        closeStatus(null);
+            //    }
+            //    if(questionNumber[0] == 0) {
+            //        prev_box.setOpacity(0.5);
+            //        prev.setDisable(true);
+            //    }
+            //    if(questionNumber[0] < questions.size() - 1) {
+            //        next_box.setOpacity(1);
+            //        next.setDisable(false);
+            //    }
+            //}
+            //timeline.stop();
 
         });
 
@@ -216,20 +232,21 @@ public class Quiz {
          */
         restart.setOnAction(e -> {
             score.set(0);
+            chances.set(2);
             questionNumber[0] = 0;
             question.setText(questions.get(questionNumber[0]).question);
             final_page.setVisible(false);
             if(status_box.isVisible()){
                 closeStatus(null);
             }
-            if(questionNumber[0] == 0) {
-                prev_box.setOpacity(0.5);
-                prev.setDisable(true);
-            }
-            if(questionNumber[0] < questions.size() - 1) {
-                next_box.setOpacity(1);
-                next.setDisable(false);
-            }
+            //if(questionNumber[0] == 0) {
+            //    prev_box.setOpacity(0.5);
+            //    prev.setDisable(true);
+            //}
+            //if(questionNumber[0] < questions.size() - 1) {
+            //    next_box.setOpacity(1);
+            //    next.setDisable(false);
+            //}
         });
 
         /**

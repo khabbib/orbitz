@@ -100,7 +100,7 @@
                      <Font size="72.0" />
                  </font>
              </Text>
-            <HBox fx:id="next_box" alignment="CENTER" spacing="20.0">
+            <HBox fx:id="next_box" alignment="CENTER" opacity="0.5" spacing="20.0">
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Next">
                      <font>
@@ -119,7 +119,7 @@
             </HBox>
          </children>
       </HBox>
-      <Button fx:id="next" layoutX="1658.0" layoutY="798.0" mnemonicParsing="false" opacity="0.0" prefHeight="183.0" prefWidth="346.0">
+      <Button fx:id="next" disable="true" layoutX="1658.0" layoutY="798.0" mnemonicParsing="false" opacity="0.0" prefHeight="183.0" prefWidth="346.0">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
@@ -180,12 +180,12 @@
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#241246" height="724.0" layoutX="365.0" layoutY="117.0" stroke="#1c1822" strokeType="INSIDE" strokeWidth="0.0" width="1286.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#150536" height="414.0" layoutX="-4.0" layoutY="898.0" stroke="BLACK" strokeType="INSIDE" width="2069.0" />
-            <Text fill="#fb3585" layoutX="746.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Great job!">
+            <Text fx:id="result_title" fill="#fb3585" layoutX="746.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Great job!">
                <font>
                   <Font name="System Bold" size="140.0" />
                </font>
             </Text>
-            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="916.0" layoutY="202.0">
+            <ImageView fx:id="result_image" fitHeight="200.0" fitWidth="200.0" layoutX="916.0" layoutY="202.0">
                <image>
                   <Image url="@../Images/gif/goodjob.gif" />
                </image>
