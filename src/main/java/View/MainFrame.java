@@ -540,8 +540,8 @@ public class MainFrame extends JFrame {
         popOver.setHeaderAlwaysVisible(true);
 
         popOver.show(controller.getSphere(planet));
-        //popOver.show(orbitPanelJfxScene.getRoot());
 
+        // Hide the popover when switching windows.
         this.addWindowFocusListener(new WindowFocusListener() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
