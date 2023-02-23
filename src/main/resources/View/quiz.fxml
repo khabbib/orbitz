@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="907.0" layoutY="476.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../orbitz%20backup/src/main/resources/Images/quiz/closeBtn.png" />
+            <Image url="@../Images/quiz/closeBtn.png" />
          </image>
       </ImageView>
       <Button fx:id="closeQuiz" layoutX="905.0" layoutY="466.0" mnemonicParsing="false" opacity="0.0" prefHeight="168.0" prefWidth="163.0">
