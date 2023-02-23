@@ -217,6 +217,37 @@ public class MainFrame extends JFrame {
     }
 
 
+    static void changeScene(String name) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
+
+                switch (name) {
+                    case "Quiz":
+                        Scene scene = null;
+                        try {
+                            scene = getQuizScene();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        mainFrame.remove(buttonPanel);
+                        orbitPanel.setScene(scene);
+                        break;
+                    case "Orbit":
+                        mainFrame.add(buttonPanel);
+                        orbitPanel.setScene(orbitScene);
+                        break;
+                }
+            }
+        });
+    }
+
+
 
     /**
      * @param fxPanel The JavaFX panel to be created
