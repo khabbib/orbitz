@@ -241,9 +241,8 @@ public class MainFrame extends JFrame {
                         orbitPanel.setScene(scene);
                         break;
                     case "Orbit":
-                        System.out.println("Orbit");
-                        mainFrame.add(overheadPanel);
                         orbitPanel.setScene(orbitScene);
+                        mainFrame.add(overheadPanel, BorderLayout.NORTH);
                         break;
                 }
             }
