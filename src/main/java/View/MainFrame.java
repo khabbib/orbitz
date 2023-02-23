@@ -545,7 +545,7 @@ public class MainFrame extends JFrame {
         this.addWindowFocusListener(new WindowFocusListener() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
-                Platform.runLater(() -> popOver.setOpacity(100));
+                Platform.runLater(() -> popOver.setOpacity(1));
             }
 
             @Override
