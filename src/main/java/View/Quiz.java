@@ -33,7 +33,7 @@ public class Quiz {
 
     public void initialize() {
 
-
+        question.setText("Klicka på Uranus.");
 
 
 
