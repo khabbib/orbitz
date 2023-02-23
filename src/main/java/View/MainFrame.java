@@ -241,6 +241,7 @@ public class MainFrame extends JFrame {
                         orbitPanel.setScene(scene);
                         break;
                     case "Orbit":
+
                         orbitPanel.setScene(orbitScene);
                         mainFrame.add(overheadPanel, BorderLayout.NORTH);
                         break;
@@ -267,7 +268,8 @@ public class MainFrame extends JFrame {
      */
     private void initFxOrbit() {
         // This method is invoked on JavaFX thread
-        orbitScene = createScene(); // default background
+
+        orbitScene = createScene(controller.getPlanetArrayList()); // default background
         orbitPanel.setScene(orbitScene);
     }
     /**
@@ -276,9 +278,7 @@ public class MainFrame extends JFrame {
      * @author Manna Manojlovic
      * Creates the Java-FX scene
      */
-    private Scene createScene() {
-        ArrayList<Planet> planets = controller.getPlanetArrayList();
-
+    private Scene createScene(ArrayList<Planet> planets) {
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         root.setBackground(null);
@@ -301,7 +301,7 @@ public class MainFrame extends JFrame {
             sphere.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
             sphere.setCursor(Cursor.HAND);
         }
-
+        orbitScene = scene;
         return scene;
     }
 
@@ -526,7 +526,7 @@ public class MainFrame extends JFrame {
 
                 //Planets that move 10 times slower for every click on the button
                 newPlanets = controller.createPlanetArray(inDurationModifier);
-                orbitPanel.setScene(createScene());
+                orbitPanel.setScene(createScene(newPlanets));
 
                 for (Model.Planet newPlanet : newPlanets) {
                     PhongMaterial map = new PhongMaterial();
