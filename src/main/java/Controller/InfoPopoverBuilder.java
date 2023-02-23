@@ -145,7 +145,7 @@ public class InfoPopoverBuilder {
             if(imgFiles.length > 0) {
                 for (File imgFile : imgFiles) {
                     String filePath = imgFile.getAbsolutePath();
-                    Image img = new Image(filePath);
+                    Image img = new Image("file:" + filePath);
                     imageList.add(img);
                 }
             }
