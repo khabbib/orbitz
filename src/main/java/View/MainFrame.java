@@ -248,6 +248,14 @@ public class MainFrame extends JFrame {
     }
 
 
+    // Create quiz scene
+    private static Scene getQuizScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(MainFrame.class.getResource("/View/quiz.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
+        quizScene = scene;
+        return scene;
+    }
 
     /**
      * @param fxPanel The JavaFX panel to be created
