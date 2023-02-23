@@ -227,9 +227,9 @@ public class MainFrame extends JFrame {
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
-        Image image = new Image(getClass().getResource("/Images/planets/bg.png").toExternalForm());
-        scene.setFill(new ImagePattern(image));
-
+        //Image image = new Image(getClass().getResource("/Images/planets/bg.png").toExternalForm());
+        //scene.setFill(new ImagePattern(image));
+        scene.setFill(javafx.scene.paint.Color.BLACK);
         setupCamera(scene);
         handleMouse(root);
         placePlanets(root, planetArrayList);
