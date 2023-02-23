@@ -64,6 +64,14 @@ public class Quiz {
     @FXML
     private Button sun;
 
+    // Final page
+    @FXML
+    private AnchorPane final_page;
+    @FXML
+    private Text final_score;
+    @FXML
+    private Button restart;
+
     private class Question {
         private String question;
         private String answer;
@@ -132,6 +140,10 @@ public class Quiz {
                     info_textarea.setText(questions.get(questionNumber[0]).description);
                     status_box.setVisible(true);
 
+                    if(questionNumber[0] == questions.size() - 1) {
+                        final_page.setVisible(true);
+                        final_score.setText( score + " out of " + questions.size() + " correct!");
+                    }
                     // Increment question number
                     //questionNumber[0]++;
                     //question.setText(questions.get(questionNumber[0]).question);
@@ -166,7 +178,13 @@ public class Quiz {
                     prev_box.setOpacity(1);
                     prev.setDisable(false);
                 }
+            } else {
+                final_page.setVisible(true);
+                final_score.setText( score + " out of " + questions.size() + " correct!");
             }
+
+            timeline.stop();
+
         });
 
         /**
@@ -189,12 +207,36 @@ public class Quiz {
                     next.setDisable(false);
                 }
             }
+            timeline.stop();
+
+        });
+
+        /**
+         * Restart button - reset quiz
+         */
+        restart.setOnAction(e -> {
+            score.set(0);
+            questionNumber[0] = 0;
+            question.setText(questions.get(questionNumber[0]).question);
+            final_page.setVisible(false);
+            if(status_box.isVisible()){
+                closeStatus(null);
+            }
+            if(questionNumber[0] == 0) {
+                prev_box.setOpacity(0.5);
+                prev.setDisable(true);
+            }
+            if(questionNumber[0] < questions.size() - 1) {
+                next_box.setOpacity(1);
+                next.setDisable(false);
+            }
         });
 
         /**
          * Close button - return to orbit scene
          */
         close.setOnAction(e -> {
+            timeline.stop();
             MainFrame.changeScene("Orbit");
         });
 
@@ -204,6 +246,8 @@ public class Quiz {
         close_status.setOnAction(e -> {
             closeStatus(null);
         });
+
+
     }
 
     /**

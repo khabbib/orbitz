@@ -48,6 +48,7 @@ public class MainFrame extends JFrame {
     private final int MAX_SLIDER_VALUE = 30;
 
     private JLabel lblTitle;
+    private static JPanel buttonPanel;
 
     private ArrayList<Model.Planet> newPlanets;
 
@@ -168,15 +169,6 @@ public class MainFrame extends JFrame {
         newImg = img.getScaledInstance( 100, 100, java.awt.Image.SCALE_SMOOTH);
         ImageIcon soundOnScaled = new ImageIcon(newImg);
 
-        // Quiz button setup
-        JButton quizButton = new JButton("Quiz");
-        quizButton.setPreferredSize(new Dimension(100, 32));
-        quizButton.setBackground(Color.CYAN);
-        quizButton.addActionListener(e -> {
-            this.changeScene("Quiz");
-        });
-
-        overheadPanel.add(quizButton);
 
 
         JButton btnMuteMusic = musicPlayer.getPlaybackState() ? new JButton(soundOnScaled) : new JButton(soundOffScaled);
@@ -199,8 +191,25 @@ public class MainFrame extends JFrame {
 
 
         mainFrame = this;
+        // Quiz button panel
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        buttonPanel.setPreferredSize(new Dimension(200, 60));
+        buttonPanel.setBackground(Color.DARK_GRAY);
+        // Quiz button
+        JButton quizButton = new JButton("Quiz");
+        quizButton.addActionListener(e -> changeScene("Quiz"));
+        quizButton.setPreferredSize(new Dimension(120, 50));
+        quizButton.setBackground(Color.WHITE);
+        quizButton.setBorderPainted(false);
+        quizButton.setForeground(Color.BLACK);
+        quizButton.setFont(new Font("Arial", Font.BOLD, 20));
+        quizButton.setOpaque(true);
+        quizButton.setVisible(true);
+        buttonPanel.add(quizButton);
+
         mainFrame.add(orbitPanel, BorderLayout.CENTER);
-        mainFrame.add(overheadPanel, BorderLayout.NORTH);
+        mainFrame.add(buttonPanel, BorderLayout.NORTH);
 
         Platform.runLater(new Runnable() {
             @Override
@@ -231,9 +240,11 @@ public class MainFrame extends JFrame {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        mainFrame.remove(buttonPanel);
                         orbitPanel.setScene(scene);
                         break;
                     case "Orbit":
+                        mainFrame.add(buttonPanel);
                         orbitPanel.setScene(orbitScene);
                         break;
                 }
@@ -250,7 +261,6 @@ public class MainFrame extends JFrame {
         FXMLLoader loader = new FXMLLoader(MainFrame.class.getResource("/View/test.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
-        mainFrame.remove(overheadPanel);
         quizScene = scene;
         return scene;
     }
@@ -262,9 +272,6 @@ public class MainFrame extends JFrame {
      * Sets background music
      */
     private void initFxOrbit() {
-        // This method is invoked on JavaFX thread
-        System.out.println("initFX");
-
         orbitScene = createScene();
         orbitPanel.setScene(orbitScene);
 

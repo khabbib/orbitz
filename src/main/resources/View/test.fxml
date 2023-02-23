@@ -130,20 +130,6 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
-      <Pane layoutX="957.0" layoutY="981.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="3.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/quiz/closeBtn.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="close" mnemonicParsing="false" opacity="0.0" prefHeight="168.0" prefWidth="163.0">
-               <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
-               </cursor>
-            </Button>
-         </children>
-      </Pane>
       <AnchorPane fx:id="status_box" layoutX="567.0" layoutY="219.0" prefHeight="561.0" prefWidth="1289.0" visible="false">
          <children>
             <Rectangle fx:id="shadow_behind_status" arcHeight="5.0" arcWidth="5.0" fill="#000000c6" height="780.0" layoutX="-570.0" layoutY="-303.0" onMouseClicked="#closeStatus" stroke="BLACK" strokeType="INSIDE" width="2054.0" />
@@ -184,6 +170,68 @@
             </Button>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="final_page" prefHeight="1312.0" prefWidth="2059.0" visible="false">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#09001ccf" height="1313.0" stroke="BLACK" strokeType="INSIDE" width="2063.0" />
+            <ImageView fitHeight="1317.0" fitWidth="2060.0" layoutX="5.0" layoutY="-3.0">
+               <image>
+                  <Image url="@../Images/quiz/stars.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#241246" height="724.0" layoutX="365.0" layoutY="117.0" stroke="#1c1822" strokeType="INSIDE" strokeWidth="0.0" width="1286.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#150536" height="414.0" layoutX="-4.0" layoutY="898.0" stroke="BLACK" strokeType="INSIDE" width="2069.0" />
+            <Text fill="#fb3585" layoutX="746.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Great job!">
+               <font>
+                  <Font name="System Bold" size="140.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="916.0" layoutY="202.0">
+               <image>
+                  <Image url="@../Images/gif/goodjob.gif" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="154.0" fitWidth="147.0" layoutX="736.0" layoutY="996.0">
+               <image>
+                  <Image url="@../Images/quiz/playagian.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="restart" layoutX="712.0" layoutY="982.0" mnemonicParsing="false" opacity="0.0" prefHeight="192.0" prefWidth="196.0">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
+            <Text fill="#fcfcfc" layoutX="515.0" layoutY="1092.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restart">
+               <font>
+                  <Font size="64.0" />
+               </font>
+            </Text>
+            <Text fill="#fcfcfc" layoutX="1140.0" layoutY="1089.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back to orbitz">
+               <font>
+                  <Font size="64.0" />
+               </font>
+            </Text>
+            <Text fill="#fcfcfc" layoutX="780.0" layoutY="694.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your score: ">
+               <font>
+                  <Font size="64.0" />
+               </font>
+            </Text>
+            <Text fx:id="final_score" fill="#fcfcfc" layoutX="1110.0" layoutY="694.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/10">
+               <font>
+                  <Font size="64.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="960.0" layoutY="990.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/quiz/closeBtn.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="close" layoutX="958.0" layoutY="980.0" mnemonicParsing="false" opacity="0.0" prefHeight="168.0" prefWidth="163.0">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </Button>
    </children>
 
 </AnchorPane>
