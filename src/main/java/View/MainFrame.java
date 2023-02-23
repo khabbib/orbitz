@@ -59,10 +59,6 @@ public class MainFrame extends JFrame {
 
     private StackPane root;
 
-    private JSlider timeSlider;
-
-    private SliderListener sliderListener;
-
     private Controller controller;
     private double startDragX;
     private double startDragY;
@@ -87,9 +83,6 @@ public class MainFrame extends JFrame {
         initFonts();
         orbitPanel = new JFXPanel();
         overheadPanel = new JPanel();
-
-        sliderListener = new SliderListener();
-        timeSlider = new JSlider();
 
         lblTitle = new JLabel();
         lblTitle.setPreferredSize(new Dimension(700, 80));
@@ -118,29 +111,14 @@ public class MainFrame extends JFrame {
         labelTableM.put(2, labelMin);
         labelTableM.put(19, labelMax);
 
-
-        // Sets up the JSlider and components related to it
-
-        timeSlider.setValue(0);
-        timeSlider.setMaximum(MAX_SLIDER_VALUE);
-        timeSlider.setPaintLabels(true);
-
-        timeSlider.setPreferredSize(new Dimension(700, 70));
-        timeSlider.setPaintTicks(true);
-        timeSlider.setMajorTickSpacing(10);
-        timeSlider.setSnapToTicks(true);
-        timeSlider.addMouseListener(sliderListener);
-
         // Sets up overheadPanel
         overheadPanel.setLayout(new FlowLayout());
         // set opaque
         overheadPanel.setOpaque(true);
-        timeSlider.setOpaque(true);
 
         lblTitle.setOpaque(false);
         overheadPanel.setPreferredSize(new Dimension(1400, 160));
         overheadPanel.add(lblTitle);
-        overheadPanel.add(timeSlider);
 
         // MUSIC PLAYBACK STUFF
         setupMusicPlayer();
@@ -431,99 +409,6 @@ public class MainFrame extends JFrame {
         }
     }
 
-
-    /**
-     * @author Albin Ahlbeck
-     * @author Simon M�tegen
-     * Changes speed of planets
-     */
-    private void speedChangeScene(double inDurationModifier) {
-        Platform.runLater(new Runnable() {
-            /**
-             @author Albin Ahlbeck
-             @author Simon M�tegen
-              * Runs on the Java FX thread
-             */
-            @Override
-            public void run() {
-                SwingUtilities.invokeLater(new Runnable() {
-                    /**
-                     @author Albin Ahlbeck
-                     @author Simon M�tegen
-                      * Runs on Swing thread
-                     */
-                    @Override
-                    public void run() {
-                    }
-                });
-
-
-                //Planets that move 10 times slower for every click on the button
-                newPlanets = controller.createPlanetArray(inDurationModifier);
-                orbitPanel.setScene(createScene(newPlanets));
-
-                for (Model.Planet newPlanet : newPlanets) {
-                    PhongMaterial map = new PhongMaterial();
-                    map.setDiffuseMap(new Image(getClass().getResource("/Images/") + newPlanet.getName() + ".jpg"));
-                    controller.getSphere(newPlanet).setMaterial(map);
-                }
-            }
-        });
-
-
-    }
-
-
-    /**
-     * Listens to change in timeSlider and then changes the text in timeLabel
-     *
-     * @author Albin Ahlbeck
-     * @author Simon M�tegen
-     * @version 1.0
-     */
-    private class SliderListener implements MouseListener {
-
-        @Override
-        public void mouseClicked(MouseEvent mouseEvent) {
-            // not used
-        }
-
-
-        @Override
-        public void mousePressed(MouseEvent mouseEvent) {
-            // not used
-        }
-
-        /**
-         * @author Albin Ahlbeck
-         * @author Simon M�tegen
-         * Sets the values after the mouse is released from the slider
-         */
-        @Override
-        public void mouseReleased(MouseEvent mouseEvent) {
-            if (timeSlider.getValue() == 0) {
-                speedChangeScene(1);
-            } else if (timeSlider.getValue() == 10) {
-                speedChangeScene(10000);
-            } else if (timeSlider.getValue() == 20) {
-                speedChangeScene(1000000);
-            } else if (timeSlider.getValue() == 30) {
-                speedChangeScene(10000000);
-            }
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent mouseEvent) {
-            // not used
-        }
-
-        @Override
-        public void mouseExited(MouseEvent mouseEvent) {
-            // not used
-        }
-    }
-
-
     /**
      * @param planet The planet to showcase
      * @author Albin Ahlbeck
@@ -563,31 +448,11 @@ public class MainFrame extends JFrame {
     public void setColors(Theme theme) {
         currentTheme = theme;
         lblTitle.setForeground(theme.getSecondaryColor());
-        timeSlider.setForeground(theme.getSecondaryColor());
         overheadPanel.setBackground(theme.getMainColor());
         lblTitle.setOpaque(true);
         lblTitle.setBackground(null);
-        timeSlider.setBackground(null);
-        timeSlider.setOpaque(true);
         overheadPanel.setBorder(BorderFactory.createLineBorder(theme.getSecondaryColor(), 2));
 
-        // Time slider configuration
-        JLabel lbl1 = new JLabel("Real speed");
-        JLabel lbl2 = new JLabel("x10000");
-        JLabel lbl3 = new JLabel("x1000000");
-        JLabel lbl4 = new JLabel("x10000000");
-
-        lbl1.setForeground(theme.getSecondaryColor());
-        lbl2.setForeground(theme.getSecondaryColor());
-        lbl3.setForeground(theme.getSecondaryColor());
-        lbl4.setForeground(theme.getSecondaryColor());
-
-        Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
-        labelTable.put(0, lbl1);
-        labelTable.put(10, lbl2);
-        labelTable.put(20, lbl3);
-        labelTable.put(30, lbl4);
-        timeSlider.setLabelTable(labelTable);
 
         Platform.runLater(new Runnable() {
             /**
