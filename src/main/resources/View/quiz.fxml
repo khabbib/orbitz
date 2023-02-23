@@ -77,13 +77,16 @@
             <Font size="72.0" />
          </font>
       </Text>
-      <AnchorPane fx:id="startScren" layoutX="-2.0" layoutY="-2.0">
+      <AnchorPane fx:id="startScreen" layoutX="-2.0" layoutY="-2.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000c8" height="1080.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="1980.0" />
-            <Button fx:id="startQuiz" layoutX="924.0" layoutY="665.0" mnemonicParsing="false" style="-fx-background-color: #fb3585;" text="Start" textFill="WHITE">
+            <Button fx:id="startQuiz" contentDisplay="CENTER" layoutX="924.0" layoutY="665.0" mnemonicParsing="false" style="-fx-background-color: #fb3585;" text="Start" textFill="WHITE">
                <font>
                   <Font size="36.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Text fx:id="startText" fill="#f8f8f8" layoutX="54.0" layoutY="484.390625" strokeType="OUTSIDE" strokeWidth="0.0" text="Ska quizet starta?" textAlignment="CENTER" wrappingWidth="1892.688232421875">
                <font>

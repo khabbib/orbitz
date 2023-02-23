@@ -37,8 +37,14 @@ public class Quiz {
     private Button sun;
 
     public void initialize() {
-        question.setText("Klicka på Uranus.");
 
+        /**
+         * Start button - start quiz
+         */
+        startQuiz.setOnAction(e -> {
+            startScreen.setVisible(false);
+            question.setText("Klicka på Uranus.");
+        });
 
         /**
          * Close button - return to orbit scene
