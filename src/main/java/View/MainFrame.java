@@ -4,6 +4,7 @@ import Controller.Controller;
 import Controller.MusicPlayer;
 
 
+import Model.Planet;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
@@ -52,7 +53,7 @@ public class MainFrame extends JFrame {
 
     private static JFXPanel orbitPanel;
 
-    private JPanel overheadPanel;
+
 
     private MainInfoFrame mainInfoFrame;
 
@@ -75,6 +76,7 @@ public class MainFrame extends JFrame {
 
     private MusicPlayer musicPlayer;
 
+    static private JPanel overheadPanel;
     private static Scene orbitScene;
     private static Scene quizScene;
     private static JFrame mainFrame;
@@ -200,9 +202,9 @@ public class MainFrame extends JFrame {
         quizButton.setOpaque(true);
         quizButton.setVisible(true);
         buttonPanel.add(quizButton);
-
+        overheadPanel.add(buttonPanel);
         mainFrame.add(orbitPanel, BorderLayout.CENTER);
-        mainFrame.add(buttonPanel, BorderLayout.NORTH);
+        mainFrame.add(overheadPanel, BorderLayout.NORTH);
 
         currentTheme = new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
         setColors(currentTheme);
@@ -210,7 +212,7 @@ public class MainFrame extends JFrame {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                initFxOrbit(orbitPanel);
+                initFxOrbit();
             }
         });
         setVisible(true);
@@ -235,11 +237,12 @@ public class MainFrame extends JFrame {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        mainFrame.remove(buttonPanel);
+                        mainFrame.remove(overheadPanel);
                         orbitPanel.setScene(scene);
                         break;
                     case "Orbit":
-                        mainFrame.add(buttonPanel);
+                        System.out.println("Orbit");
+                        mainFrame.add(overheadPanel);
                         orbitPanel.setScene(orbitScene);
                         break;
                 }
@@ -258,16 +261,15 @@ public class MainFrame extends JFrame {
     }
 
     /**
-     * @param fxPanel The JavaFX panel to be created
      * @author Albin Ahlbeck
      * @author Lanna Maslo
      * Creates a new scene from createScene and adds it to the Java FX window
      * Sets background music
      */
-    private void initFxOrbit(JFXPanel fxPanel) {
+    private void initFxOrbit() {
         // This method is invoked on JavaFX thread
-        Scene scene = createScene(controller.getPlanetArrayList()); // default background
-        fxPanel.setScene(scene);
+        orbitScene = createScene(); // default background
+        orbitPanel.setScene(orbitScene);
     }
     /**
      * @author Albin Ahlbeck
@@ -275,16 +277,18 @@ public class MainFrame extends JFrame {
      * @author Manna Manojlovic
      * Creates the Java-FX scene
      */
-    private Scene createScene(ArrayList<Model.Planet> planetArrayList) {
+    private Scene createScene() {
+        ArrayList<Planet> planets = controller.getPlanetArrayList();
+
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         root.setBackground(null);
         scene.setFill(javafx.scene.paint.Color.BLACK);
         setupCamera(scene);
         handleMouse(root);
-        placePlanets(root, planetArrayList);
+        placePlanets(root, planets);
         paintPlanets();
-        startOrbits(planetArrayList);
+        startOrbits(planets);
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent mouseEvent) {
@@ -293,7 +297,7 @@ public class MainFrame extends JFrame {
 
         };
 
-        for (Model.Planet planet : planetArrayList) {
+        for (Model.Planet planet : planets) {
             Sphere sphere = controller.getSphere(planet);
             sphere.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
             sphere.setCursor(Cursor.HAND);
@@ -523,7 +527,7 @@ public class MainFrame extends JFrame {
 
                 //Planets that move 10 times slower for every click on the button
                 newPlanets = controller.createPlanetArray(inDurationModifier);
-                orbitPanel.setScene(createScene(newPlanets));
+                orbitPanel.setScene(createScene());
 
                 for (Model.Planet newPlanet : newPlanets) {
                     PhongMaterial map = new PhongMaterial();
