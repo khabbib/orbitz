@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:id="root" minHeight="1080.0" minWidth="1980.0" style="-fx-background-color: #111222;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Quiz">
+<AnchorPane fx:id="root" minHeight="1080.0" minWidth="1980.0" style="-fx-background-color: #111222;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Quiz">
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="907.0" layoutY="476.0" pickOnBounds="true" preserveRatio="true">
          <image>
