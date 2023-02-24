@@ -42,7 +42,6 @@ public class APIReader
         {
             System.out.println("ReadBodyFromAPI " + e.getMessage());
         }
-
         return jObject;
     }
 }

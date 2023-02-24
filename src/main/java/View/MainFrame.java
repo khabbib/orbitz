@@ -10,8 +10,10 @@ import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
-import javafx.scene.*;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
@@ -223,8 +225,7 @@ public class MainFrame extends JFrame {
         setupCamera(scene);
         handleMouse(root);
         placePlanets(root, planetArrayList);
-        //paintPlanets();
-        paintPlanets(planetArrayList);
+        paintPlanets();
         startOrbits(planetArrayList);
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
@@ -273,6 +274,19 @@ public class MainFrame extends JFrame {
     }
 
     /**
+     * Paints the surface of the planets by calling their individual mappings
+     *
+     * @author Lanna Maslo
+     */
+    public void paintPlanets() {
+        for (Model.Planet planet : controller.getPlanetArrayList()) {
+            PhongMaterial map = new PhongMaterial();
+            map.setDiffuseMap(new Image(getClass().getResource("/Images/" + planet.getName() + ".jpg").toExternalForm()));
+            controller.getSphere(planet).setMaterial(map);
+        }
+    }
+
+    /**
      * Places all the planets and their orbits in the Java-FX scene
      *
      * @author Albin Ahlbeck
@@ -285,7 +299,7 @@ public class MainFrame extends JFrame {
     public void placePlanets(Pane root, ArrayList<Model.Planet> planetArrayList) {
 
         for (Model.Planet planet : planetArrayList) {
-            Ellipse ellipse = controller.getEllipse(planet); // ellipse is the line behind the planets.
+            Ellipse ellipse = controller.getEllipse(planet);
             root.getChildren().add(controller.getSphere(planet));
             root.getChildren().add(ellipse);
             ellipse.toBack();
@@ -457,23 +471,14 @@ public class MainFrame extends JFrame {
                 //Planets that move 10 times slower for every click on the button
                 newPlanets = controller.createPlanetArray(inDurationModifier);
                 orbitPanel.setScene(createScene(newPlanets));
-                paintPlanets(newPlanets);
 
+                for (Model.Planet newPlanet : newPlanets) {
+                    PhongMaterial map = new PhongMaterial();
+                    map.setDiffuseMap(new Image(getClass().getResource("/Images/") + newPlanet.getName() + ".jpg"));
+                    controller.getSphere(newPlanet).setMaterial(map);
+                }
             }
         });
-    }
-
-    /**
-     * Paints the surface of the planets by calling their individual mappings
-     *
-     * @author Lanna Maslo
-     */
-    public void paintPlanets(ArrayList<Model.Planet> planets) {
-        for (Model.Planet planet : planets) {
-            PhongMaterial map = new PhongMaterial();
-            map.setDiffuseMap(new Image(getClass().getResource("/Images/planets/" + planet.getName() + ".png").toExternalForm()));
-            controller.getSphere(planet).setMaterial(map);
-        }
     }
 
 
@@ -682,12 +687,11 @@ public class MainFrame extends JFrame {
      * @author Lanna Maslo
      * Creates a sphere graphical object for the sun
      */
-    public ImageView createSunSphere(int radius) {
-        Image image = new Image(getClass().getResource("/Images/planets/Sun.png").toExternalForm());
-        ImageView imageView = new ImageView(image);
-        imageView.setTranslateX(0);
-        imageView.setTranslateY(0);
-
-        return imageView;
+    public Sphere createSunSphere(int radius) {
+        Sphere sunSphere = new Sphere(radius);
+        PhongMaterial sunMap = new PhongMaterial();
+        sunMap.setDiffuseMap(new Image(getClass().getResource("/Images/Sun.jpg").toExternalForm()));
+        sunSphere.setMaterial(sunMap);
+        return sunSphere;
     }
 }
