@@ -2,8 +2,11 @@ package View;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+
+import java.util.List;
 
 public class Quiz {
     @FXML
@@ -18,39 +21,107 @@ public class Quiz {
 
     // Planets
     @FXML
-    private Button neptune;
+    private AnchorPane planetScreen;
     @FXML
-    private Button uranus;
+    private Button Merkurius;
     @FXML
-    private Button saturn;
+    private Button Venus;
     @FXML
-    private Button jupiter;
+    private Button Jorden;
     @FXML
-    private Button mars;
+    private Button Mars;
     @FXML
-    private Button earth;
+    private Button Jupiter;
     @FXML
-    private Button venus;
+    private Button Saturnus;
     @FXML
-    private Button mercury;
+    private Button Uranus;
     @FXML
-    private Button sun;
+    private Button Neptunus;
+    @FXML
+    private Button Solen;
+
+    // Questions
+    private final List<Question> questions = List.of(
+            new Question("Klicka på Uranus", "Uranus"),
+            new Question("Klicka på Mars", "Mars"),
+            new Question("Klicka på Saturn", "Saturn"),
+            new Question("Klicka på Jupiter", "Jupiter"),
+            new Question("Klicka på Neptunus", "Neptunus"),
+            new Question("Klicka på Venus", "Venus"),
+            new Question("Klicka på Jorden", "Jorden"),
+            new Question("Klicka på Merkurius", "Merkurius"),
+            new Question("Klicka på Solen", "Solen")
+    );
+
 
     public void initialize() {
-
         /**
          * Start button - start quiz
          */
         startQuiz.setOnAction(e -> {
             startScreen.setVisible(false);
-            question.setText("Klicka på Uranus.");
+            runTheQuiz();
+            question.setText(questions.get(0).question);
         });
+    }
 
-        /**
-         * Close button - return to orbit scene
-         */
+
+
+    /**
+     * Run the quiz
+     */
+    private void runTheQuiz() {
+        final int[] questionNumber = {0};
+        planetScreen.addEventFilter(MouseEvent.MOUSE_CLICKED, (event) -> {
+            if (event.getTarget() instanceof Button) {
+                Button clickEvent = (Button) event.getTarget();
+                String userAnswer = clickEvent.getId();
+                String answer = questions.get(questionNumber[0]).answer;
+                if(userAnswer.equals(answer)) {
+                    questionNumber[0]++;
+                    if (questionNumber[0] < questions.size()) {
+                        question.setText(questions.get(questionNumber[0]).question);
+                    } else {
+                        question.setText("Grattis! Du klarade quizet!");
+                    }
+                } else {
+                    question.setText("Fel svar! Försök igen!");
+                }
+
+            }
+        });
+    }
+
+
+
+    /**
+     * Close button - return to orbit scene
+     */
+    public void closeQuiz() {
         closeQuiz.setOnAction(e -> {
             MainFrame.changeScene("Orbit");
         });
+    }
+
+
+    /**
+     * Question class
+     */
+    private class Question {
+        private String question;
+        private String answer;
+
+        public Question(String question, String answer) {
+            this.question = question;
+            this.answer = answer;
+        }
+
+        public String getQuestion() {
+            return question;
+        }
+        public String getAnswer() {
+            return answer;
+        }
     }
 }
