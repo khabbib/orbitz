@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.PhongMaterial;
@@ -22,6 +23,8 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Sphere;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
+import org.controlsfx.control.PopOver;
+import Controller.InfoPopoverBuilder;
 
 import javax.swing.*;
 
@@ -55,7 +58,7 @@ public class MainFrame extends JFrame {
 
     private JPanel overheadPanel;
 
-    private MainInfoFrame mainInfoFrame;
+    private Scene orbitPanelJfxScene;
 
     private StackPane root;
 
@@ -181,9 +184,11 @@ public class MainFrame extends JFrame {
      */
     private void initFxOrbit(JFXPanel fxPanel) {
         // This method is invoked on JavaFX thread
-        Scene scene = createScene(controller.getPlanetArrayList()); // default background
-        fxPanel.setScene(scene);
+        // default background
+        orbitPanelJfxScene = createScene(controller.getPlanetArrayList());
+        fxPanel.setScene(orbitPanelJfxScene);
     }
+
     /**
      * @author Albin Ahlbeck
      * @author Lanna Maslo
@@ -203,7 +208,12 @@ public class MainFrame extends JFrame {
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent mouseEvent) {
-                openInfoWindow(determinePlanet((Sphere) mouseEvent.getSource()));
+                try {
+                    openInfoWindow(determinePlanet((Sphere) mouseEvent.getSource()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.err.println("Could not load fxml!");
+                }
             }
 
         };
@@ -408,14 +418,33 @@ public class MainFrame extends JFrame {
             controller.getPathTransition(planet).play(); // starts orbits
         }
     }
-
+    
     /**
+     * Opens a popup with information about the specified planet.
      * @param planet The planet to showcase
-     * @author Albin Ahlbeck
-     * Opens an information window
+     * @author Joel Eriksson Sinclair
      */
-    public void openInfoWindow(Model.Planet planet) {
-        mainInfoFrame = new MainInfoFrame(planet, currentTheme);
+    public void openInfoWindow(Model.Planet planet) throws IOException {
+        PopOver popOver = new InfoPopoverBuilder().createInfoPopover(planet);
+
+        popOver.setDetachable(false);
+        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
+        popOver.setHeaderAlwaysVisible(true);
+
+        popOver.show(controller.getSphere(planet));
+
+        // Hide the popover when switching windows.
+        this.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                Platform.runLater(() -> popOver.setOpacity(1));
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                Platform.runLater(() -> popOver.setOpacity(0));
+            }
+        });
     }
 
 
