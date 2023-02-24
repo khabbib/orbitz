@@ -29,6 +29,7 @@ public class Controller {
     private OrbitCalculator orbitCalculator = new OrbitCalculator();
     private PositionCalculator positionCalculator = new PositionCalculator();
     private Sun sun = new Sun(reader.readBodyFromAPI(Stars.soleil.toString()));
+    private double durationModifier = 15000;
 
 
     private HashMap<Planet, HashMap<String,Object>> planetHashMapHashMap = new HashMap<>();
@@ -38,7 +39,7 @@ public class Controller {
     public Controller() {
         sun.setYCord(0);
         sun.setXCord(0);
-        planetArrayList = createPlanetArray(1); //No duration modifier should be added here.
+        planetArrayList = createPlanetArray(); //No duration modifier should be added here.
         mainframe = new MainFrame(this);
     }
 
@@ -51,7 +52,7 @@ public class Controller {
      *
      * @return An ArrayList filled with newly generated planet objects
      */
-    public ArrayList<Model.Planet> createPlanetArray(double durationModifier) {
+    public ArrayList<Model.Planet> createPlanetArray() {
         ArrayList<Planet> newPlanets = new ArrayList<>();
 
         //Reads the planets from the API
