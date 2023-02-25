@@ -25,6 +25,51 @@
             <Image url="@../Images/quiz/planets.png" />
          </image>
       </ImageView>
+      <Text fx:id="Neptunus_label" fill="#fcfcfc" layoutX="130.0" layoutY="267.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Neptunus" visible="false" wrappingWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="Uranus_label" fill="#fcfcfc" layoutX="362.0" layoutY="233.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Uranus" visible="false" wrappingWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="Saturn_label" fill="#fcfcfc" layoutX="623.0" layoutY="277.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Saturn" visible="false" wrappingWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="Jupiter_label" fill="#fcfcfc" layoutX="948.0" layoutY="170.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Jupiter" visible="false" wrappingWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="Mars_label" fill="#fcfcfc" layoutX="1145.0" layoutY="134.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Mars" visible="false" wrappingWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="Jorden_label" fill="#fcfcfc" layoutX="1225.0" layoutY="233.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Jorden" visible="false" wrappingWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="Venus_label" fill="#fcfcfc" layoutX="1449.0" layoutY="290.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Venus" visible="false" wrappingWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="Merkurius_label" fill="#fcfcfc" layoutX="1463.0" layoutY="391.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Merkurius" visible="false" wrappingWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="Solen_label" fill="#fcfcfc" layoutX="1704.0" layoutY="159.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Solen" visible="false" wrappingWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
       <Circle fx:id="Neptunus_highlighter" layoutX="152.0" layoutY="339.0" opacity="0.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">

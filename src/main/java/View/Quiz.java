@@ -25,7 +25,7 @@ public class Quiz {
     @FXML
     private Button closeQuiz;
     @FXML
-    private Text question;
+    private Text question, startText;
 
 
     @FXML
@@ -61,21 +61,23 @@ public class Quiz {
     public void startQuiz() {
         startQuiz.setOnAction(e -> {
             startScreen.setVisible(false);
-            question.setText(questions.get(0).question);
-            runTheQuiz();
+            this.start();
         });
     }
 
     /**
      * Run the quiz
      */
-    private void runTheQuiz() {
+    private void start() {
+        question.setText(questions.get(0).question);
         final int[] questionNumber = {0};
         AtomicInteger chances = new AtomicInteger(2);
+
         planetScreen.addEventFilter(MouseEvent.MOUSE_CLICKED, (event) -> {
             if (event.getTarget() instanceof Button) {
                 Button clickEvent = (Button) event.getTarget();
                 String userAnswer = clickEvent.getId();
+
                 String answer = "";
                 if(questionNumber[0] < questions.size()) {
                     answer = questions.get(questionNumber[0]).answer;
@@ -87,21 +89,26 @@ public class Quiz {
                     this.highlightPlanet(userAnswer, true);
                     if (questionNumber[0] < questions.size()) {
                         question.setText(questions.get(questionNumber[0]).question);
-                    } else {
-                        // TODO: statusMessage.setText("Grattis! Du klarade quizet!");
                     }
                 } else {
                     chances.decrementAndGet();
                     this.highlightPlanet(userAnswer, false);
                     if(chances.get() == 0) {
-                        // TODO: stop the game
-                    }else {
-                        // TODO: statusMessage.setText("Fel svar! Försök igen!");
+                        this.stop();
                     }
                 }
 
             }
         });
+    }
+
+    /**
+     * Finish the quiz
+     */
+    private void stop() {
+        startScreen.setVisible(true);
+        startText.setText("Du klarade inte quizet!");
+        startQuiz.setText("Restart");
     }
 
     /**
@@ -111,16 +118,21 @@ public class Quiz {
      */
     private void highlightPlanet(String planet, Boolean answer) {
         Circle highLighter = (Circle) root.lookup("#" + planet + "_highlighter");
+        Text label = (Text) root.lookup("#" + planet + "_label");
+
         RadialGradient gradient;
         if (answer) {
             gradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true, null, new javafx.scene.paint.Stop(0, Color.TRANSPARENT), new javafx.scene.paint.Stop(1, Color.GREENYELLOW));
         } else {
+            label.setVisible(true);
             gradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true, null, new javafx.scene.paint.Stop(0, Color.TRANSPARENT), new javafx.scene.paint.Stop(1, Color.RED));
         }
+
         highLighter.setFill(gradient);
         highLighter.setOpacity(1);
-        this.removeHighLighter(highLighter);
 
+        this.removeHighLighter(highLighter);
+        this.removeLabel(label);
     }
 
     private void removeHighLighter(Circle highLighter) {
@@ -128,10 +140,16 @@ public class Quiz {
         highlightTimer.setOnFinished(e -> {
             highLighter.setFill(javafx.scene.paint.Color.TRANSPARENT);
         });
-
         highlightTimer.play();
     }
 
+    private void removeLabel(Text label) {
+        Timeline labelTimer = new Timeline(new KeyFrame(Duration.seconds(1)));
+        labelTimer.setOnFinished(e -> {
+            label.setVisible(false);
+        });
+        labelTimer.play();
+    }
 
     /**
      * Close button - return to orbit scene
