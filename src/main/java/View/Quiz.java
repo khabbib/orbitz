@@ -84,13 +84,11 @@ public class Quiz {
                 if(userAnswer.equals(answer)) {
                     questionNumber[0]++;
                     chances.set(2);
-                    this.highlightPlanet(userAnswer, true);
                     if (questionNumber[0] < questions.size()) {
                         question.setText(questions.get(questionNumber[0]).question);
                     }
                 } else {
                     chances.decrementAndGet();
-                    this.highlightPlanet(userAnswer, false);
                     if(chances.get() == 0) {
                         this.stop();
                     }
@@ -107,46 +105,6 @@ public class Quiz {
         startScreen.setVisible(true);
         startText.setText("Du klarade inte quizet!");
         startQuiz.setText("Restart");
-    }
-
-    /**
-     * Highlight the planet
-     * @param planet
-     * @param answer
-     */
-    private void highlightPlanet(String planet, Boolean answer) {
-        Circle highLighter = (Circle) root.lookup("#" + planet + "_highlighter");
-        Text label = (Text) root.lookup("#" + planet + "_label");
-
-        RadialGradient gradient;
-        if (answer) {
-            gradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true, null, new javafx.scene.paint.Stop(0, Color.TRANSPARENT), new javafx.scene.paint.Stop(1, Color.GREENYELLOW));
-        } else {
-            label.setVisible(true);
-            gradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true, null, new javafx.scene.paint.Stop(0, Color.TRANSPARENT), new javafx.scene.paint.Stop(1, Color.RED));
-        }
-
-        highLighter.setFill(gradient);
-        highLighter.setOpacity(1);
-
-        this.removeHighLighter(highLighter);
-        this.removeLabel(label);
-    }
-
-    private void removeHighLighter(Circle highLighter) {
-        Timeline highlightTimer = new Timeline(new KeyFrame(Duration.seconds(1)));
-        highlightTimer.setOnFinished(e -> {
-            highLighter.setFill(javafx.scene.paint.Color.TRANSPARENT);
-        });
-        highlightTimer.play();
-    }
-
-    private void removeLabel(Text label) {
-        Timeline labelTimer = new Timeline(new KeyFrame(Duration.seconds(1)));
-        labelTimer.setOnFinished(e -> {
-            label.setVisible(false);
-        });
-        labelTimer.play();
     }
 
     /**
