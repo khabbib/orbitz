@@ -31,8 +31,6 @@ public class Quiz {
     @FXML
     private AnchorPane planetScreen;
     // Planets highlighters
-    @FXML
-    private Circle Merkurius_highlighter, Venus_highlighter, Jorden_highlighter, Mars_highlighter, Jupiter_highlighter, Saturn_highlighter, Uranus_highlighter, Neptunus_highlighter, Solen_highlighter;
 
     // Questions
     private final List<Question> questions = List.of(
