@@ -142,7 +142,6 @@ public class Quiz {
      * @param answer
      */
     private void highlightPlanet(String planet, Boolean answer) {
-        System.out.println("Planet: " + planet + " - Answer: " + answer);
         switch (planet) {
             case "Merkurius":
                 this.setHighLighterColor(Merkurius_highlighter, answer);
