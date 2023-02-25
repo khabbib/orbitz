@@ -12,6 +12,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -27,6 +29,7 @@ public class Quiz {
     @FXML
     private Text question, startText, result_text;
 
+    HashMap<String, String> userAnswers = new HashMap<>();
 
     @FXML
     private AnchorPane planetScreen;
@@ -59,6 +62,7 @@ public class Quiz {
     public void startQuiz() {
         startQuiz.setOnAction(e -> {
             startScreen.setVisible(false);
+            userAnswers.clear();
             this.start();
         });
     }
@@ -88,7 +92,9 @@ public class Quiz {
                     chances.set(2);
                     this.highlightPlanet(userAnswer, true);
                     if (questionNumber[0] < questions.size()) {
-                        question.setText(questions.get(questionNumber[0]).question);
+                        String quizQuestion = questions.get(questionNumber[0]).question;
+                        userAnswers.put(quizQuestion, userAnswer);
+                        question.setText(quizQuestion);
                     } else {
                         this.stop(score.get());
                     }
@@ -109,14 +115,24 @@ public class Quiz {
      */
     private void stop(Integer score) {
         startScreen.setVisible(true);
-        if(score == questions.size() - 1) {
+
+        String result = "";
+        if(score == questions.size()) {
+            result = "Ditt svar: \n";
+            int i = 1;
+            for(String question : userAnswers.keySet()) {
+                String answer = userAnswers.get(question);
+                result += i  +". "+ question + ": __" + answer + "__\n";
+                i++;
+            }
             startText.setText("Du klarade quizet!");
+            startText.setFill(Color.YELLOWGREEN);
         } else {
             startText.setText("Du klarade inte quizet!");
-
         }
-        result_text.setText("Du fick " + score + " poäng!");
+        result_text.setText("Du fick " + score + " poäng! \n \n" + result);
         startQuiz.setText("Restart");
+        question.setText("");
     }
 
     /**
