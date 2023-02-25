@@ -5,6 +5,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
@@ -13,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="root" minHeight="1080.0" minWidth="1980.0" style="-fx-background-color: #111222;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Quiz">
+<AnchorPane fx:id="root" minHeight="1080.0" minWidth="1980.0" style="-fx-background-color: #111222;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Quiz">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="1980.0" layoutX="-1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -291,19 +293,32 @@
       <AnchorPane fx:id="startScreen" layoutX="-2.0" layoutY="-2.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000c8" height="1080.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="1980.0" />
-            <Button fx:id="startQuiz" contentDisplay="CENTER" layoutX="924.0" layoutY="665.0" mnemonicParsing="false" onAction="#startQuiz" style="-fx-background-color: #fb3585;" text="Start" textFill="WHITE">
-               <font>
-                  <Font size="36.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Text fx:id="startText" fill="#f8f8f8" layoutX="54.0" layoutY="484.390625" strokeType="OUTSIDE" strokeWidth="0.0" text="Ska quizet starta?" textAlignment="CENTER" wrappingWidth="1892.688232421875">
-               <font>
-                  <Font size="72.0" />
-               </font>
-            </Text>
+            <Pane layoutX="478.0" layoutY="82.0" prefHeight="767.0" prefWidth="1010.0">
+               <children>
+                  <VBox alignment="CENTER" layoutX="4.0" prefHeight="771.0" prefWidth="1008.0" spacing="20.0">
+                     <children>
+                        <Text fx:id="startText" fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" text="Ska quizet starta?" textAlignment="CENTER" wrappingWidth="1008.0421142578125">
+                           <font>
+                              <Font size="72.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="result_text" fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1008.0421142578125">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="startQuiz" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startQuiz" style="-fx-background-color: #fb3585;" text="Start" textFill="WHITE">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="908.0" layoutY="916.0" pickOnBounds="true" preserveRatio="true">

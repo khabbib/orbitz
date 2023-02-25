@@ -25,7 +25,7 @@ public class Quiz {
     @FXML
     private Button closeQuiz;
     @FXML
-    private Text question, startText;
+    private Text question, startText, result_text;
 
 
     @FXML
@@ -69,6 +69,7 @@ public class Quiz {
     private void start() {
         question.setText(questions.get(0).question);
         final int[] questionNumber = {0};
+        AtomicInteger score = new AtomicInteger(0);
         AtomicInteger chances = new AtomicInteger(2);
 
         planetScreen.addEventFilter(MouseEvent.MOUSE_CLICKED, (event) -> {
@@ -82,17 +83,20 @@ public class Quiz {
                 }
 
                 if(userAnswer.equals(answer)) {
+                    score.incrementAndGet();
                     questionNumber[0]++;
                     chances.set(2);
                     this.highlightPlanet(userAnswer, true);
                     if (questionNumber[0] < questions.size()) {
                         question.setText(questions.get(questionNumber[0]).question);
+                    } else {
+                        this.stop(score.get());
                     }
                 } else {
                     chances.decrementAndGet();
                     this.highlightPlanet(userAnswer, false);
                     if(chances.get() == 0) {
-                        this.stop();
+                        this.stop(score.get());
                     }
                 }
 
@@ -103,9 +107,15 @@ public class Quiz {
     /**
      * Finish the quiz
      */
-    private void stop() {
+    private void stop(Integer score) {
         startScreen.setVisible(true);
-        startText.setText("Du klarade inte quizet!");
+        if(score == questions.size() - 1) {
+            startText.setText("Du klarade quizet!");
+        } else {
+            startText.setText("Du klarade inte quizet!");
+
+        }
+        result_text.setText("Du fick " + score + " poäng!");
         startQuiz.setText("Restart");
     }
 
