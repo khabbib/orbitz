@@ -110,14 +110,14 @@ public class Quiz {
      * @param answer
      */
     private void highlightPlanet(String planet, Boolean answer) {
-Circle highLighter = (Circle) root.lookup("#" + planet + "_highlighter");
+        Circle highLighter = (Circle) root.lookup("#" + planet + "_highlighter");
+        RadialGradient gradient;
         if (answer) {
-            RadialGradient gradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true, null, new javafx.scene.paint.Stop(0, Color.TRANSPARENT), new javafx.scene.paint.Stop(1, Color.GREENYELLOW));
-            highLighter.setFill(gradient);
+            gradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true, null, new javafx.scene.paint.Stop(0, Color.TRANSPARENT), new javafx.scene.paint.Stop(1, Color.GREENYELLOW));
         } else {
-            RadialGradient gradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true, null, new javafx.scene.paint.Stop(0, Color.TRANSPARENT), new javafx.scene.paint.Stop(1, Color.RED));
-            highLighter.setFill(gradient);
+            gradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true, null, new javafx.scene.paint.Stop(0, Color.TRANSPARENT), new javafx.scene.paint.Stop(1, Color.RED));
         }
+        highLighter.setFill(gradient);
         highLighter.setOpacity(1);
         this.removeHighLighter(highLighter);
 
