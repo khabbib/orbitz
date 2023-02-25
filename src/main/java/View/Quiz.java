@@ -17,6 +17,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Quiz {
     @FXML
+    private AnchorPane root;
+    @FXML
     private Button startQuiz;
     @FXML
     private AnchorPane startScreen;
@@ -26,45 +28,11 @@ public class Quiz {
     private Text question;
 
 
-    // Planets
     @FXML
     private AnchorPane planetScreen;
+    // Planets highlighters
     @FXML
-    private Button Merkurius;
-    @FXML
-    private Circle Merkurius_highlighter;
-    @FXML
-    private Button Venus;
-    @FXML
-    private Circle Venus_highlighter;
-    @FXML
-    private Button Jorden;
-    @FXML
-    private Circle Jorden_highlighter;
-    @FXML
-    private Button Mars;
-    @FXML
-    private Circle Mars_highlighter;
-    @FXML
-    private Button Jupiter;
-    @FXML
-    private Circle Jupiter_highlighter;
-    @FXML
-    private Button Saturnus;
-    @FXML
-    private Circle Saturn_highlighter;
-    @FXML
-    private Button Uranus;
-    @FXML
-    private Circle Uranus_highlighter;
-    @FXML
-    private Button Neptunus;
-    @FXML
-    private Circle Neptunus_highlighter;
-    @FXML
-    private Button Solen;
-    @FXML
-    private Circle Solen_highlighter;
+    private Circle Merkurius_highlighter, Venus_highlighter, Jorden_highlighter, Mars_highlighter, Jupiter_highlighter, Saturn_highlighter, Uranus_highlighter, Neptunus_highlighter, Solen_highlighter;
 
     // Questions
     private final List<Question> questions = List.of(
@@ -142,41 +110,7 @@ public class Quiz {
      * @param answer
      */
     private void highlightPlanet(String planet, Boolean answer) {
-        switch (planet) {
-            case "Merkurius":
-                this.setHighLighterColor(Merkurius_highlighter, answer);
-                break;
-            case "Venus":
-                this.setHighLighterColor(Venus_highlighter, answer);
-                break;
-            case "Jorden":
-                this.setHighLighterColor(Jorden_highlighter, answer);
-                break;
-            case "Mars":
-                this.setHighLighterColor(Mars_highlighter, answer);
-                break;
-            case "Jupiter":
-                this.setHighLighterColor(Jupiter_highlighter, answer);
-                break;
-            case "Saturn":
-                this.setHighLighterColor(Saturn_highlighter, answer);
-                break;
-            case "Uranus":
-                this.setHighLighterColor(Uranus_highlighter, answer);
-                break;
-            case "Neptunus":
-                this.setHighLighterColor(Neptunus_highlighter, answer);
-                break;
-            case "Solen":
-                this.setHighLighterColor(Solen_highlighter, answer);
-                break;
-            default:
-                System.out.println("Not valid planet name.");
-        }
-
-    }
-
-    private void setHighLighterColor(Circle highLighter, Boolean answer) {
+Circle highLighter = (Circle) root.lookup("#" + planet + "_highlighter");
         if (answer) {
             RadialGradient gradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true, null, new javafx.scene.paint.Stop(0, Color.TRANSPARENT), new javafx.scene.paint.Stop(1, Color.GREENYELLOW));
             highLighter.setFill(gradient);
@@ -186,6 +120,7 @@ public class Quiz {
         }
         highLighter.setOpacity(1);
         this.removeHighLighter(highLighter);
+
     }
 
     private void removeHighLighter(Circle highLighter) {
