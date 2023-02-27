@@ -41,8 +41,10 @@ import java.util.*;
  * MainFrame is the main window which contains various graphical components
  */
 public class MainFrame extends JFrame {
-    private static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+//    private static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+//    private static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private static final int WIDTH = 1080;
+    private static final int HEIGHT = 720;
     private final int MAX_SLIDER_VALUE = 30;
 
     private JLabel lblTitle;
