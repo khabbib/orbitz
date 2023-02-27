@@ -15,64 +15,64 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="root" minHeight="1080.0" minWidth="1980.0" style="-fx-background-color: #111222;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Quiz">
+<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #111222;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Quiz">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1980.0" layoutX="-1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="720.0" fitWidth="1080.0" layoutX="-1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/quiz/bg.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="761.0" fitWidth="1817.0" layoutX="94.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="439.0" fitWidth="1012.0" layoutX="34.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/quiz/planets.png" />
          </image>
       </ImageView>
-      <Text fx:id="Neptunus_label" fill="#fcfcfc" layoutX="130.0" layoutY="267.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Neptunus" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Neptunus_label" fill="#fcfcfc" layoutX="41.0" layoutY="193.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Neptunus" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Uranus_label" fill="#fcfcfc" layoutX="362.0" layoutY="233.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Uranus" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Uranus_label" fill="#fcfcfc" layoutX="158.0" layoutY="179.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Uranus" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Saturn_label" fill="#fcfcfc" layoutX="623.0" layoutY="277.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Saturn" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Saturn_label" fill="#fcfcfc" layoutX="303.0" layoutY="193.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Saturn" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Jupiter_label" fill="#fcfcfc" layoutX="948.0" layoutY="170.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Jupiter" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Jupiter_label" fill="#fcfcfc" layoutX="431.0" layoutY="136.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Jupiter" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Mars_label" fill="#fcfcfc" layoutX="1145.0" layoutY="134.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Mars" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Mars_label" fill="#fcfcfc" layoutX="608.0" layoutY="113.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Mars" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Jorden_label" fill="#fcfcfc" layoutX="1225.0" layoutY="233.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Jorden" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Jorden_label" fill="#fcfcfc" layoutX="660.0" layoutY="159.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Jorden" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Venus_label" fill="#fcfcfc" layoutX="1449.0" layoutY="290.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Venus" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Venus_label" fill="#fcfcfc" layoutX="753.0" layoutY="189.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Venus" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Merkurius_label" fill="#fcfcfc" layoutX="1463.0" layoutY="391.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Merkurius" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Merkurius_label" fill="#fcfcfc" layoutX="804.0" layoutY="236.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Merkurius" wrappingWidth="110.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="Solen_label" fill="#fcfcfc" layoutX="946.0" layoutY="123.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Solen" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Solen_label" fill="#fcfcfc" layoutX="1704.0" layoutY="159.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Solen" visible="false" wrappingWidth="110.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Circle fx:id="Neptunus_highlighter" layoutX="152.0" layoutY="339.0" opacity="0.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Neptunus_highlighter" layoutX="67.0" layoutY="233.0" opacity="0.0" radius="45.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -90,7 +90,7 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <Circle fx:id="Uranus_highlighter" layoutX="372.0" layoutY="311.0" opacity="0.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Uranus_highlighter" layoutX="189.0" layoutY="218.0" opacity="0.0" radius="55.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -108,7 +108,7 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <Circle fx:id="Saturn_highlighter" layoutX="641.0" layoutY="385.0" opacity="0.0" radius="92.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Saturn_highlighter" layoutX="340.0" layoutY="263.0" opacity="0.0" radius="92.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -126,7 +126,7 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <Circle fx:id="Jupiter_highlighter" layoutX="945.0" layoutY="311.0" opacity="0.0" radius="124.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Jupiter_highlighter" layoutX="509.0" layoutY="216.0" opacity="0.0" radius="124.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -144,7 +144,7 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <Circle fx:id="Mars_highlighter" layoutX="1145.0" layoutY="177.0" opacity="0.0" radius="39.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Mars_highlighter" layoutX="618.0" layoutY="145.0" opacity="0.0" radius="39.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -162,7 +162,7 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <Circle fx:id="Jorden_highlighter" layoutX="1280.0" layoutY="286.0" opacity="0.0" radius="39.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Jorden_highlighter" layoutX="694.0" layoutY="205.0" opacity="0.0" radius="39.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -180,7 +180,7 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <Circle fx:id="Venus_highlighter" layoutX="1427.0" layoutY="324.0" opacity="0.0" radius="39.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Venus_highlighter" layoutX="776.0" layoutY="228.0" opacity="0.0" radius="39.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -198,7 +198,7 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <Circle fx:id="Merkurius_highlighter" layoutX="1577.0" layoutY="382.0" opacity="0.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Merkurius_highlighter" layoutX="860.0" layoutY="258.0" opacity="0.0" radius="30.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -216,7 +216,7 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <Circle fx:id="Solen_highlighter" layoutX="1759.0" layoutY="341.0" opacity="0.0" radius="166.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Solen_highlighter" layoutX="963.0" layoutY="236.0" opacity="0.0" radius="153.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -234,66 +234,66 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <AnchorPane fx:id="planetScreen" layoutX="106.0" layoutY="139.0">
+      <AnchorPane fx:id="planetScreen" layoutX="52.0" layoutY="139.0" prefHeight="295.0" prefWidth="1010.0">
          <children>
-            <Button fx:id="Neptunus" layoutY="139.0" mnemonicParsing="false" opacity="0.0" prefHeight="119.0" prefWidth="93.0">
+            <Button fx:id="Neptunus" layoutX="-30.0" layoutY="54.0" mnemonicParsing="false" opacity="0.0" prefHeight="74.0" prefWidth="89.0" scaleX="0.6" scaleY="0.7" text="0">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Uranus" layoutX="228.0" layoutY="112.0" mnemonicParsing="false" opacity="0.0" prefHeight="119.0" prefWidth="93.0">
+            <Button fx:id="Uranus" layoutX="82.0" layoutY="30.0" mnemonicParsing="false" opacity="0.0" prefHeight="96.0" prefWidth="118.0" scaleX="0.6" scaleY="0.7" text="0">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Saturn" layoutX="421.0" layoutY="164.0" mnemonicParsing="false" opacity="0.0" prefHeight="171.0" prefWidth="242.0">
+            <Button fx:id="Saturn" layoutX="168.0" layoutY="41.0" mnemonicParsing="false" opacity="0.0" prefHeight="171.0" prefWidth="242.0" scaleX="0.6" scaleY="0.7" text="0">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Jupiter" layoutX="729.0" layoutY="59.0" mnemonicParsing="false" opacity="0.0" prefHeight="222.0" prefWidth="224.0">
+            <Button fx:id="Jupiter" layoutX="350.0" layoutY="-28.0" mnemonicParsing="false" opacity="0.0" prefHeight="214.0" prefWidth="214.0" scaleX="0.6" scaleY="0.7" text="0">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Mars" layoutX="1001.0" mnemonicParsing="false" opacity="0.0" prefHeight="75.0" prefWidth="76.0">
+            <Button fx:id="Mars" layoutX="549.0" layoutY="-12.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="0">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Jorden" layoutX="1134.0" layoutY="101.0" mnemonicParsing="false" opacity="0.0" prefHeight="83.0" prefWidth="82.0">
+            <Button fx:id="Jorden" layoutX="604.0" layoutY="31.0" mnemonicParsing="false" opacity="0.0" prefHeight="68.0" prefWidth="77.0" scaleX="0.6" scaleY="0.7" text="0">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Venus" layoutX="1283.0" layoutY="150.0" mnemonicParsing="false" opacity="0.0" prefHeight="66.0" prefWidth="67.0">
+            <Button fx:id="Venus" layoutX="691.0" layoutY="56.0" mnemonicParsing="false" opacity="0.0" prefHeight="66.0" prefWidth="67.0" scaleX="0.6" scaleY="0.7" text="0">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Merkurius" layoutX="1444.0" layoutY="216.0" mnemonicParsing="false" opacity="0.0" prefHeight="49.0" prefWidth="47.0">
+            <Button fx:id="Merkurius" layoutX="786.0" layoutY="92.0" mnemonicParsing="false" opacity="0.0" prefHeight="49.0" prefWidth="47.0" scaleX="0.6" scaleY="0.7" text="0">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Solen" layoutX="1499.0" layoutY="44.0" mnemonicParsing="false" opacity="0.0" prefHeight="314.0" prefWidth="315.0">
+            <Button fx:id="Solen" layoutX="772.0" layoutY="-44.0" mnemonicParsing="false" opacity="0.0" prefHeight="273.0" prefWidth="275.0" scaleX="0.6" scaleY="0.7" text="0">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
          </children>
       </AnchorPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#120e1e" height="325.0" layoutX="-2.0" layoutY="670.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1987.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#241246" height="278.0" layoutX="25.0" layoutY="701.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="1937.0" />
-      <Text fx:id="question" fill="#f8f8f8" layoutX="42.0" layoutY="862.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" wrappingWidth="1892.688232421875">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#120e1e" height="211.0" layoutX="-2.0" layoutY="414.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1080.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#241246" height="175.0" layoutX="25.0" layoutY="434.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="1030.0" />
+      <Text fx:id="question" fill="#f8f8f8" layoutX="37.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" textAlignment="CENTER" wrappingWidth="1012.17529296875">
          <font>
             <Font size="72.0" />
          </font>
       </Text>
-      <AnchorPane fx:id="startScreen" layoutX="-2.0" layoutY="-2.0">
+      <AnchorPane fx:id="startScreen" layoutX="-2.0" layoutY="-2.0" prefHeight="720.0" prefWidth="1080.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000c8" height="1080.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="1980.0" />
-            <Pane layoutX="478.0" layoutY="82.0" prefHeight="767.0" prefWidth="1010.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000c8" height="720.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="1080.0" />
+            <Pane layoutX="27.0" prefHeight="717.0" prefWidth="1010.0">
                <children>
                   <VBox alignment="CENTER" layoutX="4.0" prefHeight="771.0" prefWidth="1008.0" spacing="20.0">
                      <children>
@@ -304,29 +304,34 @@
                         </Text>
                         <Text fx:id="result_text" fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1008.0421142578125">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="14.0" />
                            </font>
                         </Text>
                         <Button fx:id="startQuiz" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startQuiz" style="-fx-background-color: #fb3585;" text="Start" textFill="WHITE">
                            <font>
-                              <Font size="36.0" />
+                              <Font size="24.0" />
                            </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
+                        <Text fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1008.0421142578125">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </VBox>
                </children>
             </Pane>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="908.0" layoutY="916.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="91.0" fitWidth="93.0" layoutX="489.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/quiz/closeBtn.png" />
          </image>
       </ImageView>
-      <Button fx:id="closeQuiz" layoutX="906.0" layoutY="906.0" mnemonicParsing="false" onAction="#closeQuiz" opacity="0.0" prefHeight="168.0" prefWidth="163.0">
+      <Button fx:id="closeQuiz" layoutX="487.0" layoutY="546.0" mnemonicParsing="false" onAction="#closeQuiz" opacity="0.0" prefHeight="95.0" prefWidth="96.0">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>

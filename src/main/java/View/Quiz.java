@@ -80,7 +80,7 @@ public class Quiz {
             if (event.getTarget() instanceof Button) {
                 Button clickEvent = (Button) event.getTarget();
                 String userAnswer = clickEvent.getId();
-
+                System.out.println(userAnswer);
                 String answer = "";
                 if(questionNumber[0] < questions.size()) {
                     answer = questions.get(questionNumber[0]).answer;
