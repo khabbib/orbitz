@@ -347,7 +347,7 @@ public class MainFrame extends JFrame {
     public void paintPlanets() {
         for (Model.Planet planet : controller.getPlanetArrayList()) {
             PhongMaterial map = new PhongMaterial();
-            map.setDiffuseMap(new Image(getClass().getResource("/Images/" + planet.getName() + ".jpg").toExternalForm()));
+            map.setDiffuseMap(new Image(getClass().getResource("/Images/planets/" + planet.getName() + ".png").toExternalForm()));
             controller.getSphere(planet).setMaterial(map);
         }
     }
@@ -647,7 +647,7 @@ public class MainFrame extends JFrame {
     public Sphere createSunSphere(int radius) {
         Sphere sunSphere = new Sphere(radius);
         PhongMaterial sunMap = new PhongMaterial();
-        sunMap.setDiffuseMap(new Image(getClass().getResource("/Images/Sun.jpg").toExternalForm()));
+        sunMap.setDiffuseMap(new Image(getClass().getResource("/Images/planets/Sun.png").toExternalForm()));
         sunSphere.setMaterial(sunMap);
         return sunSphere;
     }

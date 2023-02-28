@@ -105,7 +105,6 @@ public class Quiz {
                         this.stop(score.get());
                     }
                 }
-
             }
         });
     }
