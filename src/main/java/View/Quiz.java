@@ -13,7 +13,6 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 

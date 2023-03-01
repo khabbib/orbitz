@@ -234,49 +234,49 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <AnchorPane fx:id="planetScreen" layoutX="52.0" layoutY="139.0" prefHeight="295.0" prefWidth="1010.0">
+      <AnchorPane fx:id="planetScreen" layoutX="2.0" layoutY="108.0" prefHeight="326.0" prefWidth="1080.0">
          <children>
-            <Button fx:id="Neptunus" layoutX="-30.0" layoutY="54.0" mnemonicParsing="false" opacity="0.0" prefHeight="74.0" prefWidth="89.0" scaleX="0.6" scaleY="0.7" text="0">
+            <Button fx:id="Neptunus" layoutX="26.0" layoutY="91.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="68.0" prefWidth="77.0" scaleX="0.6" scaleY="0.7" style="-fx-background-radius: 40;">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Uranus" layoutX="82.0" layoutY="30.0" mnemonicParsing="false" opacity="0.0" prefHeight="96.0" prefWidth="118.0" scaleX="0.6" scaleY="0.7" text="0">
+            <Button fx:id="Uranus" layoutX="147.0" layoutY="76.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="69.0" prefWidth="81.0" scaleX="0.6" scaleY="0.7" style="-fx-background-radius: 80;">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Saturn" layoutX="168.0" layoutY="41.0" mnemonicParsing="false" opacity="0.0" prefHeight="171.0" prefWidth="242.0" scaleX="0.6" scaleY="0.7" text="0">
+            <Button fx:id="Saturn" layoutX="235.0" layoutY="93.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="117.0" prefWidth="205.0" scaleX="0.6" scaleY="0.7" style="-fx-background-radius: 80;">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Jupiter" layoutX="350.0" layoutY="-28.0" mnemonicParsing="false" opacity="0.0" prefHeight="214.0" prefWidth="214.0" scaleX="0.6" scaleY="0.7" text="0">
+            <Button fx:id="Jupiter" layoutX="407.0" layoutY="25.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="167.0" prefWidth="197.0" scaleX="0.6" scaleY="0.7" style="-fx-background-radius: 100;">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Mars" layoutX="549.0" layoutY="-12.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="0">
+            <Button fx:id="Mars" layoutX="605.0" layoutY="23.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="3.0" prefWidth="24.0" style="-fx-background-radius: 50;">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Jorden" layoutX="604.0" layoutY="31.0" mnemonicParsing="false" opacity="0.0" prefHeight="68.0" prefWidth="77.0" scaleX="0.6" scaleY="0.7" text="0">
+            <Button fx:id="Jorden" layoutX="663.0" layoutY="71.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="51.0" prefWidth="58.0" scaleX="0.6" scaleY="0.7" style="-fx-background-radius: 70;">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Venus" layoutX="691.0" layoutY="56.0" mnemonicParsing="false" opacity="0.0" prefHeight="66.0" prefWidth="67.0" scaleX="0.6" scaleY="0.7" text="0">
+            <Button fx:id="Venus" layoutX="752.0" layoutY="98.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="40.0" prefWidth="45.0" scaleX="0.6" scaleY="0.7" style="-fx-background-radius: 50;">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Merkurius" layoutX="786.0" layoutY="92.0" mnemonicParsing="false" opacity="0.0" prefHeight="49.0" prefWidth="47.0" scaleX="0.6" scaleY="0.7" text="0">
+            <Button fx:id="Merkurius" layoutX="843.0" layoutY="135.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="28.0" prefWidth="31.0" scaleX="0.6" scaleY="0.7" style="-fx-background-radius: 40;">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Solen" layoutX="772.0" layoutY="-44.0" mnemonicParsing="false" opacity="0.0" prefHeight="273.0" prefWidth="275.0" scaleX="0.6" scaleY="0.7" text="0">
+            <Button fx:id="Solen" layoutX="839.0" layoutY="25.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="205.0" prefWidth="241.0" scaleX="0.6" scaleY="0.7" style="-fx-background-radius: 100;">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
@@ -297,7 +297,7 @@
                <children>
                   <VBox alignment="CENTER" layoutX="4.0" prefHeight="771.0" prefWidth="1008.0" spacing="20.0">
                      <children>
-                        <Text fx:id="startText" fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" text="Ska quizet starta?" textAlignment="CENTER" wrappingWidth="1008.0421142578125">
+                        <Text fx:id="startText" fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" text="Redo?" textAlignment="CENTER" wrappingWidth="1008.0421142578125">
                            <font>
                               <Font size="72.0" />
                            </font>
@@ -307,7 +307,7 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Button fx:id="startQuiz" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startQuiz" style="-fx-background-color: #fb3585;" text="Start" textFill="WHITE">
+                        <Button fx:id="startQuiz" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startQuiz" style="-fx-background-color: #fb3585;" text="Starta Quiz" textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -331,7 +331,7 @@
             <Image url="@../Images/quiz/closeBtn.png" />
          </image>
       </ImageView>
-      <Button fx:id="closeQuiz" layoutX="487.0" layoutY="546.0" mnemonicParsing="false" onAction="#closeQuiz" opacity="0.0" prefHeight="95.0" prefWidth="96.0">
+      <Button fx:id="closeQuiz" layoutX="489.0" layoutY="552.0" mnemonicParsing="false" onAction="#closeQuiz" opacity="0.0" pickOnBounds="false" prefHeight="91.0" prefWidth="91.0" style="-fx-background-radius: 50;">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
