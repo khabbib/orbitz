@@ -60,8 +60,6 @@ public class MainFrame extends JFrame {
 
     private static JFXPanel orbitPanel;
 
-
-
     private Scene orbitPanelJfxScene;
 
     private StackPane root;
