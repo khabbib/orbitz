@@ -3,6 +3,7 @@ package View;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -12,12 +13,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.net.URL;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Quiz {
+public class Quiz implements Initializable {
     @FXML
     private AnchorPane root;
     @FXML
@@ -48,51 +50,32 @@ public class Quiz {
             new Question("Klicka på Solen", "Solen")
     );
 
+    private AtomicInteger score = new AtomicInteger(0);
+    private AtomicInteger questionNumber = new AtomicInteger();
+    private AtomicInteger chances = new AtomicInteger(2);
+
     /**
      * Initialize the quiz
      */
-    public void initialize() {
-        this.startQuiz();
-        this.closeQuiz();
-    }
-
-    /**
-     * Start button - start the quiz
-     */
-    public void startQuiz() {
-        startQuiz.setOnAction(e -> {
-            startScreen.setVisible(false);
-            userAnswers.clear();
-            this.start();
-        });
-    }
-
-    /**
-     * Run the quiz
-     */
-    private void start() {
-        question.setText(questions.get(0).question);
-        final int[] questionNumber = {0};
-        AtomicInteger score = new AtomicInteger(0);
-        AtomicInteger chances = new AtomicInteger(2);
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         planetScreen.addEventFilter(MouseEvent.MOUSE_CLICKED, (event) -> {
             if (event.getTarget() instanceof Button) {
                 Button clickEvent = (Button) event.getTarget();
                 String userAnswer = clickEvent.getId();
-                System.out.println(userAnswer);
+
                 String answer = "";
-                if(questionNumber[0] < questions.size()) {
-                    answer = questions.get(questionNumber[0]).answer;
+                if(questionNumber.get() < questions.size()) {
+                    answer = questions.get(questionNumber.get()).answer;
                 }
 
                 if(userAnswer.equals(answer)) {
                     score.incrementAndGet();
-                    questionNumber[0]++;
+                    questionNumber.getAndIncrement();
                     chances.set(2);
                     this.highlightPlanet(userAnswer, true);
-                    if (questionNumber[0] < questions.size()) {
-                        String quizQuestion = questions.get(questionNumber[0]).question;
+                    if (questionNumber.get() < questions.size()) {
+                        String quizQuestion = questions.get(questionNumber.get()).question;
                         userAnswers.put(quizQuestion, userAnswer);
                         question.setText(quizQuestion);
                     } else {
@@ -110,11 +93,19 @@ public class Quiz {
     }
 
     /**
+     * Start button - start the quiz
+     */
+    public void startQuiz() {
+        startScreen.setVisible(false);
+        userAnswers.clear();
+        question.setText(questions.get(0).question);
+    }
+
+    /**
      * Finish the quiz
      */
     private void stop(Integer score) {
         startScreen.setVisible(true);
-
         String result = "";
         if(score == questions.size()) {
             result = "Ditt svar: \n";
@@ -132,6 +123,10 @@ public class Quiz {
         result_text.setText("Du fick " + score + " poäng! \n \n" + result);
         startQuiz.setText("Restart");
         question.setText("");
+
+        this.score.set(0);
+        questionNumber.set(0);
+        chances.set(2);
     }
 
     /**
@@ -177,12 +172,10 @@ public class Quiz {
     /**
      * Close button - return to orbit scene
      */
+    @FXML
     public void closeQuiz() {
-        closeQuiz.setOnAction(e -> {
-            MainFrame.changeScene("Orbit");
-        });
+        MainFrame.changeScene("Orbit");
     }
-
 
     /**
      * Question class
