@@ -1,7 +1,8 @@
 package Controller;
 
-import javafx.scene.image.Image;
 import org.junit.jupiter.api.Test;
+
+import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,12 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResourceHandlerTest {
     //region getPlanetInfoTests
 
-    // TODO: How many info lines do we expect for each planet?
     @Test
     void givenValid_getPlanetInfo() {
         String[] result = ResourceHandler.getPlanetInfo("Earth");
         assertNotNull(result);
-        assertTrue(result.length > 0);
+        assertTrue(result.length > 1);
     }
 
     @Test
@@ -44,14 +44,25 @@ class ResourceHandlerTest {
         assertNull(result);
     }
 
-    // TODO: Again, how many info lines do we expect for each planet?
     @Test
     void givenAllPlanets_getPlanetInfo() {
         String[] planets = {"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"};
         for (String planet : planets) {
             String[] result = ResourceHandler.getPlanetInfo(planet);
             assertNotNull(result);
-            assertTrue(result.length > 0);
+            assertTrue(result.length > 1);
+        }
+    }
+
+    @Test
+    void givenAllPlanets_getPlanetInfo_checkInfoLength() {
+        String[] planets = {"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"};
+        for (String planet : planets) {
+            String[] result = ResourceHandler.getPlanetInfo(planet);
+            for (String s : result) {
+                assertTrue(s.length() > 10);
+                assertTrue(s.length() < 200);
+            }
         }
     }
 
@@ -63,7 +74,7 @@ class ResourceHandlerTest {
     void givenValid_getPlanetsMoonInfo() {
         String[] result = ResourceHandler.getPlanetsMoonInfo("Earth");
         assertNotNull(result);
-        assertTrue(result.length > 0);
+        assertTrue(result.length > 1);
     }
 
     @Test
@@ -96,11 +107,10 @@ class ResourceHandlerTest {
         for (String planet : planetsWithMoons) {
             String[] result = ResourceHandler.getPlanetsMoonInfo(planet);
             assertNotNull(result);
-            assertTrue(result.length > 0);
+            assertTrue(result.length > 1);
         }
     }
 
-    // TODO: Do we expect a empty array or null? Or place holder text?
     @Test
     void givenNoMoons_getPlanetsMoonInfo() {
         String[] result = ResourceHandler.getPlanetsMoonInfo("Mercury");
@@ -118,38 +128,50 @@ class ResourceHandlerTest {
         }
     }
 
+    @Test
+    void givenAllPlanetsWithMoons_getPlanetsMoonInfo_checkInfoLength() {
+        String[] planetsWithMoons = {"Earth", "Jupiter", "Saturn", "Uranus", "Neptune", "Mars"};
+        for (String planet : planetsWithMoons) {
+            String[] result = ResourceHandler.getPlanetsMoonInfo(planet);
+            for (String s : result) {
+                assertTrue(s.length() > 10);
+                assertTrue(s.length() < 200);
+            }
+        }
+    }
+
     //endregion
 
     //region getPlanetImagesTests
 
     @Test
     void givenValid_getPlanetImageURLs() {
-        String[] result = ResourceHandler.getPlanetImageURLs("Earth");
+        URL[] result = ResourceHandler.getPlanetImageURLs("Earth");
         assertNotNull(result);
         assertTrue(result.length > 0);
     }
 
     @Test
     void givenNull_getPlanetImageURLs() {
-        String[] result = ResourceHandler.getPlanetImageURLs(null);
+        URL[] result = ResourceHandler.getPlanetImageURLs(null);
         assertNull(result);
     }
 
     @Test
     void givenEmptyString_getPlanetImageURLs() {
-        String[] result = ResourceHandler.getPlanetImageURLs("");
+        URL[] result = ResourceHandler.getPlanetImageURLs("");
         assertNull(result);
     }
 
     @Test
     void givenMisspelled_getPlanetImageURLs() {
-        String[] result = ResourceHandler.getPlanetImageURLs("Earht");
+        URL[] result = ResourceHandler.getPlanetImageURLs("Earht");
         assertNull(result);
     }
 
     @Test
     void givenInvalid_getPlanetImageURLs() {
-        String[] result = ResourceHandler.getPlanetImageURLs(" . '¨åäö123!!#?");
+        URL[] result = ResourceHandler.getPlanetImageURLs(" . '¨åäö123!!#?");
         assertNull(result);
     }
 
@@ -157,7 +179,7 @@ class ResourceHandlerTest {
     void givenAllPlanets_getPlanetImageURLs() {
         String[] planets = {"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"};
         for (String planet : planets) {
-            String[] result = ResourceHandler.getPlanetImageURLs(planet);
+            URL[] result = ResourceHandler.getPlanetImageURLs(planet);
             assertNotNull(result);
             assertTrue(result.length > 0);
         }
@@ -169,32 +191,32 @@ class ResourceHandlerTest {
 
     @Test
     void givenValid_getPlanetsMoonImageURLs() {
-        String[] result = ResourceHandler.getPlanetsMoonImageURLs("Earth");
+        URL[] result = ResourceHandler.getPlanetsMoonImageURLs("Earth");
         assertNotNull(result);
         assertTrue(result.length > 0);
     }
 
     @Test
     void givenNull_getPlanetsMoonImageURLs() {
-        String[] result = ResourceHandler.getPlanetsMoonImageURLs(null);
+        URL[] result = ResourceHandler.getPlanetsMoonImageURLs(null);
         assertNull(result);
     }
 
     @Test
     void givenEmptyString_getPlanetsMoonImageURLs() {
-        String[] result = ResourceHandler.getPlanetsMoonImageURLs("");
+        URL[] result = ResourceHandler.getPlanetsMoonImageURLs("");
         assertNull(result);
     }
 
     @Test
     void givenMisspelled_getPlanetsMoonImageURLs() {
-        String[] result = ResourceHandler.getPlanetsMoonImageURLs("Earht");
+        URL[] result = ResourceHandler.getPlanetsMoonImageURLs("Earht");
         assertNull(result);
     }
 
     @Test
     void givenInvalid_getPlanetsMoonImageURLs() {
-        String[] result = ResourceHandler.getPlanetsMoonImageURLs(" . '¨åäö123!!#?");
+        URL[] result = ResourceHandler.getPlanetsMoonImageURLs(" . '¨åäö123!!#?");
         assertNull(result);
     }
 
@@ -202,7 +224,7 @@ class ResourceHandlerTest {
     void givenAllPlanetsWithMoons_getPlanetsMoonImageURLs() {
         String[] planetsWithMoons = {"Earth", "Jupiter", "Saturn", "Uranus", "Neptune", "Mars"};
         for (String planet : planetsWithMoons) {
-            String[] result = ResourceHandler.getPlanetsMoonImageURLs(planet);
+            URL[] result = ResourceHandler.getPlanetsMoonImageURLs(planet);
             assertNotNull(result);
             assertTrue(result.length > 0);
         }
@@ -210,7 +232,7 @@ class ResourceHandlerTest {
 
     @Test
     void givenNoMoons_getPlanetsMoonImageURLs() {
-        String[] result = ResourceHandler.getPlanetsMoonImageURLs("Mercury");
+        URL[] result = ResourceHandler.getPlanetsMoonImageURLs("Mercury");
         assertNotNull(result);
         assertEquals(0, result.length);
     }
@@ -219,7 +241,7 @@ class ResourceHandlerTest {
     void givenAllPlanetsWithNoMoons_getPlanetsMoonImageURLs() {
         String[] planetsWithNoMoons = {"Mercury", "Venus"};
         for (String planet : planetsWithNoMoons) {
-            String[] result = ResourceHandler.getPlanetsMoonImageURLs(planet);
+            URL[] result = ResourceHandler.getPlanetsMoonImageURLs(planet);
             assertNotNull(result);
             assertEquals(0, result.length);
         }

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -17,8 +18,8 @@ public class ResourceHandler {
      * @param directoryPath Path to the directory to search.
      * @return A list of URLs, in String format, of the found images. Returns null if the given path is not a directory.
      */
-    private static String[] getImageURLsFromDirectory(String directoryPath) {
-        ArrayList<String> imageList = new ArrayList<>();
+    private static URL[] getImageURLsFromDirectory(String directoryPath) {
+        ArrayList<URL> imageList = new ArrayList<>();
 
         try {
             File directoy = new File(directoryPath);
@@ -30,10 +31,10 @@ public class ResourceHandler {
             if(imgFiles.length > 0) {
                 for (File imgFile : imgFiles) {
                     String filePath = imgFile.getAbsolutePath();
-                    imageList.add("file:" + filePath);
+                    imageList.add(new URL("file:" + filePath));
                 }
             }
-            return imageList.toArray(new String[0]);
+            return imageList.toArray(new URL[0]);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -45,6 +46,8 @@ public class ResourceHandler {
      * @return
      */
     private static String[] fetchInfoList(String fileName) {
+        if(fileName == null) return null;
+
         String filePath = "src/main/resources/Info/" + fileName.toLowerCase() + ".txt";
         ArrayList<String> infoList = new ArrayList<>();
 
@@ -71,11 +74,13 @@ public class ResourceHandler {
         return fetchInfoList(planetName + "_moons");
     }
 
-    public static String[] getPlanetImageURLs(String planetName) {
+    public static URL[] getPlanetImageURLs(String planetName) {
+        if(planetName == null || planetName.equals("")) return null;
         return getImageURLsFromDirectory("src/main/resources/Images/planets/" + planetName);
     }
 
-    public static String[] getPlanetsMoonImageURLs(String planetName) {
+    public static URL[] getPlanetsMoonImageURLs(String planetName) {
+        if(planetName == null || planetName.equals("")) return null;
         return getImageURLsFromDirectory("src/main/resources/Images/planets/" + planetName + "/moons");
     }
 }
