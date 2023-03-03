@@ -163,7 +163,6 @@ public class MainFrame extends JFrame {
         img = soundOn.getImage();
         newImg = img.getScaledInstance( 100, 100, java.awt.Image.SCALE_SMOOTH);
         ImageIcon soundOnScaled = new ImageIcon(newImg);
-
         JButton btnMuteMusic = musicPlayer.getPlaybackState() ? new JButton(soundOnScaled) : new JButton(soundOffScaled);
         musicPlayer.getPlaybackStateProperty().addListener((observableValue, oldValue, newValue) -> {
             if(newValue) {
@@ -181,7 +180,6 @@ public class MainFrame extends JFrame {
 
         overheadPanel.add(btnMuteMusic);
         overheadPanel.add(zoomSlider);
-
 
         mainFrame = this;
         // Quiz button panel

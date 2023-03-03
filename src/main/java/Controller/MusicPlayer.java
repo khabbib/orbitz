@@ -53,7 +53,6 @@ public class MusicPlayer {
         MediaPlayer oldPlayer = activeMediaPlayer;
         if(activeMediaPlayer != null) activeMediaPlayer.dispose();
         activeMediaPlayer = newPlayer;
-        activeMediaPlayer.play();
         return oldPlayer;
     }
 
@@ -162,9 +161,7 @@ public class MusicPlayer {
             Media m = new Media(f.toURI().toString());
             songList.add(m);
         }
-
         return songList.toArray(new Media[0]);
-        //return songList.toArray(new Media[0]);
     }
 
     void log(String msg) {
