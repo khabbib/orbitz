@@ -142,7 +142,7 @@ public class MainFrame extends JFrame {
 //        zoomSlider.setPaintLabels(true);
         zoomSlider.setPaintTrack(true);
 
-        zoomSlider.setPreferredSize(new Dimension(500, 70));
+        zoomSlider.setPreferredSize(new Dimension(300, 50));
 
         // Sets up overheadPanel
         overheadPanel.setLayout(new BorderLayout());
@@ -152,27 +152,31 @@ public class MainFrame extends JFrame {
 
         lblTitle.setOpaque(false);
         overheadPanel.setPreferredSize(new Dimension(1400, 100));
-
-        overheadPanel.add(zoomSlider, BorderLayout.CENTER);
+        JLabel sliderLbl = new JLabel("+");
+        sliderLbl.setPreferredSize(new Dimension(50, 50));
+        sliderLbl.setFont(new Font("Arial", Font.BOLD, 20));
+        sliderLbl.setOpaque(true);
+        overheadPanel.add(sliderLbl, BorderLayout.CENTER);
+//        overheadPanel.add(zoomSlider, BorderLayout.CENTER);
         overheadPanel.add(lblTitle, BorderLayout.WEST);
 
 
         // MUSIC PLAYBACK STUFF
         setupMusicPlayer();
 
-        ImageIcon soundOff = new ImageIcon("src/main/resources/Icons/Muted.png");
-        ImageIcon soundOn = new ImageIcon("src/main/resources/Icons/Unmuted.png");
+        ImageIcon soundOff = new ImageIcon("src/main/resources/Icons/Muted1.png");
+        ImageIcon soundOn = new ImageIcon("src/main/resources/Icons/Unmuted1.png");
 
         // Stupid java swing, resizing icons to match button
         java.awt.Image img;
         java.awt.Image newImg;
 
         img = soundOff.getImage();
-        newImg = img.getScaledInstance( 80, 80,  java.awt.Image.SCALE_SMOOTH );
+        newImg = img.getScaledInstance( 72, 72,  java.awt.Image.SCALE_SMOOTH );
         ImageIcon soundOffScaled = new ImageIcon(newImg);
 
         img = soundOn.getImage();
-        newImg = img.getScaledInstance( 80, 80, java.awt.Image.SCALE_SMOOTH);
+        newImg = img.getScaledInstance( 72, 72, java.awt.Image.SCALE_SMOOTH);
         ImageIcon soundOnScaled = new ImageIcon(newImg);
 
         JButton btnMuteMusic = musicPlayer.getPlaybackState() ? new JButton(soundOnScaled) : new JButton(soundOffScaled);
@@ -185,7 +189,8 @@ public class MainFrame extends JFrame {
             }
         });
         btnMuteMusic.setPreferredSize(new Dimension(100, 100));
-        btnMuteMusic.setBackground(Color.black);
+//        btnMuteMusic.setBackground(Color.black);
+        btnMuteMusic.setFocusable(false);
         btnMuteMusic.setBorderPainted(false);
         btnMuteMusic.addActionListener(e -> musicPlayer.togglePlayback());
         // MUTE BUTTON FINISHED
@@ -199,8 +204,8 @@ public class MainFrame extends JFrame {
         buttonPanel.setLayout(new FlowLayout());
         buttonPanel.setPreferredSize(new Dimension(300, 80));
         // Quiz button
-        ImageIcon quizButtonIcon = new ImageIcon("src/main/resources/Icons/Quizbutton2.png");
-//        ImageIcon quizButtonIcon = new ImageIcon(quizButtonIconUnscaled.getImage().getScaledInstance(120, 60, java.awt.Image.SCALE_SMOOTH));
+        ImageIcon icon = new ImageIcon("src/main/resources/Icons/quizbuttonB.png");
+        ImageIcon quizButtonIcon = new ImageIcon(icon.getImage().getScaledInstance(120, 72, java.awt.Image.SCALE_SMOOTH));
         JButton quizButton = new JButton(quizButtonIcon);
         quizButton.addActionListener(e -> changeScene("Quiz"));
         quizButton.setPreferredSize(new Dimension(120, 72));
