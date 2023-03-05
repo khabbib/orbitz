@@ -152,14 +152,9 @@ public class MainFrame extends JFrame {
 
         lblTitle.setOpaque(false);
         overheadPanel.setPreferredSize(new Dimension(1400, 100));
-        JLabel sliderLbl = new JLabel("+");
-        sliderLbl.setPreferredSize(new Dimension(50, 50));
-        sliderLbl.setFont(new Font("Arial", Font.BOLD, 20));
-        sliderLbl.setOpaque(true);
-        overheadPanel.add(sliderLbl, BorderLayout.CENTER);
-//        overheadPanel.add(zoomSlider, BorderLayout.CENTER);
-        overheadPanel.add(lblTitle, BorderLayout.WEST);
 
+        overheadPanel.add(zoomSlider, BorderLayout.CENTER);
+        overheadPanel.add(lblTitle, BorderLayout.WEST);
 
         // MUSIC PLAYBACK STUFF
         setupMusicPlayer();
@@ -189,7 +184,6 @@ public class MainFrame extends JFrame {
             }
         });
         btnMuteMusic.setPreferredSize(new Dimension(100, 100));
-//        btnMuteMusic.setBackground(Color.black);
         btnMuteMusic.setFocusable(false);
         btnMuteMusic.setBorderPainted(false);
         btnMuteMusic.addActionListener(e -> musicPlayer.togglePlayback());
@@ -209,12 +203,7 @@ public class MainFrame extends JFrame {
         JButton quizButton = new JButton(quizButtonIcon);
         quizButton.addActionListener(e -> changeScene("Quiz"));
         quizButton.setPreferredSize(new Dimension(120, 72));
-        quizButton.setContentAreaFilled(false);
-        quizButton.setFocusPainted(false);
-        quizButton.setBorderPainted(false);
-//        quizButton.setFont(new Font("Arial", Font.BOLD, 20));
         quizButton.setOpaque(false);
-        quizButton.setVisible(true);
         buttonPanel.add(quizButton);
         buttonPanel.add(btnMuteMusic);
 
