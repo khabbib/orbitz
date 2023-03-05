@@ -61,7 +61,7 @@
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Merkurius_label" fill="RED" layoutX="1073.0" layoutY="277.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Merkurius" visible="false" wrappingWidth="84.7498985949224">
+      <Text fx:id="Merkurius_label" fill="RED" layoutX="1073.0" layoutY="268.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Merkurius" visible="false" wrappingWidth="110.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
