@@ -33,6 +33,9 @@ public class Quiz implements Initializable {
     @FXML
     private Text question, startText, result_text;
 
+    @FXML
+    private ImageView confetti;
+
     HashMap<String, String> userAnswers = new HashMap<>();
 
     @FXML
@@ -41,15 +44,15 @@ public class Quiz implements Initializable {
 
     // Questions
     private final List<Question> questions = List.of(
-            new Question("Klicka på Uranus", "Uranus"),
-            new Question("Klicka på Mars", "Mars"),
-            new Question("Klicka på Saturn", "Saturn"),
-            new Question("Klicka på Jupiter", "Jupiter"),
-            new Question("Klicka på Neptunus", "Neptunus"),
-            new Question("Klicka på Venus", "Venus"),
-            new Question("Klicka på Jorden", "Jorden"),
-            new Question("Klicka på Merkurius", "Merkurius"),
-            new Question("Klicka på Solen", "Solen")
+            new Question("Click on Uranus", "Uranus"),
+            new Question("Click on Mars", "Mars"),
+            new Question("Click on Saturn", "Saturn"),
+            new Question("Click on Jupiter", "Jupiter"),
+            new Question("Click on Neptune", "Neptune"),
+            new Question("Click on Venus", "Venus"),
+            new Question("Click on Earth", "Earth"),
+            new Question("Click on Mercury", "Mercury"),
+            new Question("Click on the Sun", "Sun")
     );
 
     private AtomicInteger score = new AtomicInteger(0);
@@ -99,6 +102,7 @@ public class Quiz implements Initializable {
      */
     public void startQuiz() {
         startScreen.setVisible(false);
+        confetti.setVisible(false);
         userAnswers.clear();
         question.setText(questions.get(0).question);
     }
@@ -110,20 +114,21 @@ public class Quiz implements Initializable {
         startScreen.setVisible(true);
         String result = "";
         if(score == questions.size()) {
-            result = "Ditt svar: \n";
+            result = "Your answer: \n";
             int i = 1;
             for(String question : userAnswers.keySet()) {
                 String answer = userAnswers.get(question);
                 result += i  +". "+ question + ": __" + answer + "__\n";
                 i++;
             }
-            startText.setText("Du klarade quizet!");
+            confetti.setVisible(true);
+            startText.setText("Congratulations, you passed the quiz!");
             startText.setFill(Color.YELLOWGREEN);
         } else {
-            startText.setText("Du klarade inte quizet!");
+            startText.setText("Darn it, \n better luck next time!");
         }
-        result_text.setText("Du fick " + score + " poäng! \n \n" + result);
-        startQuiz.setText("Restart");
+        result_text.setText("You got scored " + score + " points! \n \n" + result);
+        startQuiz.setText("Try again");
         question.setText("");
 
         this.score.set(0);
