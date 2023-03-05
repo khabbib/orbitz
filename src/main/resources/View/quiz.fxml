@@ -26,7 +26,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Text fx:id="Neptune_label" fill="RED" layoutX="39.0" layoutY="218.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Neptune" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Neptunus_label" fill="RED" layoutX="39.0" layoutY="218.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Neptunus" visible="false" wrappingWidth="110.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
@@ -36,7 +36,7 @@
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Saturn_label" fill="RED" layoutX="436.0" layoutY="234.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Saturn" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Saturnus_label" fill="RED" layoutX="436.0" layoutY="234.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Saturnus" visible="false" wrappingWidth="110.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
@@ -51,7 +51,7 @@
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Earth_label" fill="RED" layoutX="881.0" layoutY="189.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Earth" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Jorden_label" fill="RED" layoutX="881.0" layoutY="189.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Jorden" visible="false" wrappingWidth="110.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
@@ -61,12 +61,12 @@
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Mercury_label" fill="RED" layoutX="1073.0" layoutY="277.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Mercury" visible="false" wrappingWidth="84.7498985949224">
+      <Text fx:id="Merkurius_label" fill="RED" layoutX="1073.0" layoutY="277.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Merkurius" visible="false" wrappingWidth="84.7498985949224">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Sun_label" fill="RED" layoutX="1238.0" layoutY="148.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Sun" visible="false" wrappingWidth="110.0">
+      <Text fx:id="Solen_label" fill="RED" layoutX="1238.0" layoutY="148.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Solen" visible="false" wrappingWidth="110.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
