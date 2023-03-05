@@ -169,7 +169,7 @@ public class Quiz implements Initializable {
     }
 
     private void removeLabel(Text label) {
-        Timeline labelTimer = new Timeline(new KeyFrame(Duration.seconds(5)));
+        Timeline labelTimer = new Timeline(new KeyFrame(Duration.seconds(1)));
         labelTimer.setOnFinished(e -> {
             label.setVisible(false);
         });

@@ -26,49 +26,49 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Text fx:id="Neptune_label" fill="#fcfcfc" layoutX="39.0" layoutY="223.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Neptune" wrappingWidth="110.0">
+      <Text fx:id="Neptune_label" fill="RED" layoutX="39.0" layoutY="218.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Neptune" visible="false" wrappingWidth="110.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Uranus_label" fill="#fcfcfc" layoutX="210.0" layoutY="197.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Uranus" wrappingWidth="110.0">
+      <Text fx:id="Uranus_label" fill="RED" layoutX="210.0" layoutY="197.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Uranus" visible="false" wrappingWidth="110.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Saturn_label" fill="#fcfcfc" layoutX="436.0" layoutY="234.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Saturn" wrappingWidth="110.0">
+      <Text fx:id="Saturn_label" fill="RED" layoutX="436.0" layoutY="234.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Saturn" visible="false" wrappingWidth="110.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Jupiter_label" fill="#fcfcfc" layoutX="672.0" layoutY="159.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Jupiter" wrappingWidth="110.0">
+      <Text fx:id="Jupiter_label" fill="RED" layoutX="658.0" layoutY="141.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Jupiter" visible="false" wrappingWidth="110.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Mars_label" fill="#fcfcfc" layoutX="799.0" layoutY="127.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Mars" wrappingWidth="110.0">
+      <Text fx:id="Mars_label" fill="RED" layoutX="799.0" layoutY="118.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Mars" visible="false" wrappingWidth="110.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Earth_label" fill="#fcfcfc" layoutX="881.0" layoutY="297.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Earth" wrappingWidth="110.0">
+      <Text fx:id="Earth_label" fill="RED" layoutX="881.0" layoutY="189.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Earth" visible="false" wrappingWidth="110.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Venus_label" fill="#fcfcfc" layoutX="1020.0" layoutY="244.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Venus" wrappingWidth="110.0">
+      <Text fx:id="Venus_label" fill="RED" layoutX="992.0" layoutY="231.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Venus" visible="false" wrappingWidth="110.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Mercury_label" fill="#fcfcfc" layoutX="1091.0" layoutY="283.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Mercury" wrappingWidth="73.2865196886724">
+      <Text fx:id="Mercury_label" fill="RED" layoutX="1073.0" layoutY="277.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Mercury" visible="false" wrappingWidth="84.7498985949224">
          <font>
-            <Font size="14.0" />
+            <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
-      <Text fx:id="Sun_label" fill="#fcfcfc" layoutX="1238.0" layoutY="158.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Sun" wrappingWidth="110.0">
+      <Text fx:id="Sun_label" fill="RED" layoutX="1238.0" layoutY="148.0" stroke="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Sun" visible="false" wrappingWidth="110.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Text>
       <Circle fx:id="Neptune_highlighter" layoutX="72.0" layoutY="275.0" opacity="0.0" radius="48.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
@@ -143,7 +143,7 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <Circle fx:id="Mars_highlighter" layoutX="801.0" layoutY="155.0" opacity="0.0" radius="39.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Mars_highlighter" layoutX="802.0" layoutY="156.0" opacity="0.0" radius="39.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
