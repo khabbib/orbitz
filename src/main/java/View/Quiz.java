@@ -17,9 +17,7 @@ import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Quiz implements Initializable {
@@ -56,7 +54,7 @@ public class Quiz implements Initializable {
     );
 
     private AtomicInteger score = new AtomicInteger(0);
-    private AtomicInteger questionNumber = new AtomicInteger();
+    private AtomicInteger questionNumber = new AtomicInteger(0);
     private AtomicInteger chances = new AtomicInteger(2);
 
     /**
@@ -76,13 +74,14 @@ public class Quiz implements Initializable {
 
                 if(userAnswer.equals(answer)) {
                     score.incrementAndGet();
-                    questionNumber.getAndIncrement();
                     chances.set(2);
                     this.highlightPlanet(userAnswer, true);
+                    questionNumber.incrementAndGet();
+                    String prevQuestion = questions.get(questionNumber.get()-1).question;
+                    userAnswers.put(prevQuestion, userAnswer);
                     if (questionNumber.get() < questions.size()) {
-                        String quizQuestion = questions.get(questionNumber.get()).question;
-                        userAnswers.put(quizQuestion, userAnswer);
-                        question.setText(quizQuestion);
+                        String nextQuestion = questions.get(questionNumber.get()).question;
+                        question.setText(nextQuestion);
                     } else {
                         this.stop(score.get());
                     }
@@ -112,13 +111,13 @@ public class Quiz implements Initializable {
      */
     private void stop(Integer score) {
         startScreen.setVisible(true);
-        String result = "";
+        StringBuilder result = new StringBuilder();
         if(score == questions.size()) {
-            result = "Ditt svar: \n";
+            result.append("Ditt svar: \n");
             int i = 1;
             for(String question : userAnswers.keySet()) {
                 String answer = userAnswers.get(question);
-                result += i  +". "+ question + ": __" + answer + "__\n";
+                result.append(i  +". "+ question + ": __" + answer + "__\n");
                 i++;
             }
             confetti.setVisible(true);
