@@ -50,7 +50,7 @@ public class Quiz implements Initializable {
             new Question("Klicka på Jupiter", "Jupiter"),
             new Question("Klicka på Neptunus", "Neptunus"),
             new Question("Klicka på Venus", "Venus"),
-            new Question("Klicka på Jorder", "Jorden"),
+            new Question("Klicka på Jorden", "Jorden"),
             new Question("Klicka på Merkurius", "Merkurius"),
             new Question("Klicka på Solen", "Solen")
     );
