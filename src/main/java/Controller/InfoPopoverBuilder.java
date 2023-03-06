@@ -51,12 +51,6 @@ public class InfoPopoverBuilder {
         return popOver;
     }
 
-    // TODO: Implement this, remove the other createInfoPopover method
-    // It's basically just replacing planet.getName() with planetName
-    public PopOver createInfoPopover(String planetName) {
-        return null;
-    }
-
     /**
      * Creates a Pane populated with information about the given planet.
      * @param planetName
@@ -133,7 +127,6 @@ public class InfoPopoverBuilder {
         return rootNode;
     }
 
-    // TODO: Replace with ResourceHandler
     /**
      * Returns a list of all found .jpg and .png files in a given directory.
      * @param directoryPath Path to the directory to search.
@@ -163,7 +156,6 @@ public class InfoPopoverBuilder {
         }
     }
 
-    // TODO: replace with ResourceHandler
     /**
      * @param fileName Name of a planet. Suffix with _moons to get moon info for specified planet.
      * @return
