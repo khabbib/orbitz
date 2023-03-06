@@ -183,7 +183,7 @@ public class MainFrame extends JFrame {
                 btnMuteMusic.setIcon(soundOffScaled);
             }
         });
-        btnMuteMusic.setPreferredSize(new Dimension(100, 100));
+        btnMuteMusic.setPreferredSize(new Dimension(72, 72));
         btnMuteMusic.setFocusable(false);
         btnMuteMusic.setBorderPainted(false);
         btnMuteMusic.addActionListener(e -> musicPlayer.togglePlayback());
@@ -203,8 +203,10 @@ public class MainFrame extends JFrame {
         JButton quizButton = new JButton(quizButtonIcon);
         quizButton.addActionListener(e -> changeScene("Quiz"));
         quizButton.setPreferredSize(new Dimension(120, 72));
-//        quizButton.setOpaque(false);
-//        btnMuteMusic.setOpaque(false);
+        quizButton.setOpaque(false);
+        btnMuteMusic.setOpaque(false);
+        quizButton.setFocusable(false);
+        quizButton.setBorderPainted(false);
 
         buttonPanel.add(quizButton);
         buttonPanel.add(btnMuteMusic);
