@@ -203,8 +203,9 @@ public class MainFrame extends JFrame {
         JButton quizButton = new JButton(quizButtonIcon);
         quizButton.addActionListener(e -> changeScene("Quiz"));
         quizButton.setPreferredSize(new Dimension(120, 72));
-        quizButton.setOpaque(false);
-        btnMuteMusic.setOpaque(false);
+//        quizButton.setOpaque(false);
+//        btnMuteMusic.setOpaque(false);
+
         buttonPanel.add(quizButton);
         buttonPanel.add(btnMuteMusic);
 
@@ -214,6 +215,8 @@ public class MainFrame extends JFrame {
 
         currentTheme = new Theme("Black and White", Color.BLACK, new Color(36,18,70), javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
         setColors(currentTheme);
+        btnMuteMusic.setBackground(currentTheme.getSecondaryColor());
+        quizButton.setBackground(currentTheme.getSecondaryColor());
 
         Platform.runLater(new Runnable() {
             @Override
