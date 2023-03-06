@@ -15,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.PhongMaterial;
@@ -125,16 +124,6 @@ public class MainFrame extends JFrame {
 
         orbitPanel.setPreferredSize(new Dimension(getWidth(), getHeight() - 100));
 
-        Font f = new Font("Arial", Font.BOLD, 8);
-        JLabel labelMin = new JLabel("MIN");
-        JLabel labelMax = new JLabel("MAX");
-        labelMin.setFont(f);
-        labelMax.setFont(f);
-
-        Hashtable<Integer, JLabel> labelTableM = new Hashtable<>();
-        labelTableM.put(2, labelMin);
-        labelTableM.put(19, labelMax);
-
         // Sets up the zoomSlider
         zoomSlider.setValue(50);
         zoomSlider.setMaximum(130);
@@ -147,10 +136,10 @@ public class MainFrame extends JFrame {
         // Sets up overheadPanel
         overheadPanel.setLayout(new BorderLayout());
         // set opaque
-        overheadPanel.setOpaque(true);
-        zoomSlider.setOpaque(true);
+//        overheadPanel.setOpaque(true);
+//        zoomSlider.setOpaque(true);
 
-        lblTitle.setOpaque(false);
+//        lblTitle.setOpaque(false);
         overheadPanel.setPreferredSize(new Dimension(1400, 100));
 
         overheadPanel.add(zoomSlider, BorderLayout.CENTER);
@@ -189,14 +178,12 @@ public class MainFrame extends JFrame {
         btnMuteMusic.addActionListener(e -> musicPlayer.togglePlayback());
         // MUTE BUTTON FINISHED
 
-//        overheadPanel.add(btnMuteMusic, BorderLayout.EAST);
-
-
         mainFrame = this;
         // Quiz button panel
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         buttonPanel.setPreferredSize(new Dimension(300, 80));
+
         // Quiz button
         ImageIcon icon = new ImageIcon("src/main/resources/Icons/quizbuttonB.png");
         ImageIcon quizButtonIcon = new ImageIcon(icon.getImage().getScaledInstance(120, 72, java.awt.Image.SCALE_SMOOTH));
@@ -234,12 +221,6 @@ public class MainFrame extends JFrame {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                });
-
                 switch (name) {
                     case "Quiz":
                         Scene scene = null;
