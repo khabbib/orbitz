@@ -204,6 +204,7 @@ public class MainFrame extends JFrame {
         quizButton.addActionListener(e -> changeScene("Quiz"));
         quizButton.setPreferredSize(new Dimension(120, 72));
         quizButton.setOpaque(false);
+        btnMuteMusic.setOpaque(false);
         buttonPanel.add(quizButton);
         buttonPanel.add(btnMuteMusic);
 
