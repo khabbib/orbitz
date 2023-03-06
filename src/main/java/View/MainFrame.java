@@ -26,6 +26,7 @@ import org.controlsfx.control.PopOver;
 import Controller.InfoPopoverBuilder;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicSliderUI;
@@ -84,6 +85,7 @@ public class MainFrame extends JFrame {
 
     static private JPanel overheadPanel;
     private JPanel buttonPanel;
+    private JPanel zoomPanel;
     private static Scene orbitScene;
     private static Scene quizScene;
     private static JFrame mainFrame;
@@ -99,13 +101,6 @@ public class MainFrame extends JFrame {
         initFonts();
         orbitPanel = new JFXPanel();
         overheadPanel = new JPanel();
-
-        zoomSlider = new JSlider() {
-            @Override
-            public void updateUI() {
-                setUI(new CustomSliderUI(this));
-            }
-        };
 
         lblTitle = new JLabel();
         lblTitle.setPreferredSize(new Dimension(300, 80));
@@ -125,25 +120,30 @@ public class MainFrame extends JFrame {
         orbitPanel.setPreferredSize(new Dimension(getWidth(), getHeight() - 100));
 
         // Sets up the zoomSlider
+        zoomSlider = new JSlider() {
+            @Override
+            public void updateUI() {
+                setUI(new CustomSliderUI(this));
+            }
+        };
         zoomSlider.setValue(50);
         zoomSlider.setMaximum(130);
         zoomSlider.setMinimum(3);
-//        zoomSlider.setPaintLabels(true);
-        zoomSlider.setPaintTrack(true);
-
         zoomSlider.setPreferredSize(new Dimension(300, 50));
 
-        // Sets up overheadPanel
-        overheadPanel.setLayout(new BorderLayout());
-        // set opaque
-//        overheadPanel.setOpaque(true);
-//        zoomSlider.setOpaque(true);
+        // Set up the zoomPanel
+        zoomPanel = new JPanel();
+        zoomPanel.setPreferredSize(new Dimension(300, 50));
+        ImageIcon zoomIn = new ImageIcon("src/main/resources/Icons/zoom+.png");
+        zoomIn = new ImageIcon(zoomIn.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
+        ImageIcon zoomOut = new ImageIcon("src/main/resources/Icons/zoom-.png");
+        zoomOut = new ImageIcon(zoomOut.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
 
-//        lblTitle.setOpaque(false);
-        overheadPanel.setPreferredSize(new Dimension(1400, 100));
-
-        overheadPanel.add(zoomSlider, BorderLayout.CENTER);
-        overheadPanel.add(lblTitle, BorderLayout.WEST);
+        zoomPanel.setLayout(new BorderLayout());
+        zoomPanel.setBorder(new EmptyBorder(10,50,10,50));
+        zoomPanel.add(zoomSlider, BorderLayout.CENTER);
+        zoomPanel.add(new JLabel(zoomIn), BorderLayout.WEST);
+        zoomPanel.add(new JLabel(zoomOut), BorderLayout.EAST);
 
         // MUSIC PLAYBACK STUFF
         setupMusicPlayer();
@@ -175,14 +175,10 @@ public class MainFrame extends JFrame {
         btnMuteMusic.setPreferredSize(new Dimension(72, 72));
         btnMuteMusic.setFocusable(false);
         btnMuteMusic.setBorderPainted(false);
+        btnMuteMusic.setOpaque(false);
+        btnMuteMusic.setBackground(new Color(36,18,70));
         btnMuteMusic.addActionListener(e -> musicPlayer.togglePlayback());
         // MUTE BUTTON FINISHED
-
-        mainFrame = this;
-        // Quiz button panel
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
-        buttonPanel.setPreferredSize(new Dimension(300, 80));
 
         // Quiz button
         ImageIcon icon = new ImageIcon("src/main/resources/Icons/quizbuttonB.png");
@@ -191,21 +187,33 @@ public class MainFrame extends JFrame {
         quizButton.addActionListener(e -> changeScene("Quiz"));
         quizButton.setPreferredSize(new Dimension(120, 72));
         quizButton.setOpaque(false);
-        btnMuteMusic.setOpaque(false);
         quizButton.setFocusable(false);
         quizButton.setBorderPainted(false);
+        quizButton.setBackground(new Color(36,18,70));
 
+        // Quiz button panel
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        buttonPanel.setPreferredSize(new Dimension(300, 80));
+        buttonPanel.setBorder(new EmptyBorder(10,0,10,0));
         buttonPanel.add(quizButton);
+        buttonPanel.add(new JLabel("   "));
         buttonPanel.add(btnMuteMusic);
 
+        // Sets up overheadPanel
+        overheadPanel.setLayout(new BorderLayout());
+        overheadPanel.setPreferredSize(new Dimension(1400, 100));
+        overheadPanel.add(zoomPanel, BorderLayout.CENTER);
+        overheadPanel.add(lblTitle, BorderLayout.WEST);
         overheadPanel.add(buttonPanel, BorderLayout.EAST);
+
+        mainFrame = this;
         mainFrame.add(orbitPanel, BorderLayout.CENTER);
         mainFrame.add(overheadPanel, BorderLayout.NORTH);
 
         currentTheme = new Theme("Black and White", Color.BLACK, new Color(36,18,70), javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
         setColors(currentTheme);
-        btnMuteMusic.setBackground(currentTheme.getSecondaryColor());
-        quizButton.setBackground(currentTheme.getSecondaryColor());
+
 
         Platform.runLater(new Runnable() {
             @Override
@@ -556,14 +564,15 @@ public class MainFrame extends JFrame {
     public void setColors(Theme theme) {
         currentTheme = theme;
         lblTitle.setForeground(Color.WHITE);
-        zoomSlider.setForeground(theme.getSecondaryColor());
+//        zoomSlider.setForeground(theme.getSecondaryColor());
         overheadPanel.setBackground(theme.getSecondaryColor());
         buttonPanel.setBackground(theme.getSecondaryColor());
-        lblTitle.setOpaque(true);
+        zoomPanel.setBackground(theme.getSecondaryColor());
+//        lblTitle.setOpaque(true);
         lblTitle.setBackground(null);
         zoomSlider.setBackground(null);
-        zoomSlider.setOpaque(true);
-        overheadPanel.setBorder(BorderFactory.createLineBorder(theme.getSecondaryColor(), 2));
+//        zoomSlider.setOpaque(true);
+        //overheadPanel.setBorder(BorderFactory.createLineBorder(theme.getSecondaryColor(), 2));
 
 
         Platform.runLater(new Runnable() {
