@@ -126,7 +126,7 @@ public class MainFrame extends JFrame {
                 setUI(new CustomSliderUI(this));
             }
         };
-        zoomSlider.setValue(50);
+        zoomSlider.setValue(10);
         zoomSlider.setMaximum(130);
         zoomSlider.setMinimum(3);
         zoomSlider.setPreferredSize(new Dimension(300, 50));
