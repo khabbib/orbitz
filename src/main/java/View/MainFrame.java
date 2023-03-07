@@ -124,10 +124,6 @@ public class MainFrame extends JFrame {
         labelTableM.put(19, labelMax);
 
         // Sets up the zoomSlider
-<<<<<<< Updated upstream
-
-        zoomSlider.setValue(50);
-=======
         zoomSlider = new JSlider() {
             @Override
             public void updateUI() {
@@ -135,7 +131,6 @@ public class MainFrame extends JFrame {
             }
         };
         zoomSlider.setValue(10);
->>>>>>> Stashed changes
         zoomSlider.setMaximum(130);
         zoomSlider.setMinimum(3);
         zoomSlider.setPaintLabels(true);
