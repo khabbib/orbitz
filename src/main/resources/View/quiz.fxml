@@ -26,7 +26,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <Text fx:id="Neptunus_label" fill="#fcfcfc" layoutX="39.0" layoutY="223.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Neptune" wrappingWidth="110.0">
+      <Text fx:id="Neptunus_label" fill="#fcfcfc" layoutX="39.0" layoutY="223.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Neptunus" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -36,7 +36,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Saturn_label" fill="#fcfcfc" layoutX="436.0" layoutY="234.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Saturn" wrappingWidth="110.0">
+      <Text fx:id="Saturnus_label" fill="#fcfcfc" layoutX="436.0" layoutY="234.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Saturnus" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -51,7 +51,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Jorden_label" fill="#fcfcfc" layoutX="881.0" layoutY="297.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Earth" wrappingWidth="110.0">
+      <Text fx:id="Jorden_label" fill="#fcfcfc" layoutX="881.0" layoutY="297.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Jorden" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -61,12 +61,12 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="Merkurius_label" fill="#fcfcfc" layoutX="1091.0" layoutY="283.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Mercury" wrappingWidth="73.2865196886724">
+      <Text fx:id="Merkurius_label" fill="#fcfcfc" layoutX="1091.0" layoutY="283.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Merkurius" wrappingWidth="73.2865196886724">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Text fx:id="Solen_label" fill="#fcfcfc" layoutX="1238.0" layoutY="158.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Sun" wrappingWidth="110.0">
+      <Text fx:id="Solen_label" fill="#fcfcfc" layoutX="1238.0" layoutY="158.0" opacity="0.0" stroke="#404040" strokeType="OUTSIDE" strokeWidth="3.0" text="Solen" wrappingWidth="110.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -107,7 +107,7 @@
             </RadialGradient>
          </fill>
       </Circle>
-      <Circle fx:id="Saturn_highlighter" layoutX="433.0" layoutY="310.0" opacity="0.0" radius="99.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+      <Circle fx:id="Saturnus_highlighter" layoutX="433.0" layoutY="310.0" opacity="0.0" radius="99.0" scaleX="0.7" scaleY="0.7" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
          <fill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -245,7 +245,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button fx:id="Saturn" layoutX="304.0" layoutY="126.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="151.0" prefWidth="261.0" scaleX="0.6" scaleY="0.7" style="-fx-background-radius: 80;">
+            <Button fx:id="Saturnus" layoutX="304.0" layoutY="126.0" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="151.0" prefWidth="261.0" scaleX="0.6" scaleY="0.7" style="-fx-background-radius: 80;">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
@@ -282,42 +282,6 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="startScreen" prefHeight="792.0" prefWidth="1408.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000c8" height="792.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="1408.0" />
-            <Pane prefHeight="792.0" prefWidth="1408.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="792.0" prefWidth="1408.0" spacing="20.0">
-                     <children>
-                        <Text fx:id="startText" fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" text="Ready?" textAlignment="CENTER" wrappingWidth="944.093017578125">
-                           <font>
-                              <Font size="72.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="result_text" fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1008.0421142578125">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Text>
-                        <Button fx:id="startQuiz" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startQuiz" style="-fx-background-color: #fb3585;" text="Start quiz" textFill="WHITE">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Text fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1008.0421142578125">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </VBox>
-               </children>
-            </Pane>
-         </children>
-      </AnchorPane>
       <Text fx:id="question" fill="#f8f8f8" layoutX="222.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="963.441162109375">
          <font>
             <Font size="72.0" />
@@ -328,5 +292,46 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
+      <AnchorPane fx:id="startScreen" prefHeight="792.0" prefWidth="1408.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000c8" height="792.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="1408.0" />
+            <ImageView fx:id="confetti" fitHeight="792.0" fitWidth="1515.0" layoutX="111.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../Images/quiz/win.png" />
+               </image>
+            </ImageView>
+            <Pane prefHeight="792.0" prefWidth="1408.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="792.0" prefWidth="1408.0" spacing="20.0">
+                     <children>
+                        <Text fx:id="startText" fill="#fb3585" strokeType="OUTSIDE" strokeWidth="0.0" text="Redo?" textAlignment="CENTER" wrappingWidth="1189.093017578125">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="96.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="result_text" fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1091.0421142578125">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="startQuiz" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startQuiz" style="-fx-background-color: #fb3585;" text="Starta" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="38.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Text fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1105.0421142578125">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

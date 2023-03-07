@@ -601,7 +601,7 @@ public class MainFrame extends JFrame {
      * @author Albin Ahlbeck
      */
     public void setTooltip(Model.Planet planet) {
-        Tooltip tooltip = new Tooltip(planet.getName());
+        Tooltip tooltip = new Tooltip(planet.getSwedishName());
         tooltip.setStyle("-fx-font-size: 20");                   //CSS stylesheet, Oracle doc.
         tooltip.setShowDelay(Duration.millis(0));//sets time before text appears after hovering over image
 

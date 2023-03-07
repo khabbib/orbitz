@@ -31,6 +31,9 @@ public class Quiz implements Initializable {
     @FXML
     private Text question, startText, result_text;
 
+    @FXML
+    private ImageView confetti;
+
     Map<String, String> userAnswers = new LinkedHashMap<>();
 
     @FXML
@@ -41,7 +44,7 @@ public class Quiz implements Initializable {
     private final List<Question> questions = List.of(
             new Question("Klicka på Uranus", "Uranus"),
             new Question("Klicka på Mars", "Mars"),
-            new Question("Klicka på Saturn", "Saturn"),
+            new Question("Klicka på Saturnus", "Saturnus"),
             new Question("Klicka på Jupiter", "Jupiter"),
             new Question("Klicka på Neptunus", "Neptunus"),
             new Question("Klicka på Venus", "Venus"),
@@ -98,6 +101,7 @@ public class Quiz implements Initializable {
      */
     public void startQuiz() {
         startScreen.setVisible(false);
+        confetti.setVisible(false);
         userAnswers.clear();
         question.setText(questions.get(0).question);
     }
@@ -116,13 +120,14 @@ public class Quiz implements Initializable {
                 result.append(i  +". "+ question + ": __" + answer + "__\n");
                 i++;
             }
-            startText.setText("Du klarade quizet!");
+            confetti.setVisible(true);
+            startText.setText("Grattis, du klarade quizet!");
             startText.setFill(Color.YELLOWGREEN);
         } else {
-            startText.setText("Du klarade inte quizet!");
+            startText.setText("Attans, \n bättre lycka nästa gång!");
         }
         result_text.setText("Du fick " + score + " poäng! \n \n" + result);
-        startQuiz.setText("Restart");
+        startQuiz.setText("Testa igen");
         question.setText("");
 
         this.score.set(0);

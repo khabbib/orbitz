@@ -123,5 +123,30 @@ public class Planet {
         return SCALE_RADIUS_VALUE;
     }
 
+    /**
+     * Get the swedish name of the planet.
+     * @return Swedish name of the planet.
+     */
+    public String getSwedishName() {
+        if (planetInfo.get("englishName").equals("Sun"))
+            return "Solen";
+        else if (planetInfo.get("englishName").equals("Mercury"))
+            return "Merkurius";
+        else if (planetInfo.get("englishName").equals("Venus"))
+            return "Venus";
+        else if (planetInfo.get("englishName").equals("Earth"))
+            return "Jorden";
+        else if (planetInfo.get("englishName").equals("Mars"))
+            return "Mars";
+        else if (planetInfo.get("englishName").equals("Jupiter"))
+            return "Jupiter";
+        else if (planetInfo.get("englishName").equals("Saturn"))
+            return "Saturnus";
+        else if (planetInfo.get("englishName").equals("Uranus"))
+            return "Uranus";
+        else if (planetInfo.get("englishName").equals("Neptune"))
+            return "Neptunus";
 
+        return planetInfo.get("englishName").toString();
+    }
 }
