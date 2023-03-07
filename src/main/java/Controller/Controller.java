@@ -9,6 +9,8 @@ import Model.Enum.Planets;
 import Model.Enum.Stars;
 import Model.Orbit;
 import javafx.animation.PathTransition;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Sphere;
 import javafx.util.Duration;
@@ -26,20 +28,21 @@ import View.MainFrame;
 
 public class Controller {
     private APIReader reader = new APIReader();
+    private MainFrame mainframe;
     private OrbitCalculator orbitCalculator = new OrbitCalculator();
     private PositionCalculator positionCalculator = new PositionCalculator();
     private Sun sun = new Sun(reader.readBodyFromAPI(Stars.soleil.toString()));
-    private double durationModifier = 15000;
-
+    private double durationModifier = 1500000;
+    private final int SCALE_VALUE = 37500;
 
     private HashMap<Planet, HashMap<String,Object>> planetHashMapHashMap = new HashMap<>();
     private ArrayList<Planet> planetArrayList;
-    private MainFrame mainframe;
+
 
     public Controller() {
         sun.setYCord(0);
         sun.setXCord(0);
-        planetArrayList = createPlanetArray(); //No duration modifier should be added here.
+//        planetArrayList = createPlanetArray(); //No duration modifier should be added here.
         mainframe = new MainFrame(this);
     }
 
@@ -49,7 +52,6 @@ public class Controller {
 
     /**
      * Creates an ArrayList with planets and their orbits generated.
-     *
      * @return An ArrayList filled with newly generated planet objects
      */
     public ArrayList<Model.Planet> createPlanetArray() {
@@ -64,19 +66,19 @@ public class Controller {
         for (Planet p : newPlanets) {
             p.setPlanetOrbit(orbitCalculator.getOrbit(p));//Create orbit
             Orbit orbit = p.getPlanetOrbit();
-            planetHashMapHashMap.put(p,new HashMap<>());
-            planetHashMapHashMap.get(p).put("ellipse",MainFrame.createElipse(orbit.getCenterXCord(37500), orbit.getCenterYCord(37500), orbit.getWidth(37500), orbit.getHeight(37500)));
-            planetHashMapHashMap.get(p).put("sphere",MainFrame.createSphere(p));
+            planetHashMapHashMap.put(p, new HashMap<>());
+            planetHashMapHashMap.get(p).put("ellipse", MainFrame.createEllipse(orbit.getCenterXCord(SCALE_VALUE), orbit.getCenterYCord(SCALE_VALUE), orbit.getWidth(SCALE_VALUE), orbit.getHeight(SCALE_VALUE)));
+            planetHashMapHashMap.get(p).put("planet", MainFrame.createPlanetImageView(p));
         }
 
         //Sets planet duration [*1000 is to make it into seconds instead of milliseconds]
         for (Planet planet : newPlanets) {
             Duration duration = new Duration(((orbitCalculator.getOrbitalPeriod(planet.getSemiMajorAxis()) * 1000 / durationModifier) * 1000000000) * 10000);
-            planetHashMapHashMap.get(planet).put("duration",duration);
+            planetHashMapHashMap.get(planet).put("duration", duration);
 
             System.out.println(planet.getName() + "\t" + duration);
         }
-
+        planetArrayList = newPlanets;
         return newPlanets;
     }
 
@@ -84,8 +86,8 @@ public class Controller {
         return (Ellipse) planetHashMapHashMap.get(planet).get("ellipse");
     }
 
-    public Sphere getSphere(Planet planet) {
-        return (Sphere) planetHashMapHashMap.get(planet).get("sphere");
+    public ImageView getPlanetImageView(Planet planet) {
+        return (ImageView) planetHashMapHashMap.get(planet).get("planet");
     }
 
     public PathTransition getPathTransition(Planet planet) {
