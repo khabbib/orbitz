@@ -15,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.PhongMaterial;
@@ -27,11 +26,14 @@ import org.controlsfx.control.PopOver;
 import Controller.InfoPopoverBuilder;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.basic.BasicSliderUI;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.RoundRectangle2D;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -46,8 +48,10 @@ import java.util.*;
  * MainFrame is the main window which contains various graphical components
  */
 public class MainFrame extends JFrame {
+
     public static final int WIDTH = 1408;
     public static final int HEIGHT = 820;
+
     private final int MAX_SLIDER_VALUE = 30;
 
     private JLabel lblTitle;
@@ -76,11 +80,11 @@ public class MainFrame extends JFrame {
     private MusicPlayer musicPlayer;
 
     static private JPanel overheadPanel;
+    private JPanel buttonPanel;
+    private JPanel zoomPanel;
     private static Scene orbitScene;
     private static Scene quizScene;
     private static JFrame mainFrame;
-
-    private static JPanel buttonPanel;
 
     /**
      * @param inController gains a reference to controller in order to fetch the planet list
@@ -94,11 +98,9 @@ public class MainFrame extends JFrame {
         orbitPanel = new JFXPanel();
         overheadPanel = new JPanel();
 
-        zoomSlider = new JSlider();
-
         lblTitle = new JLabel();
-        lblTitle.setPreferredSize(new Dimension(700, 80));
-        lblTitle.setText("Orbitz");
+        lblTitle.setPreferredSize(new Dimension(300, 80));
+        lblTitle.setText("  Orbitz");
         lblTitle.setFont(new Font("Earth Orbiter", Font.PLAIN, 55));
         lblTitle.setOpaque(true);
 
@@ -111,53 +113,50 @@ public class MainFrame extends JFrame {
         ImageIcon solarSystem = new ImageIcon(getClass().getResource("/Images/orbitz.png").toExternalForm());
         setIconImage(solarSystem.getImage());
 
-        orbitPanel.setPreferredSize(new Dimension(getWidth(), getHeight() - 160));
-
-        Font f = new Font("Arial", Font.BOLD, 8);
-        JLabel labelMin = new JLabel("MIN");
-        JLabel labelMax = new JLabel("MAX");
-        labelMin.setFont(f);
-        labelMax.setFont(f);
-
-        Hashtable<Integer, JLabel> labelTableM = new Hashtable<>();
-        labelTableM.put(2, labelMin);
-        labelTableM.put(19, labelMax);
+        orbitPanel.setPreferredSize(new Dimension(getWidth(), getHeight() - 100));
 
         // Sets up the zoomSlider
-
+        zoomSlider = new JSlider() {
+            @Override
+            public void updateUI() {
+                setUI(new CustomSliderUI(this));
+            }
+        };
         zoomSlider.setValue(50);
         zoomSlider.setMaximum(130);
         zoomSlider.setMinimum(3);
-        zoomSlider.setPaintLabels(true);
+        zoomSlider.setPreferredSize(new Dimension(300, 50));
 
-        zoomSlider.setPreferredSize(new Dimension(700, 70));
+        // Set up the zoomPanel
+        zoomPanel = new JPanel();
+        zoomPanel.setPreferredSize(new Dimension(300, 50));
+        ImageIcon zoomIn = new ImageIcon("src/main/resources/Icons/zoom+.png");
+        zoomIn = new ImageIcon(zoomIn.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
+        ImageIcon zoomOut = new ImageIcon("src/main/resources/Icons/zoom-.png");
+        zoomOut = new ImageIcon(zoomOut.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
 
-        // Sets up overheadPanel
-        overheadPanel.setLayout(new FlowLayout());
-        // set opaque
-        overheadPanel.setOpaque(true);
-        zoomSlider.setOpaque(true);
-
-        lblTitle.setOpaque(false);
-        overheadPanel.setPreferredSize(new Dimension(1400, 160));
-        overheadPanel.add(lblTitle);
+        zoomPanel.setLayout(new BorderLayout());
+        zoomPanel.setBorder(new EmptyBorder(10,50,10,50));
+        zoomPanel.add(zoomSlider, BorderLayout.CENTER);
+        zoomPanel.add(new JLabel(zoomIn), BorderLayout.WEST);
+        zoomPanel.add(new JLabel(zoomOut), BorderLayout.EAST);
 
         // MUSIC PLAYBACK STUFF
         setupMusicPlayer();
 
-        ImageIcon soundOff = new ImageIcon("src/main/resources/Icons/sound-off.png");
-        ImageIcon soundOn = new ImageIcon("src/main/resources/Icons/sound-on.png");
+        ImageIcon soundOff = new ImageIcon("src/main/resources/Icons/Muted1.png");
+        ImageIcon soundOn = new ImageIcon("src/main/resources/Icons/Unmuted1.png");
 
         // Stupid java swing, resizing icons to match button
         java.awt.Image img;
         java.awt.Image newImg;
 
         img = soundOff.getImage();
-        newImg = img.getScaledInstance( 100, 100,  java.awt.Image.SCALE_SMOOTH );
+        newImg = img.getScaledInstance( 72, 72,  java.awt.Image.SCALE_SMOOTH );
         ImageIcon soundOffScaled = new ImageIcon(newImg);
 
         img = soundOn.getImage();
-        newImg = img.getScaledInstance( 100, 100, java.awt.Image.SCALE_SMOOTH);
+        newImg = img.getScaledInstance( 72, 72, java.awt.Image.SCALE_SMOOTH);
         ImageIcon soundOnScaled = new ImageIcon(newImg);
 
         JButton btnMuteMusic = musicPlayer.getPlaybackState() ? new JButton(soundOnScaled) : new JButton(soundOffScaled);
@@ -169,39 +168,48 @@ public class MainFrame extends JFrame {
                 btnMuteMusic.setIcon(soundOffScaled);
             }
         });
-        btnMuteMusic.setPreferredSize(new Dimension(100, 100));
-        btnMuteMusic.setBackground(Color.black);
+        btnMuteMusic.setPreferredSize(new Dimension(72, 72));
+        btnMuteMusic.setFocusable(false);
         btnMuteMusic.setBorderPainted(false);
+        btnMuteMusic.setOpaque(false);
+        btnMuteMusic.setBackground(new Color(36,18,70));
         btnMuteMusic.addActionListener(e -> musicPlayer.togglePlayback());
         // MUTE BUTTON FINISHED
 
-        overheadPanel.add(btnMuteMusic);
-        overheadPanel.add(zoomSlider);
+        // Quiz button
+        ImageIcon icon = new ImageIcon("src/main/resources/Icons/quizbuttonB.png");
+        ImageIcon quizButtonIcon = new ImageIcon(icon.getImage().getScaledInstance(120, 72, java.awt.Image.SCALE_SMOOTH));
+        JButton quizButton = new JButton(quizButtonIcon);
+        quizButton.addActionListener(e -> changeScene("Quiz"));
+        quizButton.setPreferredSize(new Dimension(120, 72));
+        quizButton.setOpaque(false);
+        quizButton.setFocusable(false);
+        quizButton.setBorderPainted(false);
+        quizButton.setBackground(new Color(36,18,70));
 
-
-        mainFrame = this;
         // Quiz button panel
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
-        buttonPanel.setPreferredSize(new Dimension(200, 60));
-        buttonPanel.setBackground(Color.DARK_GRAY);
-        // Quiz button
-        JButton quizButton = new JButton("Quiz");
-        quizButton.addActionListener(e -> changeScene("Quiz"));
-        quizButton.setPreferredSize(new Dimension(120, 50));
-        quizButton.setBackground(Color.WHITE);
-        quizButton.setBorderPainted(false);
-        quizButton.setForeground(Color.BLACK);
-        quizButton.setFont(new Font("Arial", Font.BOLD, 20));
-        quizButton.setOpaque(true);
-        quizButton.setVisible(true);
+        buttonPanel.setPreferredSize(new Dimension(300, 80));
+        buttonPanel.setBorder(new EmptyBorder(10,0,10,0));
         buttonPanel.add(quizButton);
-        overheadPanel.add(buttonPanel);
+        buttonPanel.add(new JLabel("   "));
+        buttonPanel.add(btnMuteMusic);
+
+        // Sets up overheadPanel
+        overheadPanel.setLayout(new BorderLayout());
+        overheadPanel.setPreferredSize(new Dimension(1400, 100));
+        overheadPanel.add(zoomPanel, BorderLayout.CENTER);
+        overheadPanel.add(lblTitle, BorderLayout.WEST);
+        overheadPanel.add(buttonPanel, BorderLayout.EAST);
+
+        mainFrame = this;
         mainFrame.add(orbitPanel, BorderLayout.CENTER);
         mainFrame.add(overheadPanel, BorderLayout.NORTH);
 
-        currentTheme = new Theme("Black and White", Color.BLACK, Color.WHITE, javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
+        currentTheme = new Theme("Black and White", Color.BLACK, new Color(36,18,70), javafx.scene.paint.Color.BLACK, javafx.scene.paint.Color.WHITE);
         setColors(currentTheme);
+
 
         Platform.runLater(new Runnable() {
             @Override
@@ -217,12 +225,6 @@ public class MainFrame extends JFrame {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                });
-
                 switch (name) {
                     case "Quiz":
                         Scene scene = null;
@@ -552,14 +554,16 @@ public class MainFrame extends JFrame {
      */
     public void setColors(Theme theme) {
         currentTheme = theme;
-        lblTitle.setForeground(theme.getSecondaryColor());
-        zoomSlider.setForeground(theme.getSecondaryColor());
-        overheadPanel.setBackground(theme.getMainColor());
-        lblTitle.setOpaque(true);
+        lblTitle.setForeground(Color.WHITE);
+//        zoomSlider.setForeground(theme.getSecondaryColor());
+        overheadPanel.setBackground(theme.getSecondaryColor());
+        buttonPanel.setBackground(theme.getSecondaryColor());
+        zoomPanel.setBackground(theme.getSecondaryColor());
+//        lblTitle.setOpaque(true);
         lblTitle.setBackground(null);
         zoomSlider.setBackground(null);
-        zoomSlider.setOpaque(true);
-        overheadPanel.setBorder(BorderFactory.createLineBorder(theme.getSecondaryColor(), 2));
+//        zoomSlider.setOpaque(true);
+        //overheadPanel.setBorder(BorderFactory.createLineBorder(theme.getSecondaryColor(), 2));
 
 
         Platform.runLater(new Runnable() {
@@ -639,5 +643,110 @@ public class MainFrame extends JFrame {
         sunMap.setDiffuseMap(new Image(getClass().getResource("/Images/planets/Sun.png").toExternalForm()));
         sunSphere.setMaterial(sunMap);
         return sunSphere;
+    }
+
+    private class CustomSliderUI extends BasicSliderUI {
+
+        private static final int TRACK_HEIGHT = 8;
+        private static final int TRACK_WIDTH = 8;
+        private static final int TRACK_ARC = 5;
+        private static final Dimension THUMB_SIZE = new Dimension(20, 20);
+        private final RoundRectangle2D.Float trackShape = new RoundRectangle2D.Float();
+
+        public CustomSliderUI(final JSlider b) {
+            super(b);
+        }
+
+        @Override
+        protected void calculateTrackRect() {
+            super.calculateTrackRect();
+            if (isHorizontal()) {
+                trackRect.y = trackRect.y + (trackRect.height - TRACK_HEIGHT) / 2;
+                trackRect.height = TRACK_HEIGHT;
+            } else {
+                trackRect.x = trackRect.x + (trackRect.width - TRACK_WIDTH) / 2;
+                trackRect.width = TRACK_WIDTH;
+            }
+            trackShape.setRoundRect(trackRect.x, trackRect.y, trackRect.width, trackRect.height, TRACK_ARC, TRACK_ARC);
+        }
+
+        @Override
+        protected void calculateThumbLocation() {
+            super.calculateThumbLocation();
+            if (isHorizontal()) {
+                thumbRect.y = trackRect.y + (trackRect.height - thumbRect.height) / 2;
+            } else {
+                thumbRect.x = trackRect.x + (trackRect.width - thumbRect.width) / 2;
+            }
+        }
+
+        @Override
+        protected Dimension getThumbSize() {
+            return THUMB_SIZE;
+        }
+
+        private boolean isHorizontal() {
+            return slider.getOrientation() == JSlider.HORIZONTAL;
+        }
+
+        @Override
+        public void paint(final Graphics g, final JComponent c) {
+            ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            super.paint(g, c);
+        }
+
+        @Override
+        public void paintTrack(final Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            Shape clip = g2.getClip();
+
+            boolean horizontal = isHorizontal();
+            boolean inverted = slider.getInverted();
+
+            // Paint shadow.
+            g2.setColor(new Color(170, 170 ,170));
+            g2.fill(trackShape);
+
+            // Paint track background.
+            g2.setColor(new Color(200, 200 ,200));
+            g2.setClip(trackShape);
+            trackShape.y += 1;
+            g2.fill(trackShape);
+            trackShape.y = trackRect.y;
+
+            g2.setClip(clip);
+
+            // Paint selected track.
+            if (horizontal) {
+                boolean ltr = slider.getComponentOrientation().isLeftToRight();
+                if (ltr) inverted = !inverted;
+                int thumbPos = thumbRect.x + thumbRect.width / 2;
+                if (inverted) {
+                    g2.clipRect(0, 0, thumbPos, slider.getHeight());
+                } else {
+                    g2.clipRect(thumbPos, 0, slider.getWidth() - thumbPos, slider.getHeight());
+                }
+
+            } else {
+                int thumbPos = thumbRect.y + thumbRect.height / 2;
+                if (inverted) {
+                    g2.clipRect(0, 0, slider.getHeight(), thumbPos);
+                } else {
+                    g2.clipRect(0, thumbPos, slider.getWidth(), slider.getHeight() - thumbPos);
+                }
+            }
+            g2.setColor(Color.ORANGE);
+            g2.fill(trackShape);
+            g2.setClip(clip);
+        }
+
+        @Override
+        public void paintThumb(final Graphics g) {
+            g.setColor(new Color(246, 146, 36));
+            g.fillOval(thumbRect.x, thumbRect.y, thumbRect.width, thumbRect.height);
+        }
+
+        @Override
+        public void paintFocus(final Graphics g) {}
     }
 }
