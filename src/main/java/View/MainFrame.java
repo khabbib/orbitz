@@ -361,7 +361,7 @@ public class MainFrame extends JFrame {
             root.getChildren().add(ellipse);
             ellipse.toBack();
             ellipse.setStroke(currentTheme.getSecondaryPaint());
-            System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getCenterXCord(37500));
+//            System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getCenterXCord(37500));
 
             for (Node child : root.getChildren()) {
                 if (child.equals(controller.getSphere(planet))) {
@@ -397,7 +397,7 @@ public class MainFrame extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 int value = zoomSlider.getValue();
                 double delta = value * zoomSpeed;
-                System.out.println(delta);
+
                 camera.setTranslateZ(-40600  * delta * 0.01);
 
                 if (newPlanets == null) {
@@ -407,28 +407,24 @@ public class MainFrame extends JFrame {
                         }
                         moveSpeed = 10;
 
-                        System.out.println(10);
                     } else if (camera.getTranslateZ() >= -103000) {
                         for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
                             controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(40);
                         }
                         moveSpeed = 40;
 
-                        System.out.println(40);
                     } else if (camera.getTranslateZ() >= -247800) {
                         for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
                             controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(180);
                         }
                         moveSpeed = 150;
 
-                        System.out.println(180);
                     } else if (camera.getTranslateZ() >= -600000) {
                         for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
                             controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(600);
                         }
                         moveSpeed = 220;
 
-                        System.out.println(180);
                     }
                     if (camera.getTranslateZ() < -795322) {
                         camera.setTranslateZ(-795322);
