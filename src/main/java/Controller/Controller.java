@@ -32,7 +32,7 @@ public class Controller {
     private OrbitCalculator orbitCalculator = new OrbitCalculator();
     private PositionCalculator positionCalculator = new PositionCalculator();
     private Sun sun = new Sun(reader.readBodyFromAPI(Stars.soleil.toString()));
-    private double durationModifier = 1500000;
+    private double durationModifier = 150000;
     private final int SCALE_VALUE = 37500;
 
     private HashMap<Planet, HashMap<String,Object>> planetHashMapHashMap = new HashMap<>();

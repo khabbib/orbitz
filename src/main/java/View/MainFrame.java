@@ -12,12 +12,14 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Sphere;
@@ -278,25 +280,20 @@ public class MainFrame extends JFrame {
      */
     private Scene createScene(ArrayList<Planet> planets) {
         root = new StackPane();
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
-        root.setBackground(null);
-        scene.setFill(javafx.scene.paint.Color.BLACK);
-        setupCamera(scene);
+        Scene scene = new Scene(root, WIDTH, HEIGHT, true, SceneAntialiasing.BALANCED);
+        ImagePattern pattern = new ImagePattern(new Image(getClass().getResource("/Images/Stars.png").toExternalForm()));
+        scene.setFill(pattern);
         handleMouse(root);
         placePlanets(root, planets);
-        //paintPlanets();
+        setupCamera(scene);
         startOrbits(planets);
-        EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() {
-            @Override
-            public void handle(javafx.scene.input.MouseEvent mouseEvent) {
-                try {
-                    openInfoWindow(determinePlanet((ImageView) mouseEvent.getSource()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.err.println("Could not load fxml!");
-                }
+        EventHandler<javafx.scene.input.MouseEvent> eventHandler = mouseEvent -> {
+            try {
+                openInfoWindow(determinePlanet((ImageView) mouseEvent.getSource()));
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("Could not load fxml!");
             }
-
         };
 
         for (Model.Planet planet : planets) {
@@ -304,7 +301,7 @@ public class MainFrame extends JFrame {
             planetImageView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
             planetImageView.setCursor(Cursor.HAND);
         }
-        orbitScene = scene;
+
         return scene;
     }
 
@@ -319,7 +316,7 @@ public class MainFrame extends JFrame {
     }
 
     /**
-     * Finds which planet the the sphere is connected to
+     * Finds which planet the sphere is connected to
      *
      * @author Albin Ahlbeck
      */
@@ -580,24 +577,6 @@ public class MainFrame extends JFrame {
 //        zoomSlider.setOpaque(true);
         //overheadPanel.setBorder(BorderFactory.createLineBorder(theme.getSecondaryColor(), 2));
 
-
-//        Platform.runLater(new Runnable() {
-//            /**
-//             @author Albin Ahlbeck
-//              * Runs on the Java FX thread, changes the color on of the orbit ellipses and changes color of the mediabar.
-//             */
-//            @Override
-//            public void run() {
-//
-//                for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-//                    controller.getEllipse(controller.getPlanetArrayList().get(i)).setStroke(theme.getSecondaryPaint());
-//                    if (newPlanets != null) // if the scene never have been changed newPlanets will throw nullpointer
-//                    {
-//                        controller.getEllipse(controller.getPlanetArrayList().get(i)).setStroke(theme.getSecondaryPaint());
-//                    }
-//                }
-//            }
-//        });
     }
 
 
