@@ -54,7 +54,7 @@ public class Quiz implements Initializable {
     );
 
     private AtomicInteger score = new AtomicInteger(0);
-    private AtomicInteger questionNumber = new AtomicInteger(0);
+    private AtomicInteger questionNumber = new AtomicInteger();
     private AtomicInteger chances = new AtomicInteger(2);
 
     /**
@@ -74,14 +74,13 @@ public class Quiz implements Initializable {
 
                 if(userAnswer.equals(answer)) {
                     score.incrementAndGet();
+                    questionNumber.getAndIncrement();
                     chances.set(2);
                     this.highlightPlanet(userAnswer, true);
-                    questionNumber.incrementAndGet();
-                    String prevQuestion = questions.get(questionNumber.get()-1).question;
-                    userAnswers.put(prevQuestion, userAnswer);
                     if (questionNumber.get() < questions.size()) {
-                        String nextQuestion = questions.get(questionNumber.get()).question;
-                        question.setText(nextQuestion);
+                        String quizQuestion = questions.get(questionNumber.get()).question;
+                        userAnswers.put(quizQuestion, userAnswer);
+                        question.setText(quizQuestion);
                     } else {
                         this.stop(score.get());
                     }
@@ -111,13 +110,13 @@ public class Quiz implements Initializable {
      */
     private void stop(Integer score) {
         startScreen.setVisible(true);
-        StringBuilder result = new StringBuilder();
+        String result = "";
         if(score == questions.size()) {
-            result.append("Ditt svar: \n");
+            result = "Ditt svar: \n";
             int i = 1;
             for(String question : userAnswers.keySet()) {
                 String answer = userAnswers.get(question);
-                result.append(i  +". "+ question + ": __" + answer + "__\n");
+                result += i  +". "+ question + ": __" + answer + "__\n";
                 i++;
             }
             confetti.setVisible(true);
@@ -168,7 +167,7 @@ public class Quiz implements Initializable {
     }
 
     private void removeLabel(Text label) {
-        Timeline labelTimer = new Timeline(new KeyFrame(Duration.seconds(5)));
+        Timeline labelTimer = new Timeline(new KeyFrame(Duration.seconds(1)));
         labelTimer.setOnFinished(e -> {
             label.setVisible(false);
         });
