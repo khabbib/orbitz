@@ -32,6 +32,6 @@
       </Label>
       <Button layoutX="275.0" layoutY="258.0" mnemonicParsing="false" onAction="#onAction_btn_imgPrev" text="&lt;" />
       <Button layoutX="552.0" layoutY="258.0" mnemonicParsing="false" onAction="#onAction_btn_imgNext" text="&gt;" />
-      <Button layoutX="136.0" layoutY="339.0" mnemonicParsing="false" onAction="#onAction_btn_infoNext" text="Learn more" />
+      <Button layoutX="136.0" layoutY="339.0" mnemonicParsing="false" onAction="#onAction_btn_infoNext" text="Lär dig mer" />
    </children>
 </AnchorPane>

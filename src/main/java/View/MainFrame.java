@@ -48,10 +48,10 @@ import java.util.*;
  * MainFrame is the main window which contains various graphical components
  */
 public class MainFrame extends JFrame {
-//    private static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
-//    private static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
-    private static final int WIDTH = 1408;
-    private static final int HEIGHT = 820;
+
+    public static final int WIDTH = 1408;
+    public static final int HEIGHT = 820;
+
     private final int MAX_SLIDER_VALUE = 30;
 
     private JLabel lblTitle;
@@ -61,10 +61,6 @@ public class MainFrame extends JFrame {
     private Theme currentTheme;
 
     private static JFXPanel orbitPanel;
-
-
-
-    private Scene orbitPanelJfxScene;
 
     private StackPane root;
 
@@ -113,7 +109,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         setTitle("Orbitz");
-
+        setResizable(false);
         ImageIcon solarSystem = new ImageIcon(getClass().getResource("/Images/orbitz.png").toExternalForm());
         setIconImage(solarSystem.getImage());
 
@@ -270,11 +266,6 @@ public class MainFrame extends JFrame {
         // This method is invoked on JavaFX thread
         orbitScene = createScene(controller.getPlanetArrayList()); // default background
         orbitPanel.setScene(orbitScene);
-
-        // default background
-//       orbitPanelJfxScene = createScene(controller.getPlanetArrayList());
-//        fxPanel.setScene(orbitPanelJfxScene);
-
     }
 
     /**
@@ -614,7 +605,7 @@ public class MainFrame extends JFrame {
      * @author Albin Ahlbeck
      */
     public void setTooltip(Model.Planet planet) {
-        Tooltip tooltip = new Tooltip(planet.getName());
+        Tooltip tooltip = new Tooltip(planet.getSwedishName());
         tooltip.setStyle("-fx-font-size: 20");                   //CSS stylesheet, Oracle doc.
         tooltip.setShowDelay(Duration.millis(0));//sets time before text appears after hovering over image
 
