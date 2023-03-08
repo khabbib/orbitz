@@ -155,7 +155,6 @@ public class PositionCalculator {
             E0 = E1;
             E1 = E0 - (E0 - (180 / Math.PI) * eccentricity * Math.sin(Math.PI / 180 * E0) - meanAnomaly) / (1 - eccentricity * Math.cos(Math.PI / 180 * E0));
         }
-        System.out.println("calculateEccentricAnomaly: E1: " + E1);
         return E1;
     }
 

@@ -12,11 +12,14 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Sphere;
@@ -38,6 +41,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author Albin Ahlbeck
@@ -263,7 +267,7 @@ public class MainFrame extends JFrame {
      */
     private void initFxOrbit() {
         // This method is invoked on JavaFX thread
-        orbitScene = createScene(controller.getPlanetArrayList()); // default background
+        orbitScene = createScene(controller.createPlanetArray()); // default background
         orbitPanel.setScene(orbitScene);
     }
 
@@ -275,33 +279,28 @@ public class MainFrame extends JFrame {
      */
     private Scene createScene(ArrayList<Planet> planets) {
         root = new StackPane();
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
-        root.setBackground(null);
-        scene.setFill(javafx.scene.paint.Color.BLACK);
-        setupCamera(scene);
+        Scene scene = new Scene(root, WIDTH, HEIGHT, true, SceneAntialiasing.BALANCED);
+        ImagePattern pattern = new ImagePattern(new Image(getClass().getResource("/Images/Stars.png").toExternalForm()));
+        scene.setFill(pattern);
         handleMouse(root);
         placePlanets(root, planets);
-        paintPlanets();
+        setupCamera(scene);
         startOrbits(planets);
-        EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() {
-            @Override
-            public void handle(javafx.scene.input.MouseEvent mouseEvent) {
-                try {
-                    openInfoWindow(determinePlanet((Sphere) mouseEvent.getSource()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.err.println("Could not load fxml!");
-                }
+        EventHandler<javafx.scene.input.MouseEvent> eventHandler = mouseEvent -> {
+            try {
+                openInfoWindow(determinePlanet((ImageView) mouseEvent.getSource()));
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("Could not load fxml!");
             }
-
         };
 
         for (Model.Planet planet : planets) {
-            Sphere sphere = controller.getSphere(planet);
-            sphere.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
-            sphere.setCursor(Cursor.HAND);
+            ImageView planetImageView = controller.getPlanetImageView(planet);
+            planetImageView.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
+            planetImageView.setCursor(Cursor.HAND);
         }
-        orbitScene = scene;
+
         return scene;
     }
 
@@ -316,13 +315,13 @@ public class MainFrame extends JFrame {
     }
 
     /**
-     * Finds which planet the the sphere is connected to
+     * Finds which planet the sphere is connected to
      *
      * @author Albin Ahlbeck
      */
-    public Model.Planet determinePlanet(Sphere sphere) {
+    public Model.Planet determinePlanet(ImageView planetImageView) {
         for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-            if (sphere.getId().equals(controller.getPlanetArrayList().get(i).getName())) {
+            if (planetImageView.getId().equals(controller.getPlanetArrayList().get(i).getName())) {
                 return controller.getPlanetArrayList().get(i);
             }
         }
@@ -338,7 +337,7 @@ public class MainFrame extends JFrame {
         for (Model.Planet planet : controller.getPlanetArrayList()) {
             PhongMaterial map = new PhongMaterial();
             map.setDiffuseMap(new Image(getClass().getResource("/Images/planets/" + planet.getName() + ".png").toExternalForm()));
-            controller.getSphere(planet).setMaterial(map);
+
         }
     }
 
@@ -356,16 +355,13 @@ public class MainFrame extends JFrame {
 
         for (Model.Planet planet : planetArrayList) {
             Ellipse ellipse = controller.getEllipse(planet);
-            root.getChildren().add(controller.getSphere(planet));
+            root.getChildren().add(controller.getPlanetImageView(planet));
             root.getChildren().add(ellipse);
             ellipse.toBack();
             ellipse.setStroke(currentTheme.getSecondaryPaint());
-            System.out.println(planet.getName() + " | X: " + planet.getPlanetOrbit().getCenterXCord(37500));
 
             for (Node child : root.getChildren()) {
-                if (child.equals(controller.getSphere(planet))) {
-                    child.setTranslateX(planet.getPlanetOrbit().getHeight(37500));
-                    child.setCache(true);
+                if (child.equals(controller.getPlanetImageView(planet))) {
                     PathTransition animation = createPathTransition(child, planet);
                     controller.putHashValue(planet, "path", animation);
                     animation.setCycleCount(Animation.INDEFINITE);
@@ -373,7 +369,24 @@ public class MainFrame extends JFrame {
             }
             setTooltip(planet);
         }
-        root.getChildren().add(createSunSphere(2000));
+        root.getChildren().add(createSunSphere(3000));
+    }
+
+    public static Ellipse createEllipse(double x, double y, double w, double h) {
+        Ellipse ellipse = new Ellipse(x, y, w, h);
+        ellipse.setStrokeWidth(40);
+        ellipse.setStroke(javafx.scene.paint.Color.GRAY);
+        ellipse.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        return ellipse;
+    }
+
+    public static ImageView createPlanetImageView(Model.Planet planet) {
+        Image image = new Image(MainFrame.class.getResource("/Images/planets/" + planet.getName() + ".png").toExternalForm());
+        ImageView planetImageView = new ImageView(image);
+        planetImageView.setId(planet.getName());
+        planetImageView.setPreserveRatio(true);
+        planetImageView.setFitWidth((planet.getMeanRadius() * 1000 / planet.getSCALE_RADIUS_VALUE()) *2);
+        return planetImageView;
     }
 
     /**
@@ -396,7 +409,7 @@ public class MainFrame extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 int value = zoomSlider.getValue();
                 double delta = value * zoomSpeed;
-                System.out.println(delta);
+
                 camera.setTranslateZ(-40600  * delta * 0.01);
 
                 if (newPlanets == null) {
@@ -406,28 +419,24 @@ public class MainFrame extends JFrame {
                         }
                         moveSpeed = 10;
 
-                        System.out.println(10);
                     } else if (camera.getTranslateZ() >= -103000) {
                         for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
                             controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(40);
                         }
                         moveSpeed = 40;
 
-                        System.out.println(40);
                     } else if (camera.getTranslateZ() >= -247800) {
                         for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
                             controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(180);
                         }
                         moveSpeed = 150;
 
-                        System.out.println(180);
                     } else if (camera.getTranslateZ() >= -600000) {
                         for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
                             controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(600);
                         }
                         moveSpeed = 220;
 
-                        System.out.println(180);
                     }
                     if (camera.getTranslateZ() < -795322) {
                         camera.setTranslateZ(-795322);
@@ -508,7 +517,7 @@ public class MainFrame extends JFrame {
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
         popOver.setHeaderAlwaysVisible(true);
 
-        popOver.show(controller.getSphere(planet));
+        popOver.show(controller.getPlanetImageView(planet));
 
         // Hide the popover when switching windows.
         this.addWindowFocusListener(new WindowFocusListener() {
@@ -554,49 +563,14 @@ public class MainFrame extends JFrame {
     public void setColors(Theme theme) {
         currentTheme = theme;
         lblTitle.setForeground(Color.WHITE);
-//        zoomSlider.setForeground(theme.getSecondaryColor());
         overheadPanel.setBackground(theme.getSecondaryColor());
         buttonPanel.setBackground(theme.getSecondaryColor());
         zoomPanel.setBackground(theme.getSecondaryColor());
-//        lblTitle.setOpaque(true);
         lblTitle.setBackground(null);
         zoomSlider.setBackground(null);
-//        zoomSlider.setOpaque(true);
-        //overheadPanel.setBorder(BorderFactory.createLineBorder(theme.getSecondaryColor(), 2));
-
-
-        Platform.runLater(new Runnable() {
-            /**
-             @author Albin Ahlbeck
-              * Runs on the Java FX thread, changes the color on of the orbit ellipses and changes color of the mediabar.
-             */
-            @Override
-            public void run() {
-
-                for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-                    controller.getEllipse(controller.getPlanetArrayList().get(i)).setStroke(theme.getSecondaryPaint());
-                    if (newPlanets != null) // if the scene never have been changed newPlanets will throw nullpointer
-                    {
-                        controller.getEllipse(controller.getPlanetArrayList().get(i)).setStroke(theme.getSecondaryPaint());
-                    }
-                }
-            }
-        });
     }
 
-    public static Ellipse createElipse(double x, double y, double w, double h) {
-        Ellipse ellipse = new Ellipse(x, y, w, h);
-        ellipse.setStrokeWidth(40);
-        ellipse.setStroke(javafx.scene.paint.Color.GRAY);
-        ellipse.setFill(javafx.scene.paint.Color.TRANSPARENT);
-        return ellipse;
-    }
 
-    public static Sphere createSphere(Model.Planet planet) {
-        Sphere sphere = new Sphere((double) planet.getMeanRadius() * 1000 / planet.getSCALE_RADIUS_VALUE());
-        sphere.setId(planet.getName());
-        return sphere;
-    }
 
     /**
      * Set a tooltip which informs the planets name
@@ -609,8 +583,8 @@ public class MainFrame extends JFrame {
         tooltip.setShowDelay(Duration.millis(0));//sets time before text appears after hovering over image
 
 
-        controller.getSphere(planet).setPickOnBounds(true);
-        Tooltip.install(controller.getSphere(planet), tooltip);
+        controller.getPlanetImageView(planet).setPickOnBounds(true);
+        Tooltip.install(controller.getPlanetImageView(planet), tooltip);
     }
 
     /**
@@ -621,12 +595,16 @@ public class MainFrame extends JFrame {
         PathTransition pathTransition = new PathTransition();
         double day = controller.getPositionCalculator().calculateDateDifference(currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth());
         controller.getEllipse(planet).setRotate(-controller.getPositionCalculator().calculatePlanetPosition(day, planet.getName()));
-        pathTransition.setPath(controller.getEllipse(planet));
+        Ellipse ellipse = controller.getEllipse(planet);
+        ellipse.setRotate(-controller.getPositionCalculator().calculatePlanetPosition(day, planet.getName()));
+        ellipse.setCenterX(planet.getPlanetOrbit().getCenterXCord(37500) + controller.getPlanetImageView(planet).getFitWidth()/2);
+        ellipse.setCenterY(planet.getPlanetOrbit().getCenterYCord(37500) + controller.getPlanetImageView(planet).getFitWidth()/2);
+        pathTransition.setPath(ellipse);
         pathTransition.setNode(node);
         pathTransition.setDuration(controller.getDuration(planet));
         pathTransition.setCycleCount(Animation.INDEFINITE);
         pathTransition.setInterpolator(Interpolator.LINEAR);
-        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setOrientation(PathTransition.OrientationType.NONE);
         return pathTransition;
     }
 
@@ -636,12 +614,13 @@ public class MainFrame extends JFrame {
      * @author Lanna Maslo
      * Creates a sphere graphical object for the sun
      */
-    public Sphere createSunSphere(int radius) {
-        Sphere sunSphere = new Sphere(radius);
-        PhongMaterial sunMap = new PhongMaterial();
-        sunMap.setDiffuseMap(new Image(getClass().getResource("/Images/planets/Sun.png").toExternalForm()));
-        sunSphere.setMaterial(sunMap);
-        return sunSphere;
+    public ImageView createSunSphere(int width) {
+        Image image = new Image(getClass().getResource("/Images/planets/Sun.png").toExternalForm());
+        ImageView sunImageView = new ImageView(image);
+        sunImageView.setPreserveRatio(true);
+        sunImageView.setFitWidth(width);
+
+        return sunImageView;
     }
 
     private class CustomSliderUI extends BasicSliderUI {
