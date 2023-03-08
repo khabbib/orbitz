@@ -363,9 +363,6 @@ public class MainFrame extends JFrame {
 
             for (Node child : root.getChildren()) {
                 if (child.equals(controller.getPlanetImageView(planet))) {
-//                    child.setTranslateX(planet.getPlanetOrbit().getHeight(37500));
-//                    child.setCache(true);
-
                     PathTransition animation = createPathTransition(child, planet);
                     controller.putHashValue(planet, "path", animation);
                     animation.setCycleCount(Animation.INDEFINITE);
@@ -567,16 +564,11 @@ public class MainFrame extends JFrame {
     public void setColors(Theme theme) {
         currentTheme = theme;
         lblTitle.setForeground(Color.WHITE);
-//        zoomSlider.setForeground(theme.getSecondaryColor());
         overheadPanel.setBackground(theme.getSecondaryColor());
         buttonPanel.setBackground(theme.getSecondaryColor());
         zoomPanel.setBackground(theme.getSecondaryColor());
-//        lblTitle.setOpaque(true);
         lblTitle.setBackground(null);
         zoomSlider.setBackground(null);
-//        zoomSlider.setOpaque(true);
-        //overheadPanel.setBorder(BorderFactory.createLineBorder(theme.getSecondaryColor(), 2));
-
     }
 
 

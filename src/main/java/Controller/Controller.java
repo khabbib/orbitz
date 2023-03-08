@@ -42,7 +42,6 @@ public class Controller {
     public Controller() {
         sun.setYCord(0);
         sun.setXCord(0);
-//        planetArrayList = createPlanetArray(); //No duration modifier should be added here.
         mainframe = new MainFrame(this);
     }
 
