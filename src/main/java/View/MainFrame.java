@@ -158,7 +158,6 @@ public class MainFrame extends JFrame {
         img = soundOn.getImage();
         newImg = img.getScaledInstance( 72, 72, java.awt.Image.SCALE_SMOOTH);
         ImageIcon soundOnScaled = new ImageIcon(newImg);
-
         JButton btnMuteMusic = musicPlayer.getPlaybackState() ? new JButton(soundOnScaled) : new JButton(soundOffScaled);
         musicPlayer.getPlaybackStateProperty().addListener((observableValue, oldValue, newValue) -> {
             if(newValue) {
@@ -186,7 +185,7 @@ public class MainFrame extends JFrame {
         quizButton.setFocusable(false);
         quizButton.setBorderPainted(false);
         quizButton.setBackground(new Color(36,18,70));
-
+        
         // Quiz button panel
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
