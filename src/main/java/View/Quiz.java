@@ -5,18 +5,19 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Quiz implements Initializable {
@@ -26,12 +27,14 @@ public class Quiz implements Initializable {
     private Button startQuiz;
     @FXML
     private AnchorPane startScreen;
-    @FXML
-    private Button closeQuiz;
+
     @FXML
     private Text question, startText, result_text;
 
-    HashMap<String, String> userAnswers = new HashMap<>();
+    @FXML
+    private ImageView confetti;
+
+    Map<String, String> userAnswers = new LinkedHashMap<>();
 
     @FXML
     private AnchorPane planetScreen;
@@ -41,7 +44,7 @@ public class Quiz implements Initializable {
     private final List<Question> questions = List.of(
             new Question("Klicka på Uranus", "Uranus"),
             new Question("Klicka på Mars", "Mars"),
-            new Question("Klicka på Saturn", "Saturn"),
+            new Question("Klicka på Saturnus", "Saturnus"),
             new Question("Klicka på Jupiter", "Jupiter"),
             new Question("Klicka på Neptunus", "Neptunus"),
             new Question("Klicka på Venus", "Venus"),
@@ -97,6 +100,7 @@ public class Quiz implements Initializable {
      */
     public void startQuiz() {
         startScreen.setVisible(false);
+        confetti.setVisible(false);
         userAnswers.clear();
         question.setText(questions.get(0).question);
     }
@@ -115,13 +119,14 @@ public class Quiz implements Initializable {
                 result += i  +". "+ question + ": __" + answer + "__\n";
                 i++;
             }
-            startText.setText("Du klarade quizet!");
+            confetti.setVisible(true);
+            startText.setText("Grattis, du klarade quizet!");
             startText.setFill(Color.YELLOWGREEN);
         } else {
-            startText.setText("Du klarade inte quizet!");
+            startText.setText("Attans, \n bättre lycka nästa gång!");
         }
         result_text.setText("Du fick " + score + " poäng! \n \n" + result);
-        startQuiz.setText("Restart");
+        startQuiz.setText("Testa igen");
         question.setText("");
 
         this.score.set(0);
@@ -162,7 +167,7 @@ public class Quiz implements Initializable {
     }
 
     private void removeLabel(Text label) {
-        Timeline labelTimer = new Timeline(new KeyFrame(Duration.seconds(5)));
+        Timeline labelTimer = new Timeline(new KeyFrame(Duration.seconds(1)));
         labelTimer.setOnFinished(e -> {
             label.setVisible(false);
         });
