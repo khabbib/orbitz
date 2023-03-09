@@ -8,12 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -110,22 +108,13 @@ public class Quiz implements Initializable {
      */
     private void stop(Integer score) {
         startScreen.setVisible(true);
-        String result = "";
         if(score == questions.size()) {
-            result = "Ditt svar: \n";
-            int i = 1;
-            for(String question : userAnswers.keySet()) {
-                String answer = userAnswers.get(question);
-                result += i  +". "+ question + ": __" + answer + "__\n";
-                i++;
-            }
             confetti.setVisible(true);
             startText.setText("Grattis, du klarade quizet!");
-            startText.setFill(Color.YELLOWGREEN);
         } else {
             startText.setText("Attans, \n bättre lycka nästa gång!");
         }
-        result_text.setText("Du fick " + score + " poäng! \n \n" + result);
+        result_text.setText("Du fick " + score + " poäng!\n");
         startQuiz.setText("Testa igen");
         question.setText("");
 
