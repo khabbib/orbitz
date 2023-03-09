@@ -111,10 +111,11 @@ public class Quiz implements Initializable {
         if(score == questions.size()) {
             confetti.setVisible(true);
             startText.setText("Grattis, du klarade quizet!");
+            result_text.setText("");
         } else {
             startText.setText("Attans, \n bättre lycka nästa gång!");
+            result_text.setText("Du fick " + score + " poäng!\n");
         }
-        result_text.setText("Du fick " + score + " poäng!\n");
         startQuiz.setText("Testa igen");
         question.setText("");
 
