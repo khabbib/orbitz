@@ -515,22 +515,22 @@ public class MainFrame extends JFrame {
 
         popOver.setDetachable(false);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
-        popOver.setHeaderAlwaysVisible(true);
+        popOver.setHeaderAlwaysVisible(false);
 
         popOver.show(controller.getPlanetImageView(planet));
 
         // Hide the popover when switching windows.
-        this.addWindowFocusListener(new WindowFocusListener() {
-            @Override
-            public void windowGainedFocus(WindowEvent e) {
-                Platform.runLater(() -> popOver.setOpacity(1));
-            }
-
-            @Override
-            public void windowLostFocus(WindowEvent e) {
-                Platform.runLater(() -> popOver.setOpacity(0));
-            }
-        });
+//        this.addWindowFocusListener(new WindowFocusListener() {
+//            @Override
+//            public void windowGainedFocus(WindowEvent e) {
+//                Platform.runLater(() -> popOver.setOpacity(1));
+//            }
+//
+//            @Override
+//            public void windowLostFocus(WindowEvent e) {
+//                Platform.runLater(() -> popOver.setOpacity(0));
+//            }
+//        });
     }
 
 

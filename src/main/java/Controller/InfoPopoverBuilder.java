@@ -31,6 +31,7 @@ public class InfoPopoverBuilder {
 
         // Create TabPane
         TabPane tabPane = new TabPane();
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         Tab planetTab = new Tab(planet.getSwedishName());
         tabPane.getTabs().add(planetTab);

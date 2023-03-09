@@ -9,29 +9,31 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.InfoPopover">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #120e1e;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.InfoPopover">
    <children>
-      <ImageView fx:id="planetImage" fitHeight="282.0" fitWidth="277.0" layoutX="287.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="planetImage" fitHeight="267.0" fitWidth="257.0" layoutX="294.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/planets/Earth.png" />
          </image>
       </ImageView>
-      <ScrollPane hbarPolicy="NEVER" layoutX="47.0" layoutY="111.935546875" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="240.0" prefWidth="230.0" styleClass="edge-to-edge">
+      <ScrollPane hbarPolicy="NEVER" layoutX="23.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="240.0" prefWidth="230.0" styleClass="edge-to-edge" stylesheets="@popOverStyle.css">
          <content>
-            <Text fx:id="infoText" strokeType="OUTSIDE" strokeWidth="0.0" text="This is text and more text and more text and more text and more text and more text and more.&#10;&#10;Additional info:&#10;Yes more stuff and more and more and more and more and more and more and more and more and more and more and more and more and more and more v&#10;&#10;" wrappingWidth="225.0">
+            <Text fx:id="infoText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="This is text and more text and more text and more text and more text and more text and more.&#10;&#10;Additional info:&#10;Yes more stuff and more and more and more and more and more and more and more and more and more and more and more and more and more and more v&#10;&#10;" wrappingWidth="217.0">
                <font>
-                  <Font name="Verdana" size="13.0" />
+                  <Font name="Arial Rounded MT Bold" size="23.0" />
                </font>
             </Text>
          </content>
       </ScrollPane>
-      <Label fx:id="title" layoutX="22.0" layoutY="19.0" text="Planet Name">
+      <Label fx:id="title" layoutX="19.0" layoutY="1.0" text="Planet Name" textFill="WHITE">
          <font>
-            <Font name="Segoe UI Semibold" size="48.0" />
+            <Font name="Arial Rounded MT Bold" size="48.0" />
          </font>
       </Label>
-      <Button layoutX="275.0" layoutY="258.0" mnemonicParsing="false" onAction="#onAction_btn_imgPrev" text="&lt;" />
-      <Button layoutX="552.0" layoutY="258.0" mnemonicParsing="false" onAction="#onAction_btn_imgNext" text="&gt;" />
-      <Button layoutX="136.0" layoutY="339.0" mnemonicParsing="false" onAction="#onAction_btn_infoNext" text="Lär dig mer" />
+      <Button layoutX="257.0" layoutY="191.0" mnemonicParsing="false" onAction="#onAction_btn_imgPrev" text="&lt;" />
+      <Button layoutX="564.0" layoutY="191.0" mnemonicParsing="false" onAction="#onAction_btn_imgNext" text="&gt;" />
+      <Button layoutX="67.0" layoutY="349.0" mnemonicParsing="false" onAction="#onAction_btn_infoNext" prefHeight="25.0" prefWidth="26.0" />
+      <Label layoutX="125.0" layoutY="353.0" prefHeight="17.0" prefWidth="26.0" />
+      <Button layoutX="173.0" layoutY="349.0" mnemonicParsing="false" onAction="#onAction_btn_infoNext" prefHeight="25.0" prefWidth="26.0" />
    </children>
 </AnchorPane>
