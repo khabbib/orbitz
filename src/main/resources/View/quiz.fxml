@@ -284,10 +284,10 @@
       </AnchorPane>
       <Text fx:id="question" fill="#f8f8f8" layoutX="222.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="963.441162109375">
          <font>
-            <Font size="72.0" />
+            <Font name="Arial Rounded MT Bold" size="72.0" />
          </font>
       </Text>
-      <Button layoutX="651.0" layoutY="669.0" mnemonicParsing="false" onAction="#closeQuiz" opacity="0.0" pickOnBounds="false" prefHeight="104.0" prefWidth="104.0" style="-fx-background-radius: 50;">
+      <Button id="close" layoutX="651.0" layoutY="670.0" mnemonicParsing="false" onAction="#closeQuiz" pickOnBounds="false" prefHeight="104.0" prefWidth="104.0" style="-fx-background-radius: 50;" stylesheets="@style.css">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
@@ -304,17 +304,17 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="792.0" prefWidth="1408.0" spacing="20.0">
                      <children>
-                        <Text fx:id="startText" fill="#fb3585" strokeType="OUTSIDE" strokeWidth="0.0" text="Redo?" textAlignment="CENTER" wrappingWidth="1189.093017578125">
+                        <Text fx:id="startText" fill="#a5e52c" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Redo?" textAlignment="CENTER" wrappingWidth="1189.093017578125">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="96.0" />
                            </font>
                         </Text>
-                        <Text fx:id="result_text" fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1091.0421142578125">
+                        <Text fx:id="result_text" fill="#50aeeb" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1091.0421142578125">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Arial Rounded MT Bold" size="50.0" />
                            </font>
                         </Text>
-                        <Button fx:id="startQuiz" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startQuiz" style="-fx-background-color: #fb3585;" text="Starta" textFill="WHITE">
+                        <Button fx:id="startQuiz" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startQuiz" style="-fx-background-color: #fb3585;" stylesheets="@style.css" text="Starta" textFill="WHITE">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="38.0" />
                            </font>
@@ -327,6 +327,7 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
+                        <Button id="close" mnemonicParsing="false" onAction="#closeQuiz" pickOnBounds="false" prefHeight="70.0" prefWidth="70.0" stylesheets="@style.css" text="" />
                      </children>
                   </VBox>
                </children>
