@@ -34,6 +34,7 @@ public class InfoPopoverBuilder {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         Tab planetTab = new Tab(planet.getSwedishName());
+
         tabPane.getTabs().add(planetTab);
         Node planetPane = createPlanetPane(planet.getName(), planet.getSwedishName());
         planetTab.setContent(planetPane);
@@ -76,7 +77,7 @@ public class InfoPopoverBuilder {
         String[] planetInfoList = fetchInfoList(planetName);
 
         // Update UI content
-        fxmlController.title.setText(swePlanetName);
+//        fxmlController.title.setText(swePlanetName);
         if(planetImages != null && planetImages.length > 0) {
             fxmlController.setImages(planetImages);
             fxmlController.planetImage.setImage(planetImages[0]);
@@ -86,8 +87,10 @@ public class InfoPopoverBuilder {
         if(planetInfoList != null && planetInfoList.length > 0) {
             fxmlController.setInfoList(planetInfoList);
             fxmlController.infoText.setText(planetInfoList[0]);
+            fxmlController.infoNum.setText("1 / " + planetInfoList.length);
         } else {
             fxmlController.infoText.setText("No information found.");
+            fxmlController.infoNum.setText("0 / 0");
         }
 
         return rootNode;
@@ -111,7 +114,7 @@ public class InfoPopoverBuilder {
         }
 
         // Update UI content
-        fxmlController.title.setText("Månar");
+//        fxmlController.title.setText("Månar");
         if(images.length > 0) {
             fxmlController.setImages(images);
             fxmlController.planetImage.setImage(images[0]);
@@ -121,8 +124,10 @@ public class InfoPopoverBuilder {
         if(infoList.length > 0) {
             fxmlController.setInfoList(infoList);
             fxmlController.infoText.setText(infoList[0]);
+            fxmlController.infoNum.setText("1 / " + infoList.length);
         } else {
             fxmlController.infoText.setText("No information found.");
+            fxmlController.infoNum.setText("0 / 0");
         }
 
         return rootNode;

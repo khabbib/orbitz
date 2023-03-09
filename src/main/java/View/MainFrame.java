@@ -280,6 +280,7 @@ public class MainFrame extends JFrame {
     private Scene createScene(ArrayList<Planet> planets) {
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT, true, SceneAntialiasing.BALANCED);
+        //scene.getStylesheets().add(getClass().getResource("/View/popOverStyle.css").toExternalForm());
         ImagePattern pattern = new ImagePattern(new Image(getClass().getResource("/Images/Stars.png").toExternalForm()));
         scene.setFill(pattern);
         handleMouse(root);
@@ -326,19 +327,6 @@ public class MainFrame extends JFrame {
             }
         }
         return null;
-    }
-
-    /**
-     * Paints the surface of the planets by calling their individual mappings
-     *
-     * @author Lanna Maslo
-     */
-    public void paintPlanets() {
-        for (Model.Planet planet : controller.getPlanetArrayList()) {
-            PhongMaterial map = new PhongMaterial();
-            map.setDiffuseMap(new Image(getClass().getResource("/Images/planets/" + planet.getName() + ".png").toExternalForm()));
-
-        }
     }
 
     /**
@@ -512,25 +500,23 @@ public class MainFrame extends JFrame {
      */
     public void openInfoWindow(Model.Planet planet) throws IOException {
         PopOver popOver = new InfoPopoverBuilder().createInfoPopover(planet);
-
         popOver.setDetachable(false);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
-        popOver.setHeaderAlwaysVisible(false);
-
+        popOver.setHeaderAlwaysVisible(true);
         popOver.show(controller.getPlanetImageView(planet));
-
+        ((Parent)popOver.getSkin().getNode()).getStylesheets().add(getClass().getResource("/View/popOverStyle.css").toExternalForm());
         // Hide the popover when switching windows.
-//        this.addWindowFocusListener(new WindowFocusListener() {
-//            @Override
-//            public void windowGainedFocus(WindowEvent e) {
-//                Platform.runLater(() -> popOver.setOpacity(1));
-//            }
-//
-//            @Override
-//            public void windowLostFocus(WindowEvent e) {
-//                Platform.runLater(() -> popOver.setOpacity(0));
-//            }
-//        });
+        this.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                Platform.runLater(() -> popOver.setOpacity(1));
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                Platform.runLater(() -> popOver.setOpacity(0));
+            }
+        });
     }
 
 
