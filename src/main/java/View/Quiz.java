@@ -113,6 +113,8 @@ public class Quiz implements Initializable {
 
                 if (seconds == 5)
                     Platform.runLater(() -> timerLbl.setTextFill(Color.RED));
+                if (seconds == 10)
+                    Platform.runLater(() -> timerLbl.setTextFill(Color.ORANGE));
             }
         }, 0, 1000);
     }
