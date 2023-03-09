@@ -8,12 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -41,7 +39,7 @@ public class Quiz implements Initializable {
     // Planets highlighters
 
     // Questions
-    private final List<Question> questions = List.of(
+    private ArrayList<Question> questions = new ArrayList<>(List.of(
             new Question("Klicka på Uranus", "Uranus"),
             new Question("Klicka på Mars", "Mars"),
             new Question("Klicka på Saturnus", "Saturnus"),
@@ -51,7 +49,7 @@ public class Quiz implements Initializable {
             new Question("Klicka på Jorden", "Jorden"),
             new Question("Klicka på Merkurius", "Merkurius"),
             new Question("Klicka på Solen", "Solen")
-    );
+    ));
 
     private AtomicInteger score = new AtomicInteger(0);
     private AtomicInteger questionNumber = new AtomicInteger();
@@ -102,6 +100,7 @@ public class Quiz implements Initializable {
         startScreen.setVisible(false);
         confetti.setVisible(false);
         userAnswers.clear();
+        Collections.shuffle(questions);
         question.setText(questions.get(0).question);
     }
 
@@ -110,22 +109,14 @@ public class Quiz implements Initializable {
      */
     private void stop(Integer score) {
         startScreen.setVisible(true);
-        String result = "";
         if(score == questions.size()) {
-            result = "Ditt svar: \n";
-            int i = 1;
-            for(String question : userAnswers.keySet()) {
-                String answer = userAnswers.get(question);
-                result += i  +". "+ question + ": __" + answer + "__\n";
-                i++;
-            }
             confetti.setVisible(true);
             startText.setText("Grattis, du klarade quizet!");
-            startText.setFill(Color.YELLOWGREEN);
+            result_text.setText("");
         } else {
             startText.setText("Attans, \n bättre lycka nästa gång!");
+            result_text.setText("Du fick " + score + " poäng!\n");
         }
-        result_text.setText("Du fick " + score + " poäng! \n \n" + result);
         startQuiz.setText("Testa igen");
         question.setText("");
 
