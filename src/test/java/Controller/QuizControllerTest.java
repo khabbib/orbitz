@@ -36,49 +36,49 @@ class QuizControllerTest {
 
     @Test
     void reset_getScore_afterIncorrect() {
-        quizController.makeGuess("invalid");
+        quizController.makeGuess("incorrect");
         quizController.reset();
         assertEquals(0, quizController.getScore());
     }
 
     @Test
     void reset_getWrongGuesses_afterIncorrect() {
-        quizController.makeGuess("invalid");
+        quizController.makeGuess("incorrect");
         quizController.reset();
         assertEquals(0, quizController.getWrongGuesses());
     }
 
     @Test
     void given_getCorrectAnswer_makeGuess() {
-        boolean result = quizController.makeGuess(quizController.getCorrectAnswer());
-        assertTrue(result);
+        Controller.QuizController.GuessResult result = quizController.makeGuess(quizController.getCorrectAnswer());
+        assertEquals(QuizController.GuessResult.CORRECT, result);
     }
 
     @Test
-    void givenInvalid_makeGuess() {
-        boolean result = quizController.makeGuess("invalid");
-        assertFalse(result);
+    void givenIncorrect_makeGuess() {
+        Controller.QuizController.GuessResult result = quizController.makeGuess("incorrect");
+        assertEquals(QuizController.GuessResult.INCORRECT, result);
     }
 
     @Test
     void givenNull_makeGuess() {
-        boolean result = quizController.makeGuess(null);
-        assertFalse(result);
+        Controller.QuizController.GuessResult result = quizController.makeGuess(null);
+        assertEquals(QuizController.GuessResult.GUESS_FAILED, result);
     }
 
     @Test
     void givenEmptyString_makeGuess() {
-        boolean result = quizController.makeGuess("");
-        assertFalse(result);
+        Controller.QuizController.GuessResult result = quizController.makeGuess("");
+        assertEquals(QuizController.GuessResult.INCORRECT, result);
     }
 
     @Test
     void makeGuess_afterMaxIncorrectGuesses() {
         for (int i = 0; i < quizController.getMaxWrongGuesses(); i++) {
-            quizController.makeGuess("invalid");
+            quizController.makeGuess("incorrect");
         }
-        boolean result = quizController.makeGuess(quizController.getCorrectAnswer());
-        assertFalse(result);
+        Controller.QuizController.GuessResult result = quizController.makeGuess(quizController.getCorrectAnswer());
+        assertEquals(QuizController.GuessResult.GUESS_FAILED, result);
     }
 
     @Test
