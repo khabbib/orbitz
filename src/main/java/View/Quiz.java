@@ -39,7 +39,7 @@ public class Quiz implements Initializable {
     // Planets highlighters
 
     // Questions
-    private final List<Question> questions = List.of(
+    private ArrayList<Question> questions = new ArrayList<>(List.of(
             new Question("Klicka på Uranus", "Uranus"),
             new Question("Klicka på Mars", "Mars"),
             new Question("Klicka på Saturnus", "Saturnus"),
@@ -49,7 +49,7 @@ public class Quiz implements Initializable {
             new Question("Klicka på Jorden", "Jorden"),
             new Question("Klicka på Merkurius", "Merkurius"),
             new Question("Klicka på Solen", "Solen")
-    );
+    ));
 
     private AtomicInteger score = new AtomicInteger(0);
     private AtomicInteger questionNumber = new AtomicInteger();
@@ -100,6 +100,7 @@ public class Quiz implements Initializable {
         startScreen.setVisible(false);
         confetti.setVisible(false);
         userAnswers.clear();
+        Collections.shuffle(questions);
         question.setText(questions.get(0).question);
     }
 
