@@ -509,7 +509,6 @@ public class MainFrame extends JFrame {
      */
     public void openInfoWindow(Model.Planet planet) throws IOException {
         PopOver popOver = new InfoPopoverBuilder().createInfoPopover(planet);
-
         popOver.setDetachable(false);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
         popOver.setHeaderAlwaysVisible(true);
@@ -520,6 +519,19 @@ public class MainFrame extends JFrame {
 
         popOver.setOnHidden(windowEvent -> {
             controller.getPathTransition(planet).play();
+        });
+
+        this.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                Platform.runLater(() -> {
+                });
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                Platform.runLater(popOver::hide);
+            }
         });
     }
 
