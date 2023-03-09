@@ -77,7 +77,6 @@ public class InfoPopoverBuilder {
         String[] planetInfoList = fetchInfoList(planetName);
 
         // Update UI content
-//        fxmlController.title.setText(swePlanetName);
         if(planetImages != null && planetImages.length > 0) {
             fxmlController.setImages(planetImages);
             fxmlController.planetImage.setImage(planetImages[0]);
@@ -114,7 +113,6 @@ public class InfoPopoverBuilder {
         }
 
         // Update UI content
-//        fxmlController.title.setText("Månar");
         if(images.length > 0) {
             fxmlController.setImages(images);
             fxmlController.planetImage.setImage(images[0]);

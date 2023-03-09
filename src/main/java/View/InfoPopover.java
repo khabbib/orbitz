@@ -47,8 +47,6 @@ public class InfoPopover {
         infoNum.setText(infoIdx+1 + " / " + infoList.length);
     }
 
-
-
     @FXML
     public void onAction_btn_imgNext() {
         if(images == null)

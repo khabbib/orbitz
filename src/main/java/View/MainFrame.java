@@ -148,8 +148,8 @@ public class MainFrame extends JFrame {
         // MUSIC PLAYBACK STUFF
         setupMusicPlayer();
 
-        ImageIcon soundOff = new ImageIcon("src/main/resources/Icons/Muted1.png");
-        ImageIcon soundOn = new ImageIcon("src/main/resources/Icons/Unmuted1.png");
+        ImageIcon soundOff = new ImageIcon("src/main/resources/Icons/Unmuted1.png");
+        ImageIcon soundOn = new ImageIcon("src/main/resources/Icons/Muted1.png");
 
         // Stupid java swing, resizing icons to match button
         java.awt.Image img;
@@ -567,7 +567,6 @@ public class MainFrame extends JFrame {
         Tooltip tooltip = new Tooltip(planet.getSwedishName());
         tooltip.setStyle("-fx-font-size: 20");                   //CSS stylesheet, Oracle doc.
         tooltip.setShowDelay(Duration.millis(0));//sets time before text appears after hovering over image
-
 
         controller.getPlanetImageView(planet).setPickOnBounds(true);
         Tooltip.install(controller.getPlanetImageView(planet), tooltip);
