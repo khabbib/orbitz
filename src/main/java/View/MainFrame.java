@@ -280,9 +280,11 @@ public class MainFrame extends JFrame {
     private Scene createScene(ArrayList<Planet> planets) {
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT, true, SceneAntialiasing.BALANCED);
-        //scene.getStylesheets().add(getClass().getResource("/View/popOverStyle.css").toExternalForm());
+
+        //Background orbitscene
         ImagePattern pattern = new ImagePattern(new Image(getClass().getResource("/Images/Stars.png").toExternalForm()));
         scene.setFill(pattern);
+
         handleMouse(root);
         placePlanets(root, planets);
         setupCamera(scene);
@@ -368,6 +370,11 @@ public class MainFrame extends JFrame {
         return ellipse;
     }
 
+    /**
+     * Creates an imageview with a planet image. 2D representation of a planet.
+     * @param planet
+     * @return
+     */
     public static ImageView createPlanetImageView(Model.Planet planet) {
         Image image = new Image(MainFrame.class.getResource("/Images/planets/" + planet.getName() + ".png").toExternalForm());
         ImageView planetImageView = new ImageView(image);
