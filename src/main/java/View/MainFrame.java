@@ -145,8 +145,8 @@ public class MainFrame extends JFrame {
         // MUSIC PLAYBACK STUFF
         setupMusicPlayer();
 
-        ImageIcon soundOff = new ImageIcon("src/main/resources/Icons/Muted1.png");
-        ImageIcon soundOn = new ImageIcon("src/main/resources/Icons/Unmuted1.png");
+        ImageIcon soundOff = new ImageIcon("src/main/resources/Icons/Unmuted1.png");
+        ImageIcon soundOn = new ImageIcon("src/main/resources/Icons/Muted1.png");
 
         // Stupid java swing, resizing icons to match button
         java.awt.Image img;
@@ -277,8 +277,11 @@ public class MainFrame extends JFrame {
     private Scene createScene(ArrayList<Planet> planets) {
         root = new StackPane();
         Scene scene = new Scene(root, WIDTH, HEIGHT, true, SceneAntialiasing.BALANCED);
+
+        //Background orbitscene
         ImagePattern pattern = new ImagePattern(new Image(getClass().getResource("/Images/Stars.png").toExternalForm()));
         scene.setFill(pattern);
+
         handleMouse(root);
         placePlanets(root, planets);
         setupCamera(scene);
@@ -326,19 +329,6 @@ public class MainFrame extends JFrame {
     }
 
     /**
-     * Paints the surface of the planets by calling their individual mappings
-     *
-     * @author Lanna Maslo
-     */
-    public void paintPlanets() {
-        for (Model.Planet planet : controller.getPlanetArrayList()) {
-            PhongMaterial map = new PhongMaterial();
-            map.setDiffuseMap(new Image(getClass().getResource("/Images/planets/" + planet.getName() + ".png").toExternalForm()));
-
-        }
-    }
-
-    /**
      * Places all the planets and their orbits in the Java-FX scene
      *
      * @author Albin Ahlbeck
@@ -377,6 +367,11 @@ public class MainFrame extends JFrame {
         return ellipse;
     }
 
+    /**
+     * Creates an imageview with a planet image. 2D representation of a planet.
+     * @param planet
+     * @return
+     */
     public static ImageView createPlanetImageView(Model.Planet planet) {
         Image image = new Image(MainFrame.class.getResource("/Images/planets/" + planet.getName() + ".png").toExternalForm());
         ImageView planetImageView = new ImageView(image);
@@ -512,9 +507,11 @@ public class MainFrame extends JFrame {
         popOver.setDetachable(false);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
         popOver.setHeaderAlwaysVisible(true);
-
         popOver.show(controller.getPlanetImageView(planet));
 
+        ((Parent)popOver.getSkin().getNode()).getStylesheets().add(getClass().getResource("/View/popOverStyle.css").toExternalForm());
+
+        // Hide the popover when switching windows.
         controller.getPathTransition(planet).pause();
 
         popOver.setOnHidden(windowEvent -> {
@@ -580,7 +577,6 @@ public class MainFrame extends JFrame {
         Tooltip tooltip = new Tooltip(planet.getSwedishName());
         tooltip.setStyle("-fx-font-size: 20");                   //CSS stylesheet, Oracle doc.
         tooltip.setShowDelay(Duration.millis(0));//sets time before text appears after hovering over image
-
 
         controller.getPlanetImageView(planet).setPickOnBounds(true);
         Tooltip.install(controller.getPlanetImageView(planet), tooltip);
