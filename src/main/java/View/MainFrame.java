@@ -53,7 +53,8 @@ public class MainFrame extends JFrame {
     public static final int WIDTH = 1408;
     public static final int HEIGHT = 820;
 
-    private final int MAX_SLIDER_VALUE = 30;
+    private final int MAX_SLIDER_VALUE = 70;
+    private final int MIN_SLIDER_VALUE = 3;
 
     private JLabel lblTitle;
 
@@ -123,9 +124,9 @@ public class MainFrame extends JFrame {
                 setUI(new CustomSliderUI(this));
             }
         };
-        zoomSlider.setValue(10);
-        zoomSlider.setMaximum(130);
-        zoomSlider.setMinimum(3);
+        zoomSlider.setValue(35);
+        zoomSlider.setMaximum(MAX_SLIDER_VALUE);
+        zoomSlider.setMinimum(MIN_SLIDER_VALUE);
         zoomSlider.setPreferredSize(new Dimension(300, 50));
 
         // Set up the zoomPanel
@@ -361,7 +362,7 @@ public class MainFrame extends JFrame {
 
     public static Ellipse createEllipse(double x, double y, double w, double h) {
         Ellipse ellipse = new Ellipse(x, y, w, h);
-        ellipse.setStrokeWidth(40);
+        ellipse.setStrokeWidth(80);
         ellipse.setStroke(javafx.scene.paint.Color.GRAY);
         ellipse.setFill(javafx.scene.paint.Color.TRANSPARENT);
         return ellipse;
@@ -388,7 +389,7 @@ public class MainFrame extends JFrame {
      */
     public void setupCamera(Scene scene) {
         PerspectiveCamera camera = new PerspectiveCamera(true);
-        camera.setTranslateZ(-40600);
+        camera.setTranslateZ(-87500);
         camera.setNearClip(0.001);
         camera.setFarClip(2000000000);
         camera.setFieldOfView(35);
@@ -396,58 +397,26 @@ public class MainFrame extends JFrame {
         camera.setTranslateY((float) orbitPanel.getSize().height / 2);
         scene.setCamera(camera);
 
-        zoomSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                int value = zoomSlider.getValue();
-                double delta = value * zoomSpeed;
+        zoomSlider.addChangeListener(e -> {
+            int value = zoomSlider.getValue();
+            double delta = value * zoomSpeed;
 
-                camera.setTranslateZ(-40600  * delta * 0.01);
+            camera.setTranslateZ(-25000  * delta * 0.01);
 
-                if (newPlanets == null) {
-                    if (camera.getTranslateZ() >= -12600) {
-                        for (int i = 0; i < 4; i++) {
-                            controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(10);
-                        }
-                        moveSpeed = 10;
+            double transZ = camera.getTranslateZ();
 
-                    } else if (camera.getTranslateZ() >= -103000) {
-                        for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-                            controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(40);
-                        }
-                        moveSpeed = 40;
+            for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
+                controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(Math.abs(transZ/1000));
+            }
 
-                    } else if (camera.getTranslateZ() >= -247800) {
-                        for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-                            controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(180);
-                        }
-                        moveSpeed = 150;
+            moveSpeed = (int) Math.abs(transZ/1260);
 
-                    } else if (camera.getTranslateZ() >= -600000) {
-                        for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-                            controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(600);
-                        }
-                        moveSpeed = 220;
+            if (camera.getTranslateZ() < -795322) {
+                camera.setTranslateZ(-795322);
+            }
 
-                    }
-                    if (camera.getTranslateZ() < -795322) {
-                        camera.setTranslateZ(-795322);
-                    }
-
-                    if (camera.getTranslateZ() >= -8000) {
-                        camera.setTranslateZ(-8000);
-                    }
-                } else {
-                    for (int i = 0; i < newPlanets.size(); i++) {
-                        if (camera.getTranslateZ() <= 12600) {
-                            controller.getEllipse(newPlanets.get(i)).setStrokeWidth(10);
-                        } else if (camera.getTranslateZ() > 12600 && camera.getTranslateZ() <= 53000) {
-                            controller.getEllipse(newPlanets.get(i)).setStrokeWidth(40);
-                        } else if (camera.getTranslateZ() > 53000 && camera.getTranslateZ() <= 247800) {
-                            controller.getEllipse(newPlanets.get(i)).setStrokeWidth(180);
-                        }
-                    }
-                }
+            if (camera.getTranslateZ() >= -8000) {
+                camera.setTranslateZ(-8000);
             }
         });
 
@@ -457,7 +426,6 @@ public class MainFrame extends JFrame {
 
         });
     }
-
 
     /**
      * @author Lanna Maslo
