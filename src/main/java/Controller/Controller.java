@@ -70,12 +70,22 @@ public class Controller {
             planetHashMapHashMap.get(p).put("planet", MainFrame.createPlanetImageView(p));
         }
 
-        //Sets planet duration [*1000 is to make it into seconds instead of milliseconds]
         for (Planet planet : newPlanets) {
-            Duration duration = new Duration(((orbitCalculator.getOrbitalPeriod(planet.getSemiMajorAxis()) * 1000 / durationModifier) * 1000000000) * 10000);
-            planetHashMapHashMap.get(planet).put("duration", duration);
+            double period = orbitCalculator.getOrbitalPeriod(planet.getSemiMajorAxis());
 
-            System.out.println(planet.getName() + "\t" + duration);
+            // Makes planets outside of Mars go faster
+            if(period > 4.3E-6) {
+                System.out.println(planet.getName());
+                period = period/3;
+            }
+            // Makes Mercurius go slower
+            if(period < 2.3E-7) {
+                System.out.println(planet.getName());
+                period = period*2;
+            }
+
+            Duration duration = new Duration(((period * 1000 / durationModifier) * 1000000000) * 10000);
+            planetHashMapHashMap.get(planet).put("duration", duration);
         }
         planetArrayList = newPlanets;
         return newPlanets;
