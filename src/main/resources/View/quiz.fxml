@@ -3,6 +3,7 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -282,7 +283,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <Text fx:id="question" fill="#f8f8f8" layoutX="222.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="963.441162109375">
+      <Text fx:id="question" fill="#d4ade8" layoutX="222.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="963.441162109375">
          <font>
             <Font name="Arial Rounded MT Bold" size="72.0" />
          </font>
@@ -292,10 +293,15 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
+      <Label fx:id="timerLbl" alignment="CENTER" layoutX="671.0" layoutY="14.0" prefHeight="44.0" prefWidth="82.0" textFill="WHITE" textOverrun="CLIP">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="37.0" />
+         </font>
+      </Label>
       <AnchorPane fx:id="startScreen" prefHeight="792.0" prefWidth="1408.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000c8" height="792.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="1408.0" />
-            <ImageView fx:id="confetti" fitHeight="792.0" fitWidth="1515.0" layoutX="111.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#000000e1" height="792.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="1408.0" />
+            <ImageView fx:id="confetti" fitHeight="792.0" fitWidth="1200.0" layoutX="110.0" opacity="0.54" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@../Images/quiz/win.png" />
                </image>
@@ -304,9 +310,9 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="792.0" prefWidth="1408.0" spacing="20.0">
                      <children>
-                        <Text fx:id="startText" fill="#a5e52c" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Redo?" textAlignment="CENTER" wrappingWidth="1189.093017578125">
+                        <Text fx:id="startText" fill="#a5e52c" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Försök pricka ut alla planeter på under 30 sekuder!" textAlignment="CENTER" wrappingWidth="1189.093017578125">
                            <font>
-                              <Font name="Arial Rounded MT Bold" size="96.0" />
+                              <Font name="Arial Rounded MT Bold" size="70.0" />
                            </font>
                         </Text>
                         <Text fx:id="result_text" fill="#50aeeb" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="1091.0421142578125">

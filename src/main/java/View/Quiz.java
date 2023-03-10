@@ -2,9 +2,11 @@ package View;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,24 +21,18 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Quiz implements Initializable {
-    @FXML
-    private AnchorPane root;
-    @FXML
-    private Button startQuiz;
-    @FXML
-    private AnchorPane startScreen;
+    @FXML private AnchorPane root;
+    @FXML private AnchorPane startScreen;
+    @FXML private AnchorPane planetScreen;
+    @FXML private Text question, startText, result_text;
+    @FXML private Button startQuiz;
+    @FXML private ImageView confetti;
+    @FXML private Label timerLbl;
 
-    @FXML
-    private Text question, startText, result_text;
-
-    @FXML
-    private ImageView confetti;
+    private Timer timer;
+    private int seconds;
 
     Map<String, String> userAnswers = new LinkedHashMap<>();
-
-    @FXML
-    private AnchorPane planetScreen;
-    // Planets highlighters
 
     // Questions
     private ArrayList<Question> questions = new ArrayList<>(List.of(
@@ -96,25 +92,51 @@ public class Quiz implements Initializable {
     /**
      * Start button - start the quiz
      */
+    @FXML
     public void startQuiz() {
         startScreen.setVisible(false);
         confetti.setVisible(false);
         userAnswers.clear();
         Collections.shuffle(questions);
         question.setText(questions.get(0).question);
+        timerLbl.setTextFill(Color.GREENYELLOW);
+        timer = new Timer();
+        seconds = 30;
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                seconds -= 1;
+                if (seconds > 0)
+                    Platform.runLater(() -> timerLbl.setText(String.valueOf(seconds)));
+                else
+                    Platform.runLater(() ->stop(score.get()));
+
+                if (seconds == 5)
+                    Platform.runLater(() -> timerLbl.setTextFill(Color.RED));
+                if (seconds == 10)
+                    Platform.runLater(() -> timerLbl.setTextFill(Color.ORANGE));
+            }
+        }, 0, 1000);
     }
 
     /**
      * Finish the quiz
      */
     private void stop(Integer score) {
+        timer.cancel();
         startScreen.setVisible(true);
+        String result;
         if(score == questions.size()) {
             confetti.setVisible(true);
             startText.setText("Grattis, du klarade quizet!");
-            result_text.setText("");
-        } else {
+            result = String.format("Din supersnabba tid blev %d sekunder!\n", 30-seconds);
+            result_text.setText(result);
+        } else if (seconds > 0) {
             startText.setText("Attans, \n bättre lycka nästa gång!");
+            result_text.setText("Du fick " + score + " poäng!\n");
+        } else {
+            result = "Attans, \n tiden tog slut. \n Bättre lycka nästa gång!";
+            startText.setText(result);
             result_text.setText("Du fick " + score + " poäng!\n");
         }
         startQuiz.setText("Testa igen");
