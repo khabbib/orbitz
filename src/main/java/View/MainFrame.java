@@ -3,7 +3,6 @@ package View;
 import Controller.Controller;
 import Controller.MusicPlayer;
 
-
 import Model.Planet;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
@@ -12,7 +11,6 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.Cursor;
 import javafx.scene.control.Tooltip;
@@ -22,7 +20,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Sphere;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
@@ -511,21 +508,29 @@ public class MainFrame extends JFrame {
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_CENTER);
         popOver.setHeaderAlwaysVisible(true);
         popOver.show(controller.getPlanetImageView(planet));
+
         ((Parent)popOver.getSkin().getNode()).getStylesheets().add(getClass().getResource("/View/popOverStyle.css").toExternalForm());
+
         // Hide the popover when switching windows.
+        controller.getPathTransition(planet).pause();
+
+        popOver.setOnHidden(windowEvent -> {
+            controller.getPathTransition(planet).play();
+        });
+
         this.addWindowFocusListener(new WindowFocusListener() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
-                Platform.runLater(() -> popOver.setOpacity(1));
+                Platform.runLater(() -> {
+                });
             }
 
             @Override
             public void windowLostFocus(WindowEvent e) {
-                Platform.runLater(() -> popOver.setOpacity(0));
+                Platform.runLater(popOver::hide);
             }
         });
     }
-
 
     /**
      * @author Albin Ahlbeck
@@ -562,8 +567,6 @@ public class MainFrame extends JFrame {
         lblTitle.setBackground(null);
         zoomSlider.setBackground(null);
     }
-
-
 
     /**
      * Set a tooltip which informs the planets name
