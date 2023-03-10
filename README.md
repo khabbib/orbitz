@@ -20,7 +20,7 @@ Note: The specific steps may vary depending on your IDE and configuration.
     5. Right-click on the "controller" file and select "Run" or "Debug" depending on your preference.
     6. The program should now be running and you can interact with it as intended.
 
-If you're running the program from the terminal
+If you're running the program from the terminal, you can follow these steps:
 
     1. Make sure you have Java 17 installed on your machine.
     2. Download or clone the source code for the "orbitz" project.
