@@ -9,9 +9,10 @@ public class QuizControllerTest {
 
     private QuizController quizController;
 
+
     @BeforeEach
-    void setup() {
-        quizController = new QuizController();
+    void reset() {
+        this.quizController = new QuizController();
     }
 
     @Test
@@ -50,25 +51,25 @@ public class QuizControllerTest {
 
     @Test
     void given_getCorrectAnswer_makeGuess() {
-        Controller.QuizController.GuessResult result = quizController.makeGuess(quizController.getCorrectAnswer());
+        QuizController.GuessResult result = quizController.makeGuess(quizController.getCorrectAnswer());
         assertEquals(QuizController.GuessResult.CORRECT, result);
     }
 
     @Test
     void givenIncorrect_makeGuess() {
-        Controller.QuizController.GuessResult result = quizController.makeGuess("incorrect");
+        QuizController.GuessResult result = quizController.makeGuess("incorrect");
         assertEquals(QuizController.GuessResult.INCORRECT, result);
     }
 
     @Test
     void givenNull_makeGuess() {
-        Controller.QuizController.GuessResult result = quizController.makeGuess(null);
+        QuizController.GuessResult result = quizController.makeGuess(null);
         assertEquals(QuizController.GuessResult.GUESS_FAILED, result);
     }
 
     @Test
     void givenEmptyString_makeGuess() {
-        Controller.QuizController.GuessResult result = quizController.makeGuess("");
+        QuizController.GuessResult result = quizController.makeGuess("");
         assertEquals(QuizController.GuessResult.INCORRECT, result);
     }
 
@@ -77,7 +78,7 @@ public class QuizControllerTest {
         for (int i = 0; i < quizController.getMaxWrongGuesses(); i++) {
             quizController.makeGuess("incorrect");
         }
-        Controller.QuizController.GuessResult result = quizController.makeGuess(quizController.getCorrectAnswer());
+        QuizController.GuessResult result = quizController.makeGuess(quizController.getCorrectAnswer());
         assertEquals(QuizController.GuessResult.GUESS_FAILED, result);
     }
 
