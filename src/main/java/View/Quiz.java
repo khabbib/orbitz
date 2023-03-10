@@ -125,15 +125,18 @@ public class Quiz implements Initializable {
     private void stop(Integer score) {
         timer.cancel();
         startScreen.setVisible(true);
+        String result;
         if(score == questions.size()) {
             confetti.setVisible(true);
             startText.setText("Grattis, du klarade quizet!");
-            result_text.setText(String.format("Din supersnabba tid blev %d sekunder!\n", 30-seconds));
+            result = String.format("Din supersnabba tid blev %d sekunder!\n", 30-seconds);
+            result_text.setText(result);
         } else if (seconds > 0) {
             startText.setText("Attans, \n bättre lycka nästa gång!");
             result_text.setText("Du fick " + score + " poäng!\n");
         } else {
-            startText.setText("Attans, \n tiden tog slut. \n Bättre lycka nästa gång!");
+            result = "Attans, \n tiden tog slut. \n Bättre lycka nästa gång!";
+            startText.setText(result);
             result_text.setText("Du fick " + score + " poäng!\n");
         }
         startQuiz.setText("Testa igen");
