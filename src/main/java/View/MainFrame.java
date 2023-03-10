@@ -397,76 +397,26 @@ public class MainFrame extends JFrame {
         camera.setTranslateY((float) orbitPanel.getSize().height / 2);
         scene.setCamera(camera);
 
-        zoomSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                int value = zoomSlider.getValue();
-                double delta = value * zoomSpeed;
+        zoomSlider.addChangeListener(e -> {
+            int value = zoomSlider.getValue();
+            double delta = value * zoomSpeed;
 
-                System.out.println("Cam translate-z: " + camera.getTranslateZ());
-                camera.setTranslateZ(-25000  * delta * 0.01);
+            camera.setTranslateZ(-25000  * delta * 0.01);
 
-                double transZ = camera.getTranslateZ();
+            double transZ = camera.getTranslateZ();
 
-                for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-                    controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(Math.abs(transZ/1000));
-                }
+            for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
+                controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(Math.abs(transZ/1000));
+            }
 
-                moveSpeed = (int) Math.abs(transZ/1260);
+            moveSpeed = (int) Math.abs(transZ/1260);
 
-                if (camera.getTranslateZ() < -795322) {
-                    camera.setTranslateZ(-795322);
-                }
+            if (camera.getTranslateZ() < -795322) {
+                camera.setTranslateZ(-795322);
+            }
 
-                if (camera.getTranslateZ() >= -8000) {
-                    camera.setTranslateZ(-8000);
-                }
-
-                    /*
-                    if (camera.getTranslateZ() >= -12600) {
-                        for (int i = 0; i < 4; i++) {
-                            controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(10);
-                        }
-                        moveSpeed = 10;
-
-                    } else if (camera.getTranslateZ() >= -77000) {
-                        System.out.println("camera.getTranslateZ() >= -77000");
-                        for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-                            controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(45);
-                        }
-                        moveSpeed = 40;
-
-                    }
-
-                    else if (camera.getTranslateZ() >= -103000) {
-                        System.out.println("camera.getTranslateZ() >= -103000");
-                        for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-                            controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(80);
-                        }
-                        moveSpeed = 40;
-
-                    } else if (camera.getTranslateZ() >= -247800) {
-                        for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-                            controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(180);
-                        }
-                        moveSpeed = 150;
-
-                    } else if (camera.getTranslateZ() >= -600000) {
-                        for (int i = 0; i < controller.getPlanetArrayList().size(); i++) {
-                            controller.getEllipse(controller.getPlanetArrayList().get(i)).setStrokeWidth(600);
-                        }
-                        moveSpeed = 220;
-
-                    }
-                    if (camera.getTranslateZ() < -795322) {
-                        camera.setTranslateZ(-795322);
-                    }
-
-                    if (camera.getTranslateZ() >= -8000) {
-                        camera.setTranslateZ(-8000);
-                    }
-
-                     */
+            if (camera.getTranslateZ() >= -8000) {
+                camera.setTranslateZ(-8000);
             }
         });
 
@@ -476,7 +426,6 @@ public class MainFrame extends JFrame {
 
         });
     }
-
 
     /**
      * @author Lanna Maslo
