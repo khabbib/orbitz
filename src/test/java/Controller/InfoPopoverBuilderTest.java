@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for the InfoPopoverBuilder class.
  * @author Joel Eriksson Sinclair
  */
-class InfoPopoverBuilderTest {
+public class InfoPopoverBuilderTest {
 
     private InfoPopoverBuilder infoPopoverBuilder;
 
