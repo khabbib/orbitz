@@ -2,7 +2,7 @@
 
 Our app is the perfect tool for middle schoolers who are curious about our solar system and want to learn more about its planets. With interactive and engaging features, you'll be able to explore the wonders of the universe from the comfort of your own device.
 
-Our Solar System Explorer features stunning graphics and information-packed facts of each planet, including pictures and information about moons. You'll also be able to interact with the application by zooming in and out to get an understanding of the solar system.
+Orbitz features stunning graphics and information-packed facts of each planet, including pictures and information about moons. You'll also be able to interact with the application by zooming in and out to get an understanding of the solar system.
 
 But that's not all - our app also includes an interactive quiz to test your knowledge and help you retain what you've learned. You'll be able to challenge yourself and become a true expert on the solar system.
 
