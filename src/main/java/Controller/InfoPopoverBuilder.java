@@ -32,12 +32,12 @@ public class InfoPopoverBuilder {
         // Create TabPane
         TabPane tabPane = new TabPane();
 
-        Tab planetTab = new Tab(planet.getSwedishName());
+        Tab planetTab = new Tab(planet.getName());
         tabPane.getTabs().add(planetTab);
-        Node planetPane = createPlanetPane(planet.getName(), planet.getSwedishName());
+        Node planetPane = createPlanetPane(planet.getName());
         planetTab.setContent(planetPane);
 
-        Tab moonTab = new Tab("Månar");
+        Tab moonTab = new Tab("Moons");
         Node moonPane = createMoonPane(planet.getName());
         if(moonPane != null) {
             moonTab.setContent(moonPane);
@@ -51,13 +51,19 @@ public class InfoPopoverBuilder {
         return popOver;
     }
 
+    // TODO: Implement this, remove the other createInfoPopover method
+    // It's basically just replacing planet.getName() with planetName
+    public PopOver createInfoPopover(String planetName) {
+        return null;
+    }
+
     /**
      * Creates a Pane populated with information about the given planet.
      * @param planetName
      * @return The root node of the created UI element
      * @throws IOException Upon errors when loading the fxml file
      */
-    private Node createPlanetPane(String planetName, String swePlanetName) throws IOException {
+    private Node createPlanetPane(String planetName) throws IOException {
         // Load FXML
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/InfoPopover.fxml"));
         Parent rootNode = fxmlLoader.load();
@@ -75,7 +81,7 @@ public class InfoPopoverBuilder {
         String[] planetInfoList = fetchInfoList(planetName);
 
         // Update UI content
-        fxmlController.title.setText(swePlanetName);
+        fxmlController.title.setText(planetName);
         if(planetImages != null && planetImages.length > 0) {
             fxmlController.setImages(planetImages);
             fxmlController.planetImage.setImage(planetImages[0]);
@@ -110,7 +116,7 @@ public class InfoPopoverBuilder {
         }
 
         // Update UI content
-        fxmlController.title.setText("Månar");
+        fxmlController.title.setText("Moons");
         if(images.length > 0) {
             fxmlController.setImages(images);
             fxmlController.planetImage.setImage(images[0]);
@@ -127,6 +133,7 @@ public class InfoPopoverBuilder {
         return rootNode;
     }
 
+    // TODO: Replace with ResourceHandler
     /**
      * Returns a list of all found .jpg and .png files in a given directory.
      * @param directoryPath Path to the directory to search.
@@ -156,6 +163,7 @@ public class InfoPopoverBuilder {
         }
     }
 
+    // TODO: replace with ResourceHandler
     /**
      * @param fileName Name of a planet. Suffix with _moons to get moon info for specified planet.
      * @return
