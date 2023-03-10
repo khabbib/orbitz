@@ -101,7 +101,7 @@ public class Quiz implements Initializable {
         question.setText(questions.get(0).question);
         timerLbl.setTextFill(Color.GREENYELLOW);
         timer = new Timer();
-        seconds = 30;
+        seconds = 45;
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -129,7 +129,7 @@ public class Quiz implements Initializable {
         if(score == questions.size()) {
             confetti.setVisible(true);
             startText.setText("Grattis, du klarade quizet!");
-            result = String.format("Din supersnabba tid blev %d sekunder!\n", 30-seconds);
+            result = String.format("Din supersnabba tid blev %d sekunder!\n", 45-seconds);
             result_text.setText(result);
         } else if (seconds > 0) {
             startText.setText("Attans, \n bättre lycka nästa gång!");

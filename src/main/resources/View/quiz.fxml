@@ -310,7 +310,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="792.0" prefWidth="1408.0" spacing="20.0">
                      <children>
-                        <Text fx:id="startText" fill="#a5e52c" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Försök pricka ut alla planeter på under 30 sekuder!" textAlignment="CENTER" wrappingWidth="1189.093017578125">
+                        <Text fx:id="startText" fill="#a5e52c" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Försök pricka ut alla planeter på under 45 sekuder!" textAlignment="CENTER" wrappingWidth="1189.093017578125">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="70.0" />
                            </font>
