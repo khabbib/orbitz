@@ -40,7 +40,6 @@ public class MusicPlayer {
     public MusicPlayer(double volume) throws IOException {
         this.volume = volume;
         playlist = loadSongFiles();
-        System.out.println("Playlist length: " + playlist.length);
         activeMediaPlayer = createMediaPlayer(playlist[currentSongIdx]);
     }
 
