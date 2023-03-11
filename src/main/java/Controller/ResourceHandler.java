@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Responsible for loading resources from the file system.
@@ -71,6 +72,12 @@ public class ResourceHandler {
     }
 
     public static String[] getPlanetsMoonInfo(String planetName) {
+        if(planetName == null || planetName.equals("")) return null;
+
+        if(planetName.equals("Mercury") || planetName.equals("Venus")) {
+            return new String[0];
+        }
+
         return fetchInfoList(planetName + "_moons");
     }
 
@@ -81,6 +88,9 @@ public class ResourceHandler {
 
     public static URL[] getPlanetsMoonImageURLs(String planetName) {
         if(planetName == null || planetName.equals("")) return null;
+        if(planetName.equals("Mercury") || planetName.equals("Venus")) {
+            return new URL[0];
+        }
         return getImageURLsFromDirectory("src/main/resources/Images/planets/" + planetName + "/moons");
     }
 }
