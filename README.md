@@ -37,17 +37,17 @@ The application is built using Java, using Java Swing & JavaFX for the user inte
 
 # Test
 
-If you want to run each testfiles individually
+If you want to run each testfile individually
 
     1. Navigate to src/test/java
     2. Right click on file you want to test
     3. Select "Run" or "Run with Coverage" depending on your preference
 
-If you want to run all available tests automatically **(NOT IMPLEMENTED YET)**
+If you want to run all available tests
 
-    1. Navigate to src/test/java/TestAll
-    2. Right-click on TestAll file
-    3. Select "Run" or "Run with Coverage" depending on your preference
+    1. Navigate to src/test/java
+    2. Right-click on folder named "java"
+    3. Select "Run Tests in java" or "Run Tests in java with Coverage" depending on your preference
 
 # API Reference
 
