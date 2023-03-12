@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for the ResourceHandler class.
  * @author Joel Eriksson Sinclair
  */
-class ResourceHandlerTest {
+public class ResourceHandlerTest {
     //region getPlanetInfoTests
 
     @Test

@@ -3,15 +3,16 @@ package Controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static Controller.QuizController.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class QuizControllerTest {
+public class QuizControllerTest {
 
     private QuizController quizController;
 
     @BeforeEach
-    void setup() {
-        quizController = new QuizController();
+    void reset() {
+        this.quizController = new QuizController();
     }
 
     @Test
@@ -50,26 +51,26 @@ class QuizControllerTest {
 
     @Test
     void given_getCorrectAnswer_makeGuess() {
-        Controller.QuizController.GuessResult result = quizController.makeGuess(quizController.getCorrectAnswer());
-        assertEquals(QuizController.GuessResult.CORRECT, result);
+        GuessResult result = quizController.makeGuess(quizController.getCorrectAnswer());
+        assertEquals(GuessResult.CORRECT, result);
     }
 
     @Test
     void givenIncorrect_makeGuess() {
-        Controller.QuizController.GuessResult result = quizController.makeGuess("incorrect");
-        assertEquals(QuizController.GuessResult.INCORRECT, result);
+        GuessResult result = quizController.makeGuess("incorrect");
+        assertEquals(GuessResult.INCORRECT, result);
     }
 
     @Test
     void givenNull_makeGuess() {
-        Controller.QuizController.GuessResult result = quizController.makeGuess(null);
-        assertEquals(QuizController.GuessResult.GUESS_FAILED, result);
+        GuessResult result = quizController.makeGuess(null);
+        assertEquals(GuessResult.GUESS_FAILED, result);
     }
 
     @Test
     void givenEmptyString_makeGuess() {
-        Controller.QuizController.GuessResult result = quizController.makeGuess("");
-        assertEquals(QuizController.GuessResult.INCORRECT, result);
+        GuessResult result = quizController.makeGuess("");
+        assertEquals(GuessResult.INCORRECT, result);
     }
 
     @Test
@@ -77,8 +78,8 @@ class QuizControllerTest {
         for (int i = 0; i < quizController.getMaxWrongGuesses(); i++) {
             quizController.makeGuess("incorrect");
         }
-        Controller.QuizController.GuessResult result = quizController.makeGuess(quizController.getCorrectAnswer());
-        assertEquals(QuizController.GuessResult.GUESS_FAILED, result);
+        GuessResult result = quizController.makeGuess(quizController.getCorrectAnswer());
+        assertEquals(GuessResult.GUESS_FAILED, result);
     }
 
     @Test
@@ -161,9 +162,5 @@ class QuizControllerTest {
         }
         int wrongGuesses = quizController.getWrongGuesses();
         assertEquals(quizController.getMaxWrongGuesses(), wrongGuesses);
-    }
-
-    @Test
-    void getMaxWrongGuesses() {
     }
 }

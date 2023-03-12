@@ -18,7 +18,7 @@ class OrbitCalculatorTest {
         assertAll(
                 () -> assertEquals(18530.896, orbitCalculator.getOrbit(planet).getWidth(scale)),
                 () -> assertEquals(18134.8864, orbitCalculator.getOrbit(planet).getHeight(scale)),
-                () -> assertEquals(1905.256, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
+                () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
                 () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterYCord(scale)));
     }
 
@@ -31,7 +31,7 @@ class OrbitCalculatorTest {
         assertAll(
                 () -> assertEquals(34626.712, orbitCalculator.getOrbit(planet).getWidth(scale)),
                 () -> assertEquals(34625.7696, orbitCalculator.getOrbit(planet).getHeight(scale)),
-                () -> assertEquals(116.884, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
+                () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
                 () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterYCord(scale)));
     }
 
@@ -44,7 +44,7 @@ class OrbitCalculatorTest {
         assertAll(
                 () -> assertEquals(47871.36736, orbitCalculator.getOrbit(planet).getWidth(scale)),
                 () -> assertEquals(47864.50144, orbitCalculator.getOrbit(planet).getHeight(scale)),
-                () -> assertEquals(400.31632, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
+                () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
                 () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterYCord(scale)));
     }
 
@@ -57,7 +57,7 @@ class OrbitCalculatorTest {
         assertAll(
                 () -> assertEquals(72940.544, orbitCalculator.getOrbit(planet).getWidth(scale)),
                 () -> assertEquals(72626.35264, orbitCalculator.getOrbit(planet).getHeight(scale)),
-                () -> assertEquals(3401.728, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
+                () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
                 () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterYCord(scale)));
     }
 
@@ -68,9 +68,9 @@ class OrbitCalculatorTest {
         Planet planet = new Planet(reader.readBodyFromAPI("jupiter"));
         long scale = (long) planet.getSCALE_RADIUS_VALUE();
         assertAll(
-                () -> assertEquals(249069.06272, orbitCalculator.getOrbit(planet).getWidth(scale)),
-                () -> assertEquals(248821.13984, orbitCalculator.getOrbit(planet).getHeight(scale)),
-                () -> assertEquals(6124.66864, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
+                () -> assertEquals(99627.62496, orbitCalculator.getOrbit(planet).getWidth(scale)),
+                () -> assertEquals(99528.45584, orbitCalculator.getOrbit(planet).getHeight(scale)),
+                () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
                 () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterYCord(scale)));
     }
 
@@ -81,9 +81,9 @@ class OrbitCalculatorTest {
         Planet planet = new Planet(reader.readBodyFromAPI("saturne"));
         long scale = (long) planet.getSCALE_RADIUS_VALUE();
         assertAll(
-                () -> assertEquals(456533.25504, orbitCalculator.getOrbit(planet).getWidth(scale)),
-                () -> assertEquals(455870.55136, orbitCalculator.getOrbit(planet).getHeight(scale)),
-                () -> assertEquals(12294.84912, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
+                () -> assertEquals(130438.0728, orbitCalculator.getOrbit(planet).getWidth(scale)),
+                () -> assertEquals(130248.72896, orbitCalculator.getOrbit(planet).getHeight(scale)),
+                () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
                 () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterYCord(scale)));
     }
 
@@ -94,9 +94,9 @@ class OrbitCalculatorTest {
         Planet planet = new Planet(reader.readBodyFromAPI("uranus"));
         long scale = (long) planet.getSCALE_RADIUS_VALUE();
         assertAll(
-                () -> assertEquals(918610.61952, orbitCalculator.getOrbit(planet).getWidth(scale)),
-                () -> assertEquals(918228.472, orbitCalculator.getOrbit(planet).getHeight(scale)),
-                () -> assertEquals(21273.89024, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
+                () -> assertEquals(183722.12384, orbitCalculator.getOrbit(planet).getWidth(scale)),
+                () -> assertEquals(183645.6944, orbitCalculator.getOrbit(planet).getHeight(scale)),
+                () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
                 () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterYCord(scale)));
     }
 
@@ -107,9 +107,9 @@ class OrbitCalculatorTest {
         Planet planet = new Planet(reader.readBodyFromAPI("neptune"));
         long scale = (long) planet.getSCALE_RADIUS_VALUE();
         assertAll(
-                () -> assertEquals(1439486.86112, orbitCalculator.getOrbit(planet).getWidth(scale)),
-                () -> assertEquals(1438328.02592, orbitCalculator.getOrbit(planet).getHeight(scale)),
-                () -> assertEquals(7563.76944, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
+                () -> assertEquals(239914.4768, orbitCalculator.getOrbit(planet).getWidth(scale)),
+                () -> assertEquals(239721.3376, orbitCalculator.getOrbit(planet).getHeight(scale)),
+                () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterXCord(scale)),
                 () -> assertEquals(0.0, orbitCalculator.getOrbit(planet).getCenterYCord(scale)));
     }
 

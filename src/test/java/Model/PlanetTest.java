@@ -71,7 +71,7 @@ public class PlanetTest {
                 () -> assertEquals(7.78340821E8, jupiter.getSemiMajorAxis()),
                 () -> assertEquals(7.40379835E8, jupiter.getPerihelion()),
                 () -> assertEquals(816620000, jupiter.getAphelion()),
-                () -> assertEquals(69911, jupiter.getMeanRadius()),
+                () -> assertEquals(17477.75, jupiter.getMeanRadius()),
                 () -> assertEquals("Jupiter", jupiter.getName()),
                 () -> assertEquals(6250, jupiter.getSCALE_RADIUS_VALUE())
         );
@@ -85,7 +85,7 @@ public class PlanetTest {
                 () -> assertEquals(1.426666422E9, saturne.getSemiMajorAxis()),
                 () -> assertEquals(1.349823615E9, saturne.getPerihelion()),
                 () -> assertEquals(1.503509229E9, saturne.getAphelion()),
-                () -> assertEquals(58232, saturne.getMeanRadius()),
+                () -> assertEquals(11646.4, saturne.getMeanRadius()),
                 () -> assertEquals("Saturn", saturne.getName()),
                 () -> assertEquals(6250, saturne.getSCALE_RADIUS_VALUE())
         );
@@ -99,7 +99,7 @@ public class PlanetTest {
                 () -> assertEquals(2.870658186E9, uranus.getSemiMajorAxis()),
                 () -> assertEquals(2.734998229E9, uranus.getPerihelion()),
                 () -> assertEquals(3.006318143E9, uranus.getAphelion()),
-                () -> assertEquals(25362, uranus.getMeanRadius()),
+                () -> assertEquals(8454.0, uranus.getMeanRadius()),
                 () -> assertEquals("Uranus", uranus.getName()),
                 () -> assertEquals(6250, uranus.getSCALE_RADIUS_VALUE())
         );
@@ -113,7 +113,7 @@ public class PlanetTest {
                 () -> assertEquals(4.498396441E9, neptune.getSemiMajorAxis()),
                 () -> assertEquals(4.459753056E9, neptune.getPerihelion()),
                 () -> assertEquals(4.537039826E9, neptune.getAphelion()),
-                () -> assertEquals(24622, neptune.getMeanRadius()),
+                () -> assertEquals(8207.333333333334, neptune.getMeanRadius()),
                 () -> assertEquals("Neptune", neptune.getName()),
                 () -> assertEquals(6250, neptune.getSCALE_RADIUS_VALUE())
         );

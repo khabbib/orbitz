@@ -53,12 +53,6 @@ public class InfoPopoverBuilder {
         return popOver;
     }
 
-    // TODO: Implement this, remove the other createInfoPopover method
-    // It's basically just replacing planet.getName() with planetName
-    public PopOver createInfoPopover(String planetName) {
-        return null;
-    }
-
     /**
      * Creates a Pane populated with information about the given planet.
      * @param planetName

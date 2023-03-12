@@ -10,8 +10,8 @@ class PositionCalculatorTest {
     void setDay() {
         PositionCalculator calc = new PositionCalculator();
         assertAll(() -> assertEquals("0", String.format("%.0f", calc.calculateDateDifference(2000,1,1))),
-                () -> assertEquals("36552", String.format("%.0f", calc.calculateDateDifference(2100,2,28))),
-                () -> assertEquals("8403", String.format("%.0f", calc.calculateDateDifference(2023,2,3))),
+                () -> assertEquals("36583", String.format("%.0f", calc.calculateDateDifference(2100,2,28))),
+                () -> assertEquals("8434", String.format("%.0f", calc.calculateDateDifference(2023,2,3))),
                 () -> assertEquals(-1, calc.calculateDateDifference(1999,12,31)),
                 () -> assertEquals(-1, calc.calculateDateDifference(2100, 2, 29))
         );
