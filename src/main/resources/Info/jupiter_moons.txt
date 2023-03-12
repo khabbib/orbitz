@@ -1,4 +1,5 @@
-There are 79 known moons of Jupiter.
-The most massive of the moons are the four Galilean moons, which were independently discovered in 1610 by Galileo Galilei and Simon Marius and were the first objects found to orbit a body that was neither Earth nor the Sun.
-From the end of the 19th century, dozens of much smaller Jovian moons have been discovered and have received the names of lovers or daughters of the Roman god Jupiter or his Greek equivalent Zeus.
-Of Jupiter's moons, eight are regular satellites with prograde and nearly circular orbits that are not greatly inclined with respect to Jupiter's equatorial plane.
+Jupiters 4 största månar är Io, Europa, Ganymede, och Callisto. Dessa upptäcktes år 1610 av Galileo Galilei
+Den största av Jupiters månar är Ganymede, och är större än Merkurius
+Under istäcket på Europa tror man att ett flytande hav av framför allt vatten skulle kunna finnas
+Callisto består av ungefär 40 % is och 60 % sten och järn
+Med över 400 vulkaner på sin yta är Io det mest geologiskt aktiva objektet i solsystemet

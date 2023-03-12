@@ -15,6 +15,7 @@ public class InfoPopover {
     @FXML public ImageView planetImage;
     @FXML public Text infoText;
     @FXML public Label title;
+    @FXML public Label infoNum;
 
     private Image[] images;
     private String[] infoList;
@@ -32,6 +33,18 @@ public class InfoPopover {
 
         infoIdx = (infoIdx + 1) % infoList.length;
         infoText.setText(infoList[infoIdx]);
+        infoNum.setText(infoIdx+1 + " / " + infoList.length);
+    }
+
+    @FXML
+    public void onAction_btn_infoPrev() {
+        if(infoList == null)
+            return;
+
+        infoIdx = (infoIdx - 1);
+        if (infoIdx < 0) infoIdx = infoList.length - 1;
+        infoText.setText(infoList[infoIdx]);
+        infoNum.setText(infoIdx+1 + " / " + infoList.length);
     }
 
     @FXML

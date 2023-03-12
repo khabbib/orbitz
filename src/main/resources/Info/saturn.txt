@@ -1,10 +1,5 @@
-Saturn is the least dense planet in the Solar System.
-Saturn is a flattened ball.
-The first astronomers thought the rings were moons.
-Saturn has only been visited 4 times by spacecraft. 
-Saturn has 62 moons.
-You cannot stand on Saturn, since it is a gas giant.
-The rings are huge but thin.
-Saturn could float in water because it is mostly made of gas.
-Made up mostly of hydrogen and helium, like a star.
-Saturn is the second most massive planet in our solar system.
+Saturnus är den näst största planeten i vårt solsystem
+Galileo Galilei var den första att observera den genom ett teleskop år 1610
+Saturnus har 83 månar, varav 63 är bekräftade och döpta. Resterande månar väntar bekräftelse
+Saturnus har 95 gånger så stor massa som jorden och har nio gånger så stor diameter
+Saturnus är döpt efter den romerska guden för rikedom och lantbruk

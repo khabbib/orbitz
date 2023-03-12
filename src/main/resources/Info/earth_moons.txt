@@ -1,13 +1,5 @@
-The Moon is an astronomical body orbiting Earth as its only natural satellite.
-It is the fifth-largest satellite in the Solar System, and by far the largest among planetary satellites relative to the size of the planet that it orbits (its primary).
-The Moon is, after Jupiter's satellite Io, the second-densest satellite in the Solar System among those whose densities are known.
-The Moon is thought to have formed about 4.51 billion years ago, not long after Earth.
-The most widely accepted explanation is that the Moon formed from the debris left over after a giant impact between Earth and a hypothetical Mars-sized body called Theia.
-New research of Moon rocks, although not rejecting the Theia hypothesis, suggests that the Moon may be older than previously thought.
-The Moon was first reached by a human-made object in September 1959, when the Soviet Union's Luna 2, an unmanned spacecraft, was intentionally crashed onto the lunar surface.
-The United States' NASA Apollo program achieved the only manned lunar missions to date, beginning with the first manned orbital mission by Apollo 8 in 1968, and six manned landings between 1969 and 1972, with the first being Apollo 11 in July 1969.
-Since the 1972 Apollo 17 mission, the Moon has been visited only by unmanned spacecraft.
-The Moon has no seasons!
-The Moon's surface is like powder and called "regolith".
-The Moon takes about 27 days to go around the earth.
-The Moon's gravity pulls on Earth's oceans.
+Månen är det andra ljusaste objektet på stjärnhimlen efter solen
+Månen är den enda himlakropp som människor har färdats till och landat på
+Den 21 juli 1969 klättrade Neil Armstrong ner på månens yta från Apollo 11:s månlandare The Eagle och blev därmed den första människan att besöka en annan himlakropp
+Månen har alltid samma sida mot jorden
+Månen var mycket närmare jorden förr i tiden, och rör sig varje år cirka 3.8 cm längre från oss

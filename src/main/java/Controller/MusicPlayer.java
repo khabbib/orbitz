@@ -33,6 +33,17 @@ public class MusicPlayer {
     private Timeline volumeTimeline;
 
     /**
+     * Loads a playlist of songs from a default directory and prepares for playback.
+     * @param volume Volume of the music
+     * @throws IOException If we cannot find any songs in the specified folder.
+     */
+    public MusicPlayer(double volume) throws IOException {
+        this.volume = volume;
+        playlist = loadSongFiles();
+        activeMediaPlayer = createMediaPlayer(playlist[currentSongIdx]);
+    }
+
+    /**
      * Removes the old mediaplayer and replaces it with a new one.
      * @param newPlayer The new MediaPlayer
      * @return The previous MediaPlayer
@@ -42,19 +53,6 @@ public class MusicPlayer {
         if(activeMediaPlayer != null) activeMediaPlayer.dispose();
         activeMediaPlayer = newPlayer;
         return oldPlayer;
-    }
-
-    /**
-     * Loads a playlist of songs from a default directory and prepares for playback.
-     * @param volume Volume of the music
-     * @throws IOException If we cannot find any songs in the specified folder.
-     */
-    public MusicPlayer(double volume) throws IOException {
-        this.volume = volume;
-
-        playlist = loadSongFiles();
-
-        activeMediaPlayer = createMediaPlayer(playlist[currentSongIdx]);
     }
 
     /**
@@ -123,8 +121,12 @@ public class MusicPlayer {
     private MediaPlayer createMediaPlayer(Media song) {
         MediaPlayer mediaPlayer = new MediaPlayer(song);
         mediaPlayer.setVolume(volume);
-        mediaPlayer.onEndOfMediaProperty().addListener((observableValue, runnable, t1) -> playNextSong());
-
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                playNextSong();
+            }
+        });
         return mediaPlayer;
     }
 
@@ -158,7 +160,6 @@ public class MusicPlayer {
             Media m = new Media(f.toURI().toString());
             songList.add(m);
         }
-
         return songList.toArray(new Media[0]);
     }
 

@@ -32,9 +32,32 @@ public class OrbitCalculator {
             planet.setAphelion(4545.67E6);
             planet.setPerihelion(4444.45E6);
         }
-        
-        long orbitWidth = calculateOrbitWidth(planet.getSemiMajorAxis());
-        long orbitHeight = calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion());
+
+        long orbitWidth;
+        long orbitHeight;
+        if(planet.getName().equals("Jupiter")) {
+            orbitWidth = (long)(calculateOrbitWidth(planet.getSemiMajorAxis()) / 2.5);
+            orbitHeight = (long)(calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion()) / 2.5);
+
+        } else if(planet.getName().equals("Saturn")) {
+            orbitWidth = (long) (calculateOrbitWidth(planet.getSemiMajorAxis()) / 3.5);
+            orbitHeight = (long) (calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion()) / 3.5);
+
+        } else if(planet.getName().equals("Uranus")) {
+            orbitWidth = calculateOrbitWidth(planet.getSemiMajorAxis()) / 5;
+            orbitHeight = calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion()) / 5;
+
+        } else if(planet.getName().equals("Neptune")) {
+            orbitWidth = calculateOrbitWidth(planet.getSemiMajorAxis()) / 6;
+            orbitHeight = calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion()) / 6;
+
+        } else {
+            orbitWidth = calculateOrbitWidth(planet.getSemiMajorAxis());
+            orbitHeight = calculateOrbitHeight(planet.getAphelion(), planet.getPerihelion());
+        }
+
+
+
         double orbitOffsetFromSun = calculateOrbitOffsetFromSun(planet.getAphelion(), planet.getSemiMajorAxis());
 
         return new Orbit(orbitWidth, orbitHeight, orbitOffsetFromSun, 0);
@@ -48,7 +71,8 @@ public class OrbitCalculator {
         return (long) ((Math.sqrt((aphelion * perihelion)))) * 2;
     }
     private double calculateOrbitOffsetFromSun(double aphelion, double semiMajorAxis){
-        return aphelion - semiMajorAxis;
+        return 0;
+//        return aphelion - semiMajorAxis;
     }
 
     /**
