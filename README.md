@@ -65,10 +65,10 @@ https://www.aiva.ai
 
 # Authors
 
-- Axel Nilsson
-- Habib Mohammadi
-- Jakob Hagman
-- Joel Eriksson Sinclair
-- Kasper Kadestål 
-- Lucas Kylberg
-- William Dock
+- Axel Nilsson (axNil)
+- Habib Mohammadi (khabbib)
+- Jakob Hagman (JSGHagman)
+- Joel Eriksson Sinclair (Keffaklumpen)
+- Kasper Kadestål (Kasperkadestal)
+- Lucas Kylberg (lukac-k)
+- William Dock (William817817)
